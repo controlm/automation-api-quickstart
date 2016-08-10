@@ -7,6 +7,3 @@ Explains how to write jobs that execute OS commands and scripts.
 [Control-M Automation API - Code Reference](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Code+Reference)
 
 [Control-M Automation API - Services](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Services)
-
-##License
-???

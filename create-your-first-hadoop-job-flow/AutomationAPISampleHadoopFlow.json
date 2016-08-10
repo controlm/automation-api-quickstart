@@ -1,0 +1,56 @@
+{
+    "Defaults" : {
+        "Application": "SampleApp",
+        "SubApplication": "SampleSubApp",
+        "Host" : "[HOST]",
+
+        "When" : {
+            "FromTime":"0300",
+            "ToTime":"2100"
+        },
+        "Job:Hadoop" : {
+            "ConnectionProfile": "SampleConnectionProfile"
+        }
+    },
+
+    "SampleConnectionProfile" :
+    {
+        "Type" : "ConnectionProfile:Hadoop",
+        "TargetAgent" : "[HOST]"
+    },
+
+    "AutomationAPIHadoopSampleFlow": {
+        "Type": "Folder",
+        "Comment" : "Code reviewed by John",
+
+        "ProcessData": {
+            "Type": "Job:Hadoop:Spark:Python",
+            "SparkScript": "file:///home/[USER]/ctmdk/samples/processData.py",
+            
+            "Arguments": [
+                "file:///home/[USER]/ctmdk/samples/processData.py",
+                "file:///home/[USER]/ctmdk/samples/processDataOutDir"
+            ],
+
+            "PreCommands" : {
+                "Commands" : [
+                    { "rm":"-R -f  file:///home/[USER]/ctmdk/samples/processDataOutDir" }
+                ]                   
+            }
+        },
+        "CopyOutputData" :
+        {
+            "Type" : "Job:Hadoop:HDFSCommands",
+            "Commands" : [
+                {"rm"    : "-R -f ctmdkSamplesOut" },
+                {"mkdir" : "ctmdkSamplesOut" },
+                {"cp"   : "file:///home/[USER]/ctmdk/samples/*  ctmdkSamplesOut" }
+            ]
+        },
+
+        "DataProcessingFlow": {
+            "Type": "Flow",
+            "Sequence": ["ProcessData","CopyOutputData"]
+        }
+    }
+}
