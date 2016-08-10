@@ -1,0 +1,37 @@
+{
+    "Folder1": {
+        "Type": "Folder",
+        "Job1": {
+            "Type": "Job:Command",
+            "Command": "echo hello",
+            "RunAs": "controlm",
+            "DepartmentSuccessAlerts" : {
+                "Type": "If",
+                "CompletionStatus": "NOTOK",
+                "Correction": {
+                    "Type": "Run",
+                    "Folder": "Folder2"
+                }
+            }
+        }
+    },
+
+    "Folder2": {
+        "Type": "Folder",
+        "OrderMethod": "Manual",
+        "Job3": {
+            "Type": "Job:Command",
+            "Command": "ls",
+            "RunAs": "controlm"
+        },
+        "Job4": {
+            "Type": "Job:Command",
+            "Command": "ls",
+            "RunAs": "controlm"
+        },
+        "Flow2": {
+            "Type":"Flow",
+            "Sequence":["Job3","Job4"]
+        }
+    }
+}
