@@ -1,5 +1,5 @@
-## Synopsis
-Explains how to write jobs that execute OS commands and scripts.
+##Tutorial
+Explains how to write jobs that execute OS commands and scripts. 
 
 [Tutorial - Creating Your First Job Flow](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Getting+Started+Guide#Control-MAutomationAPI-GettingStartedGuide-GS_for_OS_Jobs)
 
