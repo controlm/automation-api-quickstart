@@ -1,6 +1,4 @@
-##Tutorial
-How to invoke automation api REST calls from powershell script
-
+##How to invoke automation api REST calls from powershell script
 
 	#		Get Control-M Servers list
 	try
@@ -16,6 +14,6 @@ How to invoke automation api REST calls from powershell script
 	}
 
 ## Developer documentation
-[Control-M Automation API - Code Reference](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Code+Reference)
+For more details about the services avalible in the API look at [Automation API - Services](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Services)
 
-[Control-M Automation API - Services](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Services)
+For more details about JSON code supported by the API look at [Automation API - Code Reference](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Code+Reference)
