@@ -2,7 +2,7 @@
 [Tutorial](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Getting+Started+Guide#Control-MAutomationAPI-GettingStartedGuide-GS_for_DevOps)
 that explains how DevOps engineer can automate code deployment.
 
-The bash an python examples can be used in a Jenkins Job step for pushing Git changes to Control-M.
+The bash an python examples fit as scriplet of **Jenkins** job step that push Git changes to Control-M.
 
 ```bash
 #!/bin/bash
