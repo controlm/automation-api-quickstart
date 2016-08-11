@@ -3,7 +3,7 @@
 that explains how to write jobs that execute OS commands and scripts.
 
 ```javascript
-"CommandJob: {
+"CommandJob": {
     "Type": "Job:Command",
 
     "Command": "echo my 1st job"
