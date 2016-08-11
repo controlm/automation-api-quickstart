@@ -1,13 +1,11 @@
 # Run automatically a corrective job flow.
 
-This example shows how to 
+This example shows how to Automate
 
-### Run Sample
 ```
 ctm run AutomateCorrectiveFlow.json
 ```
 
-### Developer documentation
-[**Control-M Automation API - Code Reference**](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Code+Reference)
+See the [Automation API - Services](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Services) documentation for more information.
 
-[**Control-M Automation API - Services**](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Services)
+See the [Automation API - Code Reference](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Code+Reference) documentation for more information.
