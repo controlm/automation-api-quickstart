@@ -2,7 +2,7 @@
 [Tutorial](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Getting+Started+Guide#Control-MAutomationAPI-GettingStartedGuide-GS_for_OS_Jobs)
 that explains how to write jobs that execute OS commands and scripts.
 
-```json
+```javascript
 "CommandJob: {
     "Type": "Job:Command",
 
