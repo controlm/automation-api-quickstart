@@ -1,0 +1,106 @@
+<p>
+    Rev. 05-17-2016
+</p>
+<p>
+    <strong>CONTROL-M DEVELOPERS KIT TERMS OF USE (“TERMS”)</strong>
+</p>
+<p>
+    <strong>
+        PLEASE READ THESE TERMS. THEY WILL BECOME A LEGAL AGREEMENT BETWEEN YOU AND YOUR EMPLOYER (“YOU”) ON ONE SIDE, AND BMC SOFTWARE DISTRIBUTION B.V.
+        ("BMC") ON THE OTHER SIDE. YOUR USE OF ANY MATERIALS (AS DEFINED BELOW) MEANS YOU ACCEPT ALL THE TERMS.
+    </strong>
+</p>
+<p>
+    <strong>SCOPE OF AGREEMENT</strong>
+    . These Terms govern Your use of the Control-M Automation API Developers Kit (“Kit”) and the materials within the Kit (“Materials”).
+</p>
+<p>
+    1.<strong> RESERVATION OF RIGHT</strong>. BMC reserves the right to change, delete, or substitute the Kit or any Materials in the Kit at any time and at
+    BMC’s sole discretion.
+</p>
+<p>
+    2. <strong>LICENSE GRANT</strong>. Subject to these Terms, BMC grants You a non-exclusive, non-transferable, non-sublicensable, revocable (per Section 5 of
+    these Terms), and royalty-free right under trade secrets rights and copyrights to use the Materials for the following purposes: (a) to exercise the
+    definition of workflows in JSON code format; (b) to run workflows in work bench mode; and (c) to use the APIs to define and activate work flows made in
+    JSON code format with the version of the Control-M software for which You are licensed (“Control-M Product”).
+</p>
+<p>
+    3. <strong>COPYRIGHT</strong>. The Kit and Materials are the copyrighted property of BMC Software Israel, Ltd.
+</p>
+<p>
+    4.<strong> USE OF MATERIALS</strong>. The use of the Materials described in Section 2(c) of these Terms is contingent on You having a valid license to the
+    Control-M Product. Upon using the Materials You are bound by these Terms, and You may use the Materials only as granted above.
+    <strong>
+        BMC supports the Materials in the same manner as the Control-M Product is supported, however, no modifications or changes to the Materials You make are
+        supported.
+    </strong>
+</p>
+<p>
+    5. <strong> TERMINATION. </strong>Use of the Materials as described under Sections 2(a) and 2(b) of these Terms in a non-development environment or use of
+    the Materials as described in Section 2(c) of these Terms without having a valid license to the Control-M Product will be considered a breach of these
+    Terms. This Agreement terminates automatically if You breach these Terms, but You may terminate this Agreement without cause. Upon termination, You must
+    cease use of the Kit and all Materials, and the Materials must be promptly destroyed and removed from any computer system.
+</p>
+<p>
+    6.
+    <strong>
+        DISCLAIMER. The Kit and Materials provided by BMC “AS IS,” with all faults, and any express or implied warranties, including, but not limited to, the
+        implied warranties of merchantability and fitness for a particular purpose are disclaimed. BMC does not warrant that the Materials will be virus or
+        error free or that there are no defects.
+    </strong>
+</p>
+<p>
+    7.
+    <strong>
+        LIMITATION OF DAMAGES. In no event shall BMC be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including,
+        but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any
+        theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of the Kit or
+        the Materials, even if advised of the possibility of such damage.
+    </strong>
+</p>
+<p>
+    8. <strong>EXPORT CONTROLS</strong>. You will cooperate with BMC to ensure compliance with the laws and regulations of the United States and all other
+    relevant countries, relating to exports and re-exports ("Export Laws"). You may not import, export, re-export or transfer, directly or indirectly,
+    including via remote access, any part of the Kit or any of the Materials in violation of any such laws and regulations, or without any written governmental
+    authorization required under applicable Export Laws. Neither the Materials nor the underlying information or technology in the Materials may be downloaded
+    or otherwise provided or made available, either directly or indirectly, i) into Cuba, Iran, North Korea, Syria, and Sudan or any other country subject to
+    U.S. trade sanctions, to individuals or entities controlled by such countries, or to nationals or residents of such countries, other than nationals who are
+    lawfully admitted permanent residents of countries not subject to such sanctions; (ii) to anyone on the U.S. Treasury Department's list of Specially
+    Designated Nationals and blocked persons or the U.S. Commerce Department's Table of Denial Orders; (iii) or will not use the Materials for prohibited uses,
+    including but not limited to nuclear, chemical, missile or biological weapons related end uses.
+    <strong>
+        By using the Materials, You agree to these export control requirements and represent and warrant that You are not located in, under the control of, or
+        are a national or resident of any such country or on any such list and that the Materials will not be used for a prohibited use
+    </strong>
+    .
+</p>
+<p>
+    9. <strong>DISPUTE RESOLUTION AND GOVERNING LAW</strong>. Any controversy or claim arising out or relating to this Agreement is governed under the laws of
+    the State of Texas, USA.
+</p>
+<p>
+    10. <strong>U.S. GOVERNMENT RESTRICTED RIGHTS. UNPUBLISHED - RIGHTS RESERVED UNDER THE COPYRIGHT LAWS OF THE UNITED STATES.</strong> Use, duplication, or
+    disclosure of any data and computer software by the U.S. Government is subject to restrictions, as applicable, set forth in FAR Section 52.227-19, DFARS
+    252.227-7013,DFARS 227.227-7014, DFARS 252.227-7015, and DFARS 252.227-7025, as amended from time to time. Contractor/Manufacturer is BMC Software, Inc.,
+    2101 CityWest Blvd., Houston, TX 77042-2827, USA.
+</p>
+<p>
+    11. <strong>MISCELLANEOUS TERMS</strong>. This Agreement constitutes the entire agreement between You and BMC relating to the Kit and Materials, and
+    supersedes any prior or contemporaneous negotiations or agreements, whether oral or written. You may not assign this Agreement or any rights granted by
+    this Agreement to a successor, except in the event of merger, consolidation, or sale of all or substantially all of Your assets. Should any provision of
+    this Agreement be invalid, or unenforceable, the remainder of the provisions will remain in effect. You agree that this Agreement and the documents related
+    thereto be drawn up in the English language. Les parties exigent que la présente convention ainsi que les documents qui s'y rattachent soient rédigés en
+    anglais.
+</p>
+<p>
+    <strong>
+        By selecting the “Yes, I Agree” option, You acknowledge and agree that You have read these Terms and that You intend to be bound by these Terms, as if
+        You or Your authorized representative had signed in writing.
+    </strong>
+</p>
+<p>
+    <strong>
+        The individual selecting “Yes, I Agree” warrants that he or she has the authority to accept these Terms on behalf of his or her employer and on his or
+        her behalf.
+    </strong>
+</p>
