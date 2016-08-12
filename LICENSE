@@ -1,28 +1,30 @@
+<html>
+<body>
 <p>
     Rev. 05-17-2016
 </p>
 <p>
-    <strong>CONTROL-M DEVELOPERS KIT TERMS OF USE (“TERMS”)</strong>
+    <strong>CONTROL-M DEVELOPERS KIT TERMS OF USE ("TERMS")</strong>
 </p>
 <p>
     <strong>
-        PLEASE READ THESE TERMS. THEY WILL BECOME A LEGAL AGREEMENT BETWEEN YOU AND YOUR EMPLOYER (“YOU”) ON ONE SIDE, AND BMC SOFTWARE DISTRIBUTION B.V.
+        PLEASE READ THESE TERMS. THEY WILL BECOME A LEGAL AGREEMENT BETWEEN YOU AND YOUR EMPLOYER ("YOU") ON ONE SIDE, AND BMC SOFTWARE DISTRIBUTION B.V.
         ("BMC") ON THE OTHER SIDE. YOUR USE OF ANY MATERIALS (AS DEFINED BELOW) MEANS YOU ACCEPT ALL THE TERMS.
     </strong>
 </p>
 <p>
     <strong>SCOPE OF AGREEMENT</strong>
-    . These Terms govern Your use of the Control-M Automation API Developers Kit (“Kit”) and the materials within the Kit (“Materials”).
+    . These Terms govern Your use of the Control-M Automation API Developers Kit ("Kit") and the materials within the Kit ("Materials").
 </p>
 <p>
     1.<strong> RESERVATION OF RIGHT</strong>. BMC reserves the right to change, delete, or substitute the Kit or any Materials in the Kit at any time and at
-    BMC’s sole discretion.
+    BMC's sole discretion.
 </p>
 <p>
     2. <strong>LICENSE GRANT</strong>. Subject to these Terms, BMC grants You a non-exclusive, non-transferable, non-sublicensable, revocable (per Section 5 of
     these Terms), and royalty-free right under trade secrets rights and copyrights to use the Materials for the following purposes: (a) to exercise the
     definition of workflows in JSON code format; (b) to run workflows in work bench mode; and (c) to use the APIs to define and activate work flows made in
-    JSON code format with the version of the Control-M software for which You are licensed (“Control-M Product”).
+    JSON code format with the version of the Control-M software for which You are licensed ("Control-M Product").
 </p>
 <p>
     3. <strong>COPYRIGHT</strong>. The Kit and Materials are the copyrighted property of BMC Software Israel, Ltd.
@@ -44,7 +46,7 @@
 <p>
     6.
     <strong>
-        DISCLAIMER. The Kit and Materials provided by BMC “AS IS,” with all faults, and any express or implied warranties, including, but not limited to, the
+        DISCLAIMER. The Kit and Materials provided by BMC "AS IS", with all faults, and any express or implied warranties, including, but not limited to, the
         implied warranties of merchantability and fitness for a particular purpose are disclaimed. BMC does not warrant that the Materials will be virus or
         error free or that there are no defects.
     </strong>
@@ -89,18 +91,20 @@
     supersedes any prior or contemporaneous negotiations or agreements, whether oral or written. You may not assign this Agreement or any rights granted by
     this Agreement to a successor, except in the event of merger, consolidation, or sale of all or substantially all of Your assets. Should any provision of
     this Agreement be invalid, or unenforceable, the remainder of the provisions will remain in effect. You agree that this Agreement and the documents related
-    thereto be drawn up in the English language. Les parties exigent que la présente convention ainsi que les documents qui s'y rattachent soient rédigés en
+    thereto be drawn up in the English language. Les parties exigent que la presente convention ainsi que les documents qui s'y rattachent soient rediges en
     anglais.
 </p>
 <p>
     <strong>
-        By selecting the “Yes, I Agree” option, You acknowledge and agree that You have read these Terms and that You intend to be bound by these Terms, as if
+        By selecting the "Yes, I Agree" option, You acknowledge and agree that You have read these Terms and that You intend to be bound by these Terms, as if
         You or Your authorized representative had signed in writing.
     </strong>
 </p>
 <p>
     <strong>
-        The individual selecting “Yes, I Agree” warrants that he or she has the authority to accept these Terms on behalf of his or her employer and on his or
+        The individual selecting "Yes, I Agree" warrants that he or she has the authority to accept these Terms on behalf of his or her employer and on his or
         her behalf.
     </strong>
 </p>
+</body>
+</html>
