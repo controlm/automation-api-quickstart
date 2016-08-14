@@ -29,12 +29,12 @@ RUN ctm env add endpoint http://$HOST:48080 $USER $PASSWORD \
 	&& ctm env set endpoint 
 
 # copy run and resiter controlm agent script to container
-#COPY run_register_controlm.sh /tmp
-#COPY decommission_controlm.sh /tmp
-#RUN cp /tmp/run_register_controlm.sh /home/controlm \
-#	&& cp /tmp/decommission_controlm.sh /home/controlm \
-#	&& chmod +x run_register_controlm.sh \
-#	&& chmod +x decommission_controlm.sh
+COPY run_register_controlm.sh /tmp
+COPY decommission_controlm.sh /tmp
+RUN cp /tmp/run_register_controlm.sh /home/controlm \
+	&& cp /tmp/decommission_controlm.sh /home/controlm \
+	&& chmod +x run_register_controlm.sh \
+	&& chmod +x decommission_controlm.sh
 
 #EXPOSE 7000-8000
 
