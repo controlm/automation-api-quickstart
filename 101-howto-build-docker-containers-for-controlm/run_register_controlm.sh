@@ -1,10 +1,8 @@
-#!/usr/bin/env bash
-
-trap 'exit 0' SIGTERM
+#!/bin/bash
 
 CTM_ENV=endpoint
 CTM_SERVER=[CTM_HOST]
-#CTM_HOSTGROUP=app1 
+#CTM_HOSTGROUP=app0
 #CTM_AGENT_PORT=7020
 CTM_AGENT_ALIAS=$(hostname):$CTM_AGENT_PORT
 
