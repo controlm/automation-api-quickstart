@@ -17,7 +17,8 @@ sudo docker run --net host \
 ```
 To decommission Control-M/Agent container and self-unregister from Control-M:
 ```bash
-sudo docker exec -i -t <docker container> /home/controlm/decommission_controlm.sh ; sudo docker stop <docker container>
+sudo docker exec -i -t <docker container> /home/controlm/decommission_controlm.sh
+sudo docker stop <docker container>
 ```
 
 See the [Automation API - Services](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Services) documentation for more information.  
