@@ -1,4 +1,4 @@
-## How to dynamically provision a Control-M Agent using a Docker container
+## How to build docker containers for Control-M
 
 To build container image of Control-M/Agent:
 ```bash
