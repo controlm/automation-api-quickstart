@@ -3,7 +3,10 @@
 To build container image of Control-M/Agent:
 ```bash
 SRC_DIR=.
-sudo docker build --tag=controlm  $SRC_DIR
+sudo docker build --tag=controlm \
+  --build-arg HOST=<host> \
+  --build-arg USER=<user> \
+  --build-arg PASSWORD=<password> $SRC_DIR
 ```
 To run & self-register the containerize Control-M/Agent to Control-M:
 ```bash
