@@ -9,7 +9,7 @@ ARG HOST
 ARG USER
 ARG PASSWORD
 
-# install basic centos packges
+# install basic packges
 RUN yum -y update \
 	&& yum -y install wget \
 	&& yum -y install unzip \
@@ -35,12 +35,12 @@ RUN mkdir ctm-automation-api \
 	&& npm install -g ctm-cli.tgz \
 	&& ctm -v
 
-# add controlm user and add to soduers list
+# add controlm user and root to soduers list
 RUN useradd -d /home/controlm -p controlm -m controlm \
 	&& echo 'root ALL=(ALL) ALL' >> /etc/sudoers \
 	&& echo 'controlm ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-# add icontrolm endpoint
+# add controlm endpoint
 USER controlm
 WORKDIR /home/controlm
 RUN ctm env add endpoint http://$HOST:48080 $USER $PASSWORD \

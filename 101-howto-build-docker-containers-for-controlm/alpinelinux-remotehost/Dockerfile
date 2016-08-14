@@ -1,60 +1,41 @@
-#------------------------------------
-# Control-M/Agent docker container
-#------------------------------------
+#---------------------------------------
+# Control-M Remote Host docker container
+#---------------------------------------
 
-FROM centos:7
+FROM alpine:3.4
 MAINTAINER Nathan Amichay <nathan_amichay@bmc.com>
 
-# install basic centos packges
-RUN yum -y update \
-	&& yum -y install wget \
-	&& yum -y install unzip \
-	&& yum -y install sudo \
-	&& yum -y install net-tools
+ARG HOST
+ARG USER
+ARG PASSWORD
 
 # install nodejs
-RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash - \
-	&& yum -y install nodejs \
+RUN apk add --update nodejs \
+  && npm -g install npm@latest \
 	&& node -v \
 	&& npm -v
-
-# install java 8 
-RUN yum -y install java-1.8.0-openjdk \
-	&& java -version
 
 # install ctm-automation-api kit
 WORKDIR /root
 RUN mkdir ctm-automation-api \
 	&& cd ctm-automation-api \
-	&& wget [HOST]:18080/ctm-automation-api.zip \
+	&& wget $HOST:18080/ctm-automation-api.zip \
 	&& unzip ctm-automation-api.zip \
 	&& npm install -g ctm-cli.tgz \
 	&& ctm -v
 
-# add controlm user and add to soduers list
-RUN useradd -d /home/controlm -p controlm -m controlm \
-	&& echo 'root ALL=(ALL) ALL' >> /etc/sudoers \
-	&& echo 'controlm ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-
-# add icontrolm endpoint
-USER controlm
-WORKDIR /home/controlm
-RUN ctm env add endpoint http://[HOST]:48080 [USER] [PASSWORD] \
+# add controlm endpoint
+RUN ctm env add endpoint http://$HOST:48080 $USER $PASSWORD \
 	&& ctm env set endpoint 
 
-# provision controlm agent image
-RUN cd \
-	&& ctm provision image Agent.Linux 
-
 # copy run and resiter controlm agent script to container
-COPY run_register_controlm.sh /tmp
-COPY decommission_controlm.sh /tmp
-RUN cp /tmp/run_register_controlm.sh /home/controlm \
-	&& cp /tmp/decommission_controlm.sh /home/controlm \
-	&& chmod +x run_register_controlm.sh \
-	&& chmod +x decommission_controlm.sh
+#COPY run_register_controlm.sh /tmp
+#COPY decommission_controlm.sh /tmp
+#RUN cp /tmp/run_register_controlm.sh /home/controlm \
+#	&& cp /tmp/decommission_controlm.sh /home/controlm \
+#	&& chmod +x run_register_controlm.sh \
+#	&& chmod +x decommission_controlm.sh
 
-EXPOSE 7000-8000
+#EXPOSE 7000-8000
 
-CMD ["/home/controlm/run_register_controlm.sh"]
-
+#CMD ["/home/controlm/run_register_controlm.sh"]
