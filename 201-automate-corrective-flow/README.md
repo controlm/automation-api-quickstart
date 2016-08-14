@@ -1,6 +1,6 @@
 # Run automatically a corrective job flow.
 
-This example shows how to Automate
+This example shows how to run a corrective job flow when some flow fail.
 
 ```
 ctm run AutomateCorrectiveFlow.json

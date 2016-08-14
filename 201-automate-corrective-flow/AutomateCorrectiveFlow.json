@@ -1,37 +1,37 @@
 {
-    "Folder1": {
+    "SomeFlow": {
         "Type": "Folder",
-        "Job1": {
+        "SomeJob1": {
             "Type": "Job:Command",
-            "Command": "echo hello",
+            "Command": "failme",
             "RunAs": "controlm",
-            "DepartmentSuccessAlerts" : {
+            "DoCorrectiveFlowNeeded" : {
                 "Type": "If",
                 "CompletionStatus": "NOTOK",
                 "Correction": {
                     "Type": "Run",
-                    "Folder": "Folder2"
+                    "Folder": "CorrectiveFlow"
                 }
             }
         }
     },
 
-    "Folder2": {
+    "CorrectiveFlow": {
         "Type": "Folder",
         "OrderMethod": "Manual",
-        "Job3": {
+        "CorrectiveJob1": {
             "Type": "Job:Command",
-            "Command": "ls",
+            "Command": "echo corrective",
             "RunAs": "controlm"
         },
-        "Job4": {
+        "CorrectiveJob2": {
             "Type": "Job:Command",
-            "Command": "ls",
+            "Command": "echo flow",
             "RunAs": "controlm"
         },
         "Flow2": {
             "Type":"Flow",
-            "Sequence":["Job3","Job4"]
+            "Sequence":["CorrectiveJob1","CorrectiveJob2"]
         }
     }
 }
