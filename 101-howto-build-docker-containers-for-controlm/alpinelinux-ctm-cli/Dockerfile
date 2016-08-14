@@ -1,6 +1,6 @@
-#---------------------------------------
-# Control-M Remote Host docker container
-#---------------------------------------
+#------------------------------------------------
+# Control-M Automation API build/deploy container
+#------------------------------------------------
 
 FROM alpine:3.4
 MAINTAINER Nathan Amichay <nathan_amichay@bmc.com>
@@ -28,12 +28,6 @@ RUN mkdir ctm-automation-api \
 RUN ctm env add endpoint http://$HOST:48080 $USER $PASSWORD \
 	&& ctm env set endpoint 
 
-# copy run and resiter controlm agent script to container
-COPY run_register_controlm.sh run_register_controlm.sh
-COPY decommission_controlm.sh decommission_controlm.sh
-RUN chmod +x run_register_controlm.sh \
-	&& chmod +x decommission_controlm.sh
-
 #EXPOSE 7000-8000
 
-#CMD ["run_register_controlm.sh"]
+#CMD [""]
