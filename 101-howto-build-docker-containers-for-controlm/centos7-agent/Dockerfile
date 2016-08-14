@@ -57,4 +57,3 @@ RUN cp /tmp/run_register_controlm.sh /home/controlm \
 EXPOSE 7000-8000
 
 CMD ["/home/controlm/run_register_controlm.sh"]
-
