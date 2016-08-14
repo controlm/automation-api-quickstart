@@ -10,7 +10,10 @@ sudo docker build --tag=controlm \
 ```
 To run & self-register the containerize Control-M/Agent to Control-M:
 ```bash
-sudo docker run --net host -e CTM_HOSTGROUP=app0 -e CTM_AGENT_PORT=7020 -dt controlm
+sudo docker run --net host \
+  -e CTM_SERVER=<host> \
+  -e CTM_HOSTGROUP=app0 \
+  -e CTM_AGENT_PORT=7020 -dt controlm
 ```
 To decommission Control-M/Agent container and self-unregister from Control-M:
 ```bash
