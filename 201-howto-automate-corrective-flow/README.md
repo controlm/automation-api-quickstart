@@ -3,6 +3,17 @@
 This example shows how to run a corrective job flow when some flow fail.
 
 ```
+"DoCorrectiveFlowNeeded" : {
+    "Type": "If",
+    "CompletionStatus": "NOTOK",
+    "Correction": {
+        "Type": "Run",
+        "Folder": "CorrectiveFlow"
+    }
+}
+```
+To run:
+```
 ctm run AutomateCorrectiveFlow.json
 ```
 

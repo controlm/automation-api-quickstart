@@ -18,6 +18,7 @@
 
     "CorrectiveFlow": {
         "Type": "Folder",
+        "Comment": "Set Folder to run manual, so it will run only when needed",
         "OrderMethod": "Manual",
         "CorrectiveJob1": {
             "Type": "Job:Command",
