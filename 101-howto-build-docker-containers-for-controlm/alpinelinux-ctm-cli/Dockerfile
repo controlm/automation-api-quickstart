@@ -2,7 +2,7 @@
 # Control-M Automation API build/deploy container
 #------------------------------------------------
 
-FROM alpine:3.4
+FROM alpine:latest
 MAINTAINER Nathan Amichay <nathan_amichay@bmc.com>
 
 ARG HOST
