@@ -9,7 +9,7 @@ sudo docker build --tag=controlm \
   --build-arg PASSWORD=<password> $SRC_DIR
 ```
 
-Start an instance
+Running automation commands
 ```bash
 sudo docker run -it controlm -v /home/usr/src:/src   ctm build /src/jobs.json
 
