@@ -2,7 +2,7 @@
 How to building an image with pre installed and configured automation-api cli
 
 HOST control-m endpoint host  
-USER control-m user account that will be set as the automation user.  
+USER control-m user account set as the automation user.  
 
 ```bash
 SRC_DIR=.
