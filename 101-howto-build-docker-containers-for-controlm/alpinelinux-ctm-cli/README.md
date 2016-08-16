@@ -1,6 +1,9 @@
 ## container ready for control-m cli automation.
 How to building an image with pre installed and configured automation-api cli
 
+HOST control-m endpoint host
+USER control-m user account that will be set as the automation user.
+
 ```bash
 SRC_DIR=.
 HOST=<host>
