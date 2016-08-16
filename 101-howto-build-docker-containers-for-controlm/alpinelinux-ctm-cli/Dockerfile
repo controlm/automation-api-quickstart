@@ -28,6 +28,4 @@ RUN mkdir ctm-automation-api \
 RUN ctm env add endpoint http://$HOST:48080 $USER $PASSWORD \
 	&& ctm env set endpoint 
 
-#EXPOSE 7000-8000
 
-#CMD [""]
