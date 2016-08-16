@@ -1,9 +1,9 @@
-#------------------------------------------------
-# Control-M Automation API build/deploy container
-#------------------------------------------------
+#-------------------------------------------
+# Container for Control-M Automation API cli 
+#-------------------------------------------
 
 FROM alpine:latest
-MAINTAINER Nathan Amichay <nathan_amichay@bmc.com>
+MAINTAINER Gad Ron <gad_ron@bmc.com>
 
 ARG HOST
 ARG USER

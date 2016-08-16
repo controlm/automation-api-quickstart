@@ -1,8 +1,8 @@
-## container ready for control-m cli automation.
+## Container ready for Control-M cli automation
 How to building an image with pre installed and configured automation-api cli
 
-HOST control-m endpoint host  
-USER control-m user account set as the automation user.  
+**HOST** - Control-M endpoint host  
+**USER** - Control-M user account for automation  
 
 ```bash
 SRC_DIR=.
@@ -17,9 +17,7 @@ sudo docker build --tag=controlm \
 
 Running automation commands
 ```bash
-
-sudo docker run              -it controlm  ctm conf servers::get
-
+sudo docker run              -it controlm  ctm conf servers::get  
 sudo docker run -v $PWD:/src -it controlm  ctm build /src/AutomationAPISampleFlow.json
 ```
 
