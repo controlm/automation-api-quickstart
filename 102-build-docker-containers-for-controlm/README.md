@@ -13,7 +13,7 @@ job1 {
 ```
 Hostgroup is a logical grouping of hosts ,Specifying a job to run on a host group, causes Control-M/Server to balance the load by directing jobs to the various hosts in the host group. Jobs will wait until at least one host is avalible in the group to start running. 
 
-When running the docker container with the folling parameter CTM_HOSTGROUP=applicative_hostgroup the container will self registration to the specified host group. stoping the container to unregister it from a host group.
+When running the docker container with the follwing parameter CTM_HOSTGROUP=applicative_hostgroup the container will self registration to the specified host group. stoping the container to unregister it from a host group.
 
 
 #### centos7-agent
