@@ -16,8 +16,14 @@ Hostgroup is a logical grouping of hosts ,Specifying a job to run on a host grou
 When running the docker container with the folling parameter CTM_HOSTGROUP=applicative_hostgroup the container will self registration to the specified host group. stoping the container to unregister it from a host group.
 
 
-#### 
+#### centos7-agent
+Example where a control-m agent is installed inside the containe.
 
+#### alpinelinux-remotehost
+Example where a container include sshd.  
+
+### Docker container for pre installed automation api
+ 
 
 See the [Automation API - Services](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Services) documentation for more information.  
 See the [Automation API - Code Reference](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Code+Reference) documentation for more information.
