@@ -1,7 +1,7 @@
 ## How to build docker containers for Control-M
 
 ### Docker container for batch application 
-Batch application delivered inside of docker container can use one of the following exsmples as their base container.
+Batch application delivered inside of docker container can use one of the following examples as base container.
 
 Batch jobs in Control-M specify to run on a specific host, or on a logical hostgroup
 ```
