@@ -11,13 +11,17 @@ job1 {
 ```
 Hostgroup is a logical grouping of hosts,Specifying a job to run on a host group, causes Control-M/Server to balance the load by directing jobs to the various hosts in the host group. Jobs will wait until at least one host is avalible in the group to start running. 
 
-Running the docker container with parameter CTM_HOSTGROUP=applicative_hostgroup , will self registration the docker instance to the specified host group.  Serving jobs running on "host"=applicative_hostgroup. stoping the container to unregister it from a host group.
+Running the docker container with parameter CTM_HOSTGROUP=applicative_hostgroup , to self registration the docker instance to the specified host group.   
+
+Once a container instance is up and registered into Control-M, jobs waiting for "host"=applicative_hostgroup, will start running on it. 
+
+stoping the container to unregister it from a host group.
 
 
-#### centos7-agent
+### centos7-agent
 Example where a control-m agent is installed inside the containe.
 
-#### alpinelinux-remotehost
+### alpinelinux-remotehost
 Example where a container include sshd.  
 
 ### Docker container for pre installed automation api
