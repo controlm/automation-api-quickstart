@@ -1,5 +1,5 @@
-## Container ready for Control-M cli automation
-How to building an image with pre installed and configured automation-api cli
+## Automation api container
+How to building container with pre installed and pre configured automation-api
 
 **HOST** - Control-M endpoint host  
 **USER** - Control-M user account for automation  
