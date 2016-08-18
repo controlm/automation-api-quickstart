@@ -1,7 +1,7 @@
 ### Docker container for batch application 
 Examplses to used as base container for a batch application delivered as a docker container. 
 
-Batch jobs in Control-M are specified using the "host" where to run a command. it can be specific host, or on a logical hostgroup
+Batch jobs in "host" parameter specifies where to run a command. it can be specific host, or on a logical hostgroup
 ```
 job1 {
    "host" : "applicative_hostgroup"
