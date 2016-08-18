@@ -15,7 +15,7 @@ sudo docker build --tag=controlm \
   --build-arg PASSWORD=$PASSWORD $SRC_DIR
 ```
 
-Examples for running automation commands
+Examples for running automation commands using the container
 ```bash
 sudo docker run              -it controlm  ctm conf servers::get  
 sudo docker run -v $PWD:/src -it controlm  ctm build /src/AutomationAPISampleFlow.json
