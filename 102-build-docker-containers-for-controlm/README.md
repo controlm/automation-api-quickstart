@@ -1,7 +1,7 @@
 ### Docker container for batch application 
-Batch application delivered inside of docker container can use one of the following examples as base container.
+Container examplses that to used as base container for a batch application delivered as docker container. 
 
-Batch jobs in Control-M specify where they run. it can be on a specific host, or on a logical hostgroup
+Batch jobs in Control-M are specified using the "host" where to run a command. it can be specific host, or on a logical hostgroup
 ```
 job1 {
    "host" : "applicative_hostgroup"
@@ -9,9 +9,9 @@ job1 {
    "runAs": "user1"
 }
 ```
-Hostgroup is a logical grouping of hosts ,Specifying a job to run on a host group, causes Control-M/Server to balance the load by directing jobs to the various hosts in the host group. Jobs will wait until at least one host is avalible in the group to start running. 
+Hostgroup is a logical grouping of hosts,Specifying a job to run on a host group, causes Control-M/Server to balance the load by directing jobs to the various hosts in the host group. Jobs will wait until at least one host is avalible in the group to start running. 
 
-When running the docker container with the follwing parameter CTM_HOSTGROUP=applicative_hostgroup the container will self registration to the specified host group. stoping the container to unregister it from a host group.
+Running the docker container with parameter CTM_HOSTGROUP=applicative_hostgroup , will self registration the docker instance to the specified host group.  Serving jobs running on "host"=applicative_hostgroup. stoping the container to unregister it from a host group.
 
 
 #### centos7-agent
