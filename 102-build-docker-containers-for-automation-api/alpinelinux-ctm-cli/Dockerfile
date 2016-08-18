@@ -21,8 +21,10 @@ RUN mkdir ctm-automation-api \
 	&& cd ctm-automation-api \
 	&& wget $HOST:18080/ctm-automation-api.zip \
 	&& unzip ctm-automation-api.zip \
+	&& rm ctm-automation-api.zip  \
 	&& npm install -g ctm-cli.tgz \
-	&& ctm -v
+	&& ctm -v 
+	
 
 # add controlm endpoint
 RUN ctm env add endpoint https://$HOST:8443/automation-api $USER $PASSWORD \
