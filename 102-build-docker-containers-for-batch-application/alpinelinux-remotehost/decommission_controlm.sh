@@ -1,19 +1,19 @@
 #!/bin/bash
 
 CTM_ENV=endpoint
-CTM_SERVER=[CTM_HOST]
-#CTM_HOSTGROUP=app1 
-#CTM_AGENT_PORT=7020
-CTM_AGENT_ALIAS=$(hostname):$CTM_AGENT_PORT/
+#CTM_SERVER=[CTM_HOST]
+#CTM_HOSTGROUP=app0
+#PORT=7020
+#DOCKER_HOST=
+ALIAS=$(DOCKER_HOST):$PORT
 
 cd
 source .bash_profile
 
-echo delete or remove a controlm hostgroup [$CTM_HOSTGROUP] with controlm agent [$CTM_AGENT_ALIAS]
-ctm config server:hostgroup:agent::delete $CTM_SERVER $CTM_HOSTGROUP $CTM_AGENT_ALIAS -e $CTM_ENV
+echo delete or remove a controlm hostgroup [$CTM_HOSTGROUP] with controlm agent [$ALIAS]
+ctm config server:hostgroup:agent::delete $CTM_SERVER $CTM_HOSTGROUP $ALIAS -e $CTM_ENV
 
-echo stop and unregister controlm agent [$CTM_AGENT_ALIAS] with controlm [$CTM_SERVER], environment [$CTM_ENV] 
-ctm provision uninstall
+echo unregister controlm remotehost [$ALIAS] with controlm [$CTM_SERVER], environment [$CTM_ENV] 
+ctm config server:remotehost::delete $CTM_SERVER $ALIAS
 
 exit 0
-
