@@ -25,15 +25,33 @@ RUN mkdir ctm-automation-api \
 	&& ctm -v
 
 # add controlm endpoint
-RUN ctm env add endpoint http://$HOST:48080 $USER $PASSWORD \
+RUN ctm env add endpoint https://$HOST:8443/automation-api $USER $PASSWORD \
 	&& ctm env set endpoint 
 
 # copy run and resiter controlm agent script to container
-COPY run_register_controlm.sh run_register_controlm.sh
-COPY decommission_controlm.sh decommission_controlm.sh
-RUN chmod +x run_register_controlm.sh \
-	&& chmod +x decommission_controlm.sh
+COPY run_register_controlm.sh /run_register_controlm.sh
+COPY decommission_controlm.sh /decommission_controlm.sh
+RUN chmod +x /run_register_controlm.sh \
+	&& chmod +x /decommission_controlm.sh
 
-#EXPOSE 7000-8000
+# install and configure sshd
+# based on https://github.com/ourtownrentals/docker-sshd
+RUN apk update \
+ && apk add bash git openssh rsync \
+ && mkdir -p ~root/.ssh \
+ && chmod 700 ~root/.ssh/ \
+ && echo -e "Port 22\n" >> /etc/ssh/sshd_config \
+ && echo -e "PasswordAuthentication no\n" >> /etc/ssh/sshd_config \
+ && echo -e "ChallengeResponseAuthentication no\n" >> /etc/ssh/sshd_config \
+ && cp -a /etc/ssh /etc/ssh.cache \
+ && rm -rf /var/cache/apk/*
 
-#CMD ["run_register_controlm.sh"]
+EXPOSE 22
+
+COPY entry.sh /entry.sh
+RUN chmod +x /entry.sh
+
+ENTRYPOINT ["/entry.sh"]
+
+CMD ["/usr/sbin/sshd", "-D", "-f", "/etc/ssh/sshd_config"]
+
