@@ -29,5 +29,3 @@ RUN mkdir ctm-automation-api \
 # add controlm endpoint
 RUN ctm env add endpoint https://$HOST:8443/automation-api $USER $PASSWORD \
 	&& ctm env set endpoint 
-
-
