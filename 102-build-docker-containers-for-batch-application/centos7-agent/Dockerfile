@@ -32,6 +32,7 @@ RUN mkdir ctm-automation-api \
 	&& cd ctm-automation-api \
 	&& wget $HOST:18080/ctm-automation-api.zip \
 	&& unzip ctm-automation-api.zip \
+	&& rm ctm-automation-api.zip  \
 	&& npm install -g ctm-cli.tgz \
 	&& ctm -v
 
