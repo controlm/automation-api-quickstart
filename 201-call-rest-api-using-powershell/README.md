@@ -1,5 +1,5 @@
 ## How to invoke automation api REST calls from PowerShell script
-
+AutomationAPIExample.ps1 script contain example for differant api invocations such as Get Control-M Servers list and others
 ```PowerShell
 # Get Control-M Servers list
 try
