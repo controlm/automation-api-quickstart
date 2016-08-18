@@ -5,7 +5,7 @@ Batch jobs "host" parameter specifies where to run a command. it can be specific
 ```
 job1 {
    "host" : "applicative_hostgroup"
-   "command" : "my_program.py"
+   "command" : "/home/user1/scripts/my_program.py"
    "runAs": "user1"
 }
 ```
