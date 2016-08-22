@@ -44,7 +44,7 @@ RUN useradd -d /home/controlm -p controlm -m controlm \
 # add controlm endpoint
 USER controlm
 WORKDIR /home/controlm
-RUN ctm env add endpoint http://$HOST:48080 $USER $PASSWORD \
+RUN ctm env add endpoint https://$HOST:8443/automation-api $USER $PASSWORD \
 	&& ctm env set endpoint 
 
 # provision controlm agent image
