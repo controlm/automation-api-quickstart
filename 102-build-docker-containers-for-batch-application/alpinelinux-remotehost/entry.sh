@@ -30,6 +30,9 @@ if [ ! -e ~/.ssh/authorized_keys ]; then
   echo "WARNING: No SSH authorized_keys found for root"
 fi
 
+# Register in Control-M
+/run_register_controlm.sh
+
 stop() {
   echo "Received SIGINT or SIGTERM. Shutting down $DAEMON"
   # Get PID
@@ -38,6 +41,8 @@ stop() {
   kill -SIGTERM "${pid}"
   # Wait for exit
   wait "${pid}"
+  # Unresigter in Control-M
+  /decommission_controlm.sh
   # All done.
   echo "Done."
 }
