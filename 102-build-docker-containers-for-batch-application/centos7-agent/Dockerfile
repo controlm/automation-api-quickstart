@@ -5,11 +5,11 @@
 FROM centos:7
 MAINTAINER Nathan Amichay <nathan_amichay@bmc.com>
 
-ARG HOST
+ARG CTMHOST
 ARG USER
 ARG PASSWORD
 
-# install basic packges
+# install basic packages
 RUN yum -y update \
 	&& yum -y install wget \
 	&& yum -y install unzip \
@@ -30,7 +30,7 @@ RUN yum -y install java-1.8.0-openjdk \
 WORKDIR /root
 RUN mkdir ctm-automation-api \
 	&& cd ctm-automation-api \
-	&& wget $HOST:18080/ctm-automation-api.zip \
+	&& wget $CTMHOST:18080/ctm-automation-api.zip \
 	&& unzip ctm-automation-api.zip \
 	&& rm ctm-automation-api.zip  \
 	&& npm install -g ctm-cli.tgz \
@@ -44,7 +44,7 @@ RUN useradd -d /home/controlm -p controlm -m controlm \
 # add controlm endpoint
 USER controlm
 WORKDIR /home/controlm
-RUN ctm env add endpoint https://$HOST:8443/automation-api $USER $PASSWORD \
+RUN ctm env add endpoint https://$CTMHOST:8443/automation-api $USER $PASSWORD \
 	&& ctm env set endpoint 
 
 # provision controlm agent image

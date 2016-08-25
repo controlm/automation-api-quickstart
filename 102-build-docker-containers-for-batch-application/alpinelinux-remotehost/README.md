@@ -4,7 +4,7 @@ To build container image of Control-M/Agent:
 ```bash
 SRC_DIR=.
 sudo docker build --tag=controlm \
-  --build-arg HOST=<host> \
+  --build-arg CTMHOST=<Control-M host> \
   --build-arg USER=<user> \
   --build-arg PASSWORD=<password> $SRC_DIR
 ```
