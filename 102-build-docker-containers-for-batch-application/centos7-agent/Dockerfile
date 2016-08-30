@@ -61,6 +61,4 @@ RUN cp /tmp/run_register_controlm.sh /home/controlm \
 
 EXPOSE 7000-8000
 
-ENTRYPOINT ["source /home/controlm/.bash_profile"]
-
 CMD ["/home/controlm/run_register_controlm.sh"]
