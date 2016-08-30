@@ -51,8 +51,6 @@ RUN ctm env add endpoint https://$CTMHOST:8443/automation-api $USER $PASSWORD \
 RUN cd \
 	&& ctm provision image Agent.Linux
 
-RUN source /home/controlm/.bash_profile
-
 # copy run and resiter controlm agent script to container
 COPY run_register_controlm.sh /tmp
 COPY decommission_controlm.sh /tmp
@@ -62,5 +60,7 @@ RUN cp /tmp/run_register_controlm.sh /home/controlm \
 	&& chmod +x decommission_controlm.sh
 
 EXPOSE 7000-8000
+
+ENTRYPOINT ["source /home/controlm/.bash_profile"]
 
 CMD ["/home/controlm/run_register_controlm.sh"]
