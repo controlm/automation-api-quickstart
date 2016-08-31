@@ -1,7 +1,6 @@
-# Run automatically a corrective job flow.
+# Automatically run a different job to fix a problem resulting from the failure of the current job.
 
-This example shows how to run a corrective job flow when some flow fail.
-
+When the current job fails, this is how to run a different job to fix the error.  
 ```
 "DoCorrectiveFlowNeeded" : {
     "Type": "If",
