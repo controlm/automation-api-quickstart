@@ -5,7 +5,7 @@
 FROM alpine:latest
 MAINTAINER Gad Ron <gad_ron@bmc.com>
 
-ARG HOST
+ARG CTMHOST
 ARG USER
 ARG PASSWORD
 
@@ -19,7 +19,7 @@ RUN apk add --update nodejs \
 WORKDIR /root
 RUN mkdir ctm-automation-api \
 	&& cd ctm-automation-api \
-	&& wget $HOST:18080/ctm-automation-api.zip \
+	&& wget $CTMHOST:18080/ctm-automation-api.zip \
 	&& unzip ctm-automation-api.zip \
 	&& rm ctm-automation-api.zip  \
 	&& npm install -g ctm-cli.tgz \
@@ -27,5 +27,5 @@ RUN mkdir ctm-automation-api \
 	
 
 # add controlm endpoint
-RUN ctm env add endpoint https://$HOST:8443/automation-api $USER $PASSWORD \
+RUN ctm env add endpoint https://$CTMHOST:8443/automation-api $USER $PASSWORD \
 	&& ctm env set endpoint 

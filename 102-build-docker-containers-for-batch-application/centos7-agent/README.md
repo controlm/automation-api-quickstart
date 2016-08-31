@@ -1,19 +1,33 @@
 ## How to build docker containers for Control-M
 
-To build container image of Control-M/Agent:
+To build container image of Control-M/Agent:  
+**CTMHOST** - Control-M endpoint host  
+**USER** - Control-M user account for automation  
+**PASSWORD** - Control-M account password for automation  
+
 ```bash
 SRC_DIR=.
+HOST=<Control-M host>
+USER=<user>
+PASSWORD=<password>
 sudo docker build --tag=controlm \
-  --build-arg CTMHOST=<Control-M host> \
-  --build-arg USER=<user> \
-  --build-arg PASSWORD=<password> $SRC_DIR
+  --build-arg CTMHOST=$CTMHOST \
+  --build-arg USER=$USER \
+  --build-arg PASSWORD=$PASSWORD $SRC_DIR
 ```
-To run & self-register the containerize Control-M/Agent to Control-M:
+
+To run & self-register the containerize Control-M/Agent to Control-M:  
+**CTM_SERVER** - Control-M/Server host  
+**CTM_HOSTGROUP** - Application hostgroup  
+**CTM_AGENT_PORT** - Control-M/Agent port number  
 ```bash
+CTM_SERVER=<control-m server>
+CTM_HOSTGROUP=<application_hostgroup>
+CTM_AGENT_PORT=<port number>
 sudo docker run --net host \
-  -e CTM_SERVER=<host> \
-  -e CTM_HOSTGROUP=app0 \
-  -e CTM_AGENT_PORT=7020 -dt controlm
+  -e CTM_SERVER=$CTM_SERVER \
+  -e CTM_HOSTGROUP=$CTM_HOSTGROUP \
+  -e CTM_AGENT_PORT=$CTM_AGENT_PORT -dt controlm
 ```
 To decommission Control-M/Agent container and self-unregister from Control-M:
 ```bash

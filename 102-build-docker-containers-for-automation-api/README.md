@@ -1,16 +1,17 @@
 ## Automation api container
 How to building container with pre installed and pre configured automation-api
 
-**HOST** - Control-M endpoint host  
+**CTMHOST** - Control-M endpoint host  
 **USER** - Control-M user account for automation  
+**PASSWORD** - Control-M account password for automation  
 
 ```bash
 SRC_DIR=.
-HOST=<host>
+CTMHOST=<host>
 USER=<user>
 PASSWORD=<password>
 sudo docker build --tag=controlm \
-  --build-arg HOST=$HOST \
+  --build-arg CTMHOST=$CTMHOST \
   --build-arg USER=$USER \
   --build-arg PASSWORD=$PASSWORD $SRC_DIR
 ```
