@@ -4,10 +4,9 @@ To build container image of Control-M/Agent:
 **CTMHOST** - Control-M endpoint host  
 **USER** - Control-M user account for automation  
 **PASSWORD** - Control-M account password for automation  
-
 ```bash
 SRC_DIR=.
-HOST=<Control-M host>
+CTMHOST=<Control-M host>
 USER=<user>
 PASSWORD=<password>
 sudo docker build --tag=controlm \
@@ -15,7 +14,7 @@ sudo docker build --tag=controlm \
   --build-arg USER=$USER \
   --build-arg PASSWORD=$PASSWORD $SRC_DIR
 ```
-
+  
 To run & self-register the containerize Control-M/Agent to Control-M:  
 **CTM_SERVER** - Control-M/Server host  
 **CTM_HOSTGROUP** - Application hostgroup  
