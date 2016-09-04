@@ -6,7 +6,7 @@
 
 #----------------------------------------------------------------
 #Login request
-$endPoint   = "http://<controlmEndPoint>:48080"
+$endPoint   = "http://<controlmEndPoint>:8443/automation-api"
 #------------------------------------------------------------------------------------
 $username 	= "<ControlmUser>"
 $password   = "<ControlmPassword>"
