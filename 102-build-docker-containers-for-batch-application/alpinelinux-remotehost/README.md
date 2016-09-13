@@ -23,7 +23,7 @@ To run & self-register the containerize as remotehost to Control-M using ssh:
 CTM_HOSTGROUP=<application_hostgroup>
 DOCKER_HOST=<Doker host>
 PORT=<sshd port numner>
-sudo docker run -d -p 2222:22 -e CTM_SERVER=<Control-M/Server> \
+sudo docker run -d -p $PORT:22 -e CTM_SERVER=<Control-M/Server> \
   -e CTM_HOSTGROUP=$CTM_HOSTGROUP \
   -e DOCKER_HOST=$DOCKER_HOST \
   -e PORT=$PORT \
