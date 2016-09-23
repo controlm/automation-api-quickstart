@@ -104,7 +104,7 @@ if verbose:
 length = len(json.loads(r2.text)['statuses'])
 
 if verbose:
-    print('length: '+length)
+    print('length: '+str(length))
 
 x = 0
 while x < length:
