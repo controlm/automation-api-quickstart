@@ -4,17 +4,9 @@ import json
 import requests
 import argparse
 from getpass import getpass
-from requests.exceptions import *
 import urllib3
 from urllib3.exceptions import *
 urllib3.disable_warnings(InsecureRequestWarning)
-
-# import warnings
-# import requests
-# from requests.packages.urllib3 import exceptions
-
-# with warnings.catch_warnings():
-    # warnings.simplefilter("ignore", exceptions.InsecureRequestWarning)
 
 parser = argparse.ArgumentParser(description='Connect to Control-M/Enterprise Manager via Automation API REST calls and display job outputs',add_help=False)
 parser.add_argument('-u', '--username', dest='username', type=str, help='Username to login to Control-M/Enterprise Manager')
@@ -57,12 +49,12 @@ except:
     quit(1)
 
 if verbose:
-	print(r.text)
-	print(json.dumps(json.loads(r.text)['errors'][0]['message']))
+    print(r.text)
+    print(json.dumps(json.loads(r.text)['errors'][0]['message']))
 
 if json.dumps(json.loads(r.text)['errors'][0]['message'])=='"Failed to login: Incorrect username or password"':
-	print('Bad Username or Passowrd')
-	quit(1)
+    print('Bad Username or Passowrd')
+    quit(1)
 
 token = json.loads(r.text)['token']
 
@@ -77,8 +69,8 @@ if verbose:
 r2 = requests.get(jobstatusurl, verify=verify_certs)
 statuses = json.loads(r2.text)['statuses']
 
-# if verbose:
-    # print('statuses:\n'+json.dumbs(statuses)
+if verbose:
+    print('statuses:\n'+json.dumps(statuses))
 
 length = len(json.loads(r2.text)['statuses'])
 
