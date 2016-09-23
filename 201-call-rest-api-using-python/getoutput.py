@@ -4,9 +4,11 @@ import json
 import requests
 import argparse
 from getpass import getpass
-import urllib3
-from urllib3.exceptions import *
-urllib3.disable_warnings(InsecureRequestWarning)
+try:
+    from requests.packages.urllib3.exceptions import InsecureRequestWarning
+except:
+    from urllib3.exceptions import InsecureRequestWarning
+    import urllib3
 
 parser = argparse.ArgumentParser(description='Connect to Control-M/Enterprise Manager via Automation API REST calls and display job outputs',add_help=False)
 parser.add_argument('-u', '--username', dest='username', type=str, help='Username to login to Control-M/Enterprise Manager')
@@ -19,9 +21,15 @@ parser.add_argument("--help", action="help", help="show this help message and ex
 args = parser.parse_args()
 
 verbose = args.verbose
+insecure = args.insecure
 
-if args.insecure:
-    urllib3.disable_warnings(InsecureRequestWarning)
+if insecure:
+    if verbose:
+        print('Disabling SSL Cert verification')
+    try:
+        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+    except:
+        urllib3.disable_warnings(InsecureRequestWarning)
     verify_certs=False
 else:
     verify_certs=True
@@ -44,8 +52,19 @@ loginurl =baseurl+'session/login'
 body =json.loads('{ "password": "'+password+'", "username": "'+username+'"}')
 try:
     r = requests.post(loginurl, json=body, verify=verify_certs)
+except requests.exceptions.ConnectTimeout as err:
+    print("Connecting to Automation API REST Server failed with error: " + str(err))
+    quit(1)
+except requests.exceptions.ConnectionError as err:
+    print("Connecting to Automation API REST Server failed with error: "+str(err))
+    if 'CERTIFICATE_VERIFY_FAILED' in str(err.message):
+        print('INFO: If using a Self Signed Certificate use the -i flag to disable cert verification or add the certificate to this systems trusted CA store')
+    quit(1)
+except requests.exceptions.HTTPError as err:
+    print("Connecting to Automation API REST Server failed with error: "+str(err))
+    quit(1)
 except:
-    print("Connecting to Automation API REST Server failed")
+    print("Connecting to Automation API REST Server failed with error unknown error")
     quit(1)
 
 if verbose:
@@ -57,10 +76,6 @@ if 'errors' in loginresponce:
     print(json.dumps(loginresponce['errors'][0]['message']))
     quit(1)
 
-#if r.status_code != 200:
-#    if json.dumps(json.loads(r.text)['errors'][0]['message'])=='"Failed to login: Incorrect username or password"':
-#        print('Bad Username or Password')
-#        quit(1)
 if 'token' in loginresponce:
     token = json.loads(r.text)['token']
 else:
@@ -76,7 +91,12 @@ if verbose:
     print('Job Status URL: '+jobstatusurl)
 
 r2 = requests.get(jobstatusurl, verify=verify_certs)
-statuses = json.loads(r2.text)['statuses']
+
+if 'statuses' in json.loads(r2.text):
+    statuses = json.loads(r2.text)['statuses']
+else:
+    print('No job statuses were loaded.')
+    quit(0)
 
 if verbose:
     print('statuses:\n'+json.dumps(statuses))
@@ -88,10 +108,15 @@ if verbose:
 
 x = 0
 while x < length:
-    print('1. '+statuses[x]['jobid']+', '+statuses[x]['name']+', '+statuses[x]['status']+', '+statuses[x]['type'])
+    print(str(x)+'. '+statuses[x]['jobId']+', '+statuses[x]['name']+', '+statuses[x]['status']+', '+statuses[x]['type'])
     x +=1
 
-selected = raw_input("Enter the it's output to view: ")
+
+selected = int(input("Enter the it's output to view: "))
+
+if selected > length:
+    print('That does not exist')
+    quit(1)
 
 outputurl = statuses[selected]['outputURI']
 
