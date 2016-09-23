@@ -50,13 +50,22 @@ except:
 
 if verbose:
     print(r.text)
-    print(json.dumps(json.loads(r.text)['errors'][0]['message']))
+    print(r.status_code)
 
-if json.dumps(json.loads(r.text)['errors'][0]['message'])=='"Failed to login: Incorrect username or password"':
-    print('Bad Username or Passowrd')
+loginresponce = json.loads(r.text)
+if 'errors' in loginresponce:
+    print(json.dumps(loginresponce['errors'][0]['message']))
     quit(1)
 
-token = json.loads(r.text)['token']
+#if r.status_code != 200:
+#    if json.dumps(json.loads(r.text)['errors'][0]['message'])=='"Failed to login: Incorrect username or password"':
+#        print('Bad Username or Password')
+#        quit(1)
+if 'token' in loginresponce:
+    token = json.loads(r.text)['token']
+else:
+    print("Failed to get token for unknown reason, exiting...")
+    quit(2)
 
 if verbose:
     print('Token: '+token)
@@ -79,12 +88,26 @@ if verbose:
 
 x = 0
 while x < length:
-    if verbose:
-        print(str(x))
-    jsonobject = json.loads(r2.text)
-    if jsonobject['statuses'][x]['type'] == 'Command':
-        outputurl = jsonobject['statuses'][x]['outputURI']
-        print(outputurl)
-        r3 = requests.get(outputurl, verify=verify_certs)
-        print(r3.text)
-    x += 1
+    print('1. '+statuses[x]['jobid']+', '+statuses[x]['name']+', '+statuses[x]['status']+', '+statuses[x]['type'])
+    x +=1
+
+selected = raw_input("Enter the it's output to view: ")
+
+outputurl = statuses[selected]['outputURI']
+
+if verbose:
+    print(outputurl)
+
+r3 = requests.get(outputurl, verify=verify_certs)
+print(r3.text)
+#x = 0
+#while x < length:
+#    if verbose:
+#        print('Job ' + str(x) +' of ' + length + ' in in responce: ')
+#    jsonobject = json.loads(r2.text)
+#    if jsonobject['statuses'][x]['type'] == 'Command':
+#        outputurl = jsonobject['statuses'][x]['outputURI']
+#        print(outputurl)
+#        r3 = requests.get(outputurl, verify=verify_certs)
+#        print(r3.text)
+#    x += 1
