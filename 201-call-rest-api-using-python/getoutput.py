@@ -31,7 +31,7 @@ def parse_inputs():
     verbose = args.verbose
     insecure = args.insecure
 
-    if insecure:
+    if insecure: # Use insecure to disable verifing SSL Cert on server useful becuase Automation API will use a selfsigned cert by default
         if verbose:
             print('Disabling SSL Cert verification')
         try:
@@ -52,10 +52,10 @@ def parse_inputs():
     if password == None:
         password = getpass("Passowrd: ")
 
-    baseurl = 'https://'+host+':8443/automation-api/'
+    baseurl = 'https://'+host+':8443/automation-api/' # Control-M Automation API v2 (EM 9 FP3) base url
     login_args = collections.namedtuple('Login_Args', ['baseurl', 'username', 'password'])
     auth = login_args(baseurl, username, password)
-    return auth
+    return auth #return auth info as named tuple
 
 
 def login(auth):
@@ -67,8 +67,8 @@ def login(auth):
     if verbose:
         print('base URL: '+baseurl)
 
-    loginurl =baseurl+'session/login'
-    body =json.loads('{ "password": "'+password+'", "username": "'+username+'"}')
+    loginurl =baseurl+'session/login' # The login url
+    body =json.loads('{ "password": "'+password+'", "username": "'+username+'"}') # create a json object to use as the body of the post to the login url
     try:
         r = requests.post(loginurl, json=body, verify=verify_certs)
     except requests.exceptions.ConnectTimeout as err:
@@ -95,7 +95,7 @@ def login(auth):
         print(json.dumps(loginresponce['errors'][0]['message']))
         quit(1)
 
-    if 'token' in loginresponce:
+    if 'token' in loginresponce: # If token exists in the json response set the value to the variable token
         token = json.loads(r.text)['token']
     else:
         print("Failed to get token for unknown reason, exiting...")
@@ -104,34 +104,36 @@ def login(auth):
     if verbose:
         print('Token: '+token)
 
-    return token
+    return token # return the token
 
 
 def list_jobs(token, baseurl):
     global verbose
-    jobstatusurl =baseurl+'run/jobs/status?token='+token
+    jobstatusurl =baseurl+'run/jobs/status?token='+token # url to list statuses of all the jobs in the AJF using the token from login() for auth
 
     if verbose:
         print('Job Status URL: '+jobstatusurl)
 
-    r2 = requests.get(jobstatusurl, verify=verify_certs)
+    r2 = requests.get(jobstatusurl, verify=verify_certs) # do a get on the job status url returns json with all of the job status
 
-    if 'statuses' in json.loads(r2.text):
+    if 'statuses' in json.loads(r2.text): # if statuses exsits in json response store the statuses to variable statuses
         statuses = json.loads(r2.text)['statuses']
     else:
-        print('No job statuses were loaded.')
-        quit(0)
+        print('No job statuses were loaded.') # if statuses does not exist, report it. this can happen if no jobs are in the AJF
+        logout(token, baseurl, 0) # or if you've added a filter to the job statues url that has no results
 
     if verbose:
         print('statuses:\n'+json.dumps(statuses))
 
-    length = len(json.loads(r2.text)['statuses'])
+    length = len(json.loads(r2.text)['statuses']) # check how many jobs are in statuses
 
     if verbose:
         print('length: '+str(length))
     while True:
         x = 0
-        while x < length:
+        while x < length: # iterate though statuses
+            # contents of python json objects can be accessed like named tupel for key value pairs and arrays for repeated objects
+            # the end result is similar to jsonpath expressions statuses[3]['jobId'] is equivalent to 3.jobId, you can test and learn about jsonpath expressions here: https://jsonpath.curiousconcept.com/
             print(str(x)+'. '+statuses[x]['jobId']+', '+statuses[x]['name']+', '+statuses[x]['status']+', '+statuses[x]['type'])
             x +=1
 
@@ -139,18 +141,18 @@ def list_jobs(token, baseurl):
         selected = raw_input("Enter a number to see it's output: ")
 
         if selected == 'q':
-            quit(0)
+            logout(token, baseurl)
         try:
             selected = int(selected)
         except:
             print("Please enter either a number or q to quit")
-            quit(1)
+            logout(token, baseurl, 1)
 
         if selected > length:
             print('That does not exist')
-            quit(1)
+            logout(token, baseurl, 1)
 
-        outputurl = statuses[selected]['outputURI']
+        outputurl = statuses[selected]['outputURI'] # get the outputURI from the select job in statuses
 
         print_output(outputurl)
 
@@ -160,9 +162,31 @@ def print_output(outputurl):
     if verbose:
         print(outputurl)
 
-    r3 = requests.get(outputurl, verify=verify_certs)
-    print(r3.text)
+    r3 = requests.get(outputurl, verify=verify_certs) # go a get on the outputURI, outputURI already includes the current token
+    print(r3.text) # this request returns the raw text output of the job and not json
+
+def logout(token, baseurl, exit=0): # if logged in, need to call logout before quiting to invalidate the token for security
+    # this prevents the chance of intercepting a token and being reused later
+    global verbose
+    global username
+    logouturl = baseurl + 'session/logout' # Automation API logout url
+    #logouturl = baseurl + 'session/logout?token=' + token # Automation API logout url
+
+    if verbose:
+        print('Logout URL: '+logouturl)
+
+    body = json.loads('{ "token": "' + token + '", "username": "' + username + '"}') #logout url needs json with the token and username
+
+    r4 = requests.post(logouturl, data=body, verify=verify_certs) #a post on this url invalidates the token with the above json as the post data
+    if verbose:
+        print(r4.headers)
+
+    if verbose:
+        print(r4.text)
+
+    quit(exit)
 
 args = parse_inputs()
+username = args.username
 tok = login(args)
 list_jobs(tok, args.baseurl)
