@@ -24,8 +24,8 @@
       -v, --verbose         Turn on verbose mode
       --help                show this help message and exit
 
-- HOST is the hostname of the Control-M/Enterprise Manager where the Automation API Rest Server is running
-- USERNAME is the username you use to log into Control-M/Enterprise Manager
+- HOST is the hostname where the Automation API Rest Server is running
+- USERNAME is the username used to login to Control-M
 - PASSWORD is the password for that user account
 - insecure will allow you to connect to an Automation API Rest Server that is using an untrusted certificate, this is useful because Automation API uses a self signed cert by default
 - verbose will output the url that is being used eachtime as well as JSON header information
