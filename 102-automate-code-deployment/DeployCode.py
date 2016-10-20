@@ -1,6 +1,6 @@
 import requests  # pip install requests if you don't have it already
   
-endPoint = 'http://<controlMEndPoint>:48080'
+endPoint = 'http://<controlMEndPoint>:8443/automation-api'
   
 user = '<ControlMUser>'
 passwd = '<ControlMPassword>'
