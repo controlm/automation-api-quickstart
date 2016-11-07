@@ -30,9 +30,6 @@ if [ ! -e ~/.ssh/authorized_keys ]; then
   echo "WARNING: No SSH authorized_keys found for root"
 fi
 
-# Register in Control-M
-/run_register_controlm.sh
-
 stop() {
   echo "Received SIGINT or SIGTERM. Shutting down $DAEMON"
   # Get PID
@@ -53,6 +50,10 @@ if [ "$(basename $1)" == "$DAEMON" ]; then
   $@ &
   pid="$!"
   mkdir -p /var/run/$DAEMON && echo "${pid}" > /var/run/$DAEMON/$DAEMON.pid
+
+  # Register in Control-M
+  /run_register_controlm.sh
+
   wait "${pid}" && exit $?
 else
   exec "$@"
