@@ -1,0 +1,11 @@
+ {
+	"LongJob" :  {
+		"Type": "Folder",
+	    "OrderMethod": "Manual",
+		"twoMinJob": {
+			"Type": "Job:Command",
+			"Command": "echo long waiting ; sleep 2m ; echo finish long waiting",
+			"RunAs": "controlm"
+	    }
+    }
+ }

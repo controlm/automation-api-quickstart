@@ -1,0 +1,12 @@
+ {
+	 "Ok": {
+	   "Type": "Folder",
+	   "OrderMethod": "Manual",
+	   "okJob": {
+	     "Type": "Job:Command",
+		 "Command": "echo job ended ok",
+	     "RunAs": "controlm",
+	     "Application": "OsApp"
+	   }
+      }
+ }
