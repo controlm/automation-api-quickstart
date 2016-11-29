@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>bmc.control-m.services</groupId>
+    <artifactId>control-m.services.root</artifactId>
+    <version>9.0.3</version>
+  </parent>
+  <artifactId>control-m.services.assertions</artifactId>
+  <packaging>jar</packaging>
+  <name>Control-M Services Assertions</name>
+
+  <dependencies>
+  	<!-- swagger generate client -->
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-java-client</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <!-- logger relate dependencies  -->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
+     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.6.3</version>
+    </dependency>
+  </dependencies>
+</project>

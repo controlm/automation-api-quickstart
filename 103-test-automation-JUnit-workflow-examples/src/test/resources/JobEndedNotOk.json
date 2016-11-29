@@ -1,0 +1,11 @@
+ {
+	 "NotOk": {
+	   "Type": "Folder",
+	   "OrderMethod": "Manual",
+	   "failJob": {
+	     "Type": "Job:Command",
+	     "Command": "invalid command, exit code none 0",
+	     "RunAs": "controlm"
+	   }
+     }
+ }

@@ -1,0 +1,26 @@
+ {
+	"JobsFlowForJUnit" :  {
+		"Type": "Folder",
+	    "OrderMethod": "Manual",
+			"FirstJobOk": {
+			"Type": "Job:Command",
+			"Command": "echo this is job 1 - ended successfully",
+			"RunAs": "controlm"
+		},
+			"SecondJobOk": {
+			"Type": "Job:Command",
+			"Confirm": true,
+			"Command": "echo this is job 2 - ended successfully",
+			"RunAs": "controlm"
+		},
+			"ThirdJobNotOk": {
+			"Type": "Job:Command",
+			"Command": "echo this is job 3 - ended with failure ; exit 3",
+			"RunAs": "controlm"
+		},
+        "flow1": {
+          "Type":"Flow",
+          "Sequence":["FirstJobOk", "SecondJobOk", "ThirdJobNotOk"]
+        }
+    }
+ }
