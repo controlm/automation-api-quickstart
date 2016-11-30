@@ -1,7 +1,8 @@
-DISCLAIMER: This code is working with version 3 (the next upcoming version), not with version 2 (current released version)
+DISCLAIMER: This code was tested with version 9.0.3
 
 ## JUnit Control-M job using the automation api
-How to build JUnit which use REST automation-api call to run and monitor jobs
+How to verify control-m workflows runs using JUnit
+
 
 **ENDPOINT** - Control-M endpoint   
 **USER** - Control-M user account for automation  
@@ -16,6 +17,20 @@ How to build JUnit which use REST automation-api call to run and monitor jobs
 		// check if specific job ended (within 15seconds) successfully
 		boolean isEnded = rs.waitForJobToEnd("end2016eu",15*1000).isJobStatus("end2016eu",JobStatus.ENDED_OK);
 		Assert.assertTrue(isEnded);
+		.
+		.
+		.
+		// check every 2 seconds if job SecondJobOk is waiting for user confirmation (timeout 15 seconds)
+		int timeout = 15*1000;
+		long startTime=System.currentTimeMillis();
+		while(!rs.isJobStatus("SecondJobOk", JobStatus.WAIT_USER)){
+			Thread.sleep(2000);
+			if (System.currentTimeMillis()-startTime > timeout){
+				logger.error("SecondJobOk didn't get to user confirmation status for {}sec", timeout);
+				throw new TimeoutException("SecondJobOk didn't get to user confirmation status within " + timeout );
+			}
+		}
+		
 ```
 
 ##### Executing this example
@@ -30,16 +45,38 @@ mvn package
    
 
 ##### Generate REST client
-To Generate the REST client classes use the [Swagger generator](http://editor.swagger.io/#/), for java:
-1. Copy the YAML file content (locate in ENDPOINT/yaml) into the [Swagger editor](http://editor.swagger.io/#/)
-2. Generate the client (a zip file).
-3. Extract the zip file to a temp folder
-<p align="center">
-  <img src="./SwaggerGeneratedClient.PNG" width="350"/>
-</p> 
-4. Build the project using maven (mvn install), it will add the jar to your local maven repository
+The tests using a client classes that been generated from the yaml api description
+ 
+######Download the swagger generator 
+```bash
+wget http://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.2.1/swagger-codegen-cli-2.2.1.jar -O swagger-codegen-cli.jar
+```
+######Generate the client 
+```bash
+java -jar swagger-codegen-cli.jar generate -i <END_POINT>/yaml -l java -o client/
+```
+* \<END_POINT> automation api server (as shown in "ctm environment show")
+* -i yaml location 
+* -l generated client programming language
+* -o output location
+
+if you have problem getting to the yaml (for example: uncertified SSL connection) consider copy the yaml to your current location
+
+(for more information see [swagger-code project](https://github.com/swagger-api/swagger-codegen))
 
 
+######Build the client jar
+Building the project using maven will add the jar to your local maven repository
+```bash
+cd client
+mvn install
+```
+
+#####Execute the sample test
+```bash
+cd <root project>
+mvn test
+```
 
 See the [Automation API - Services](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Services) documentation for more information.  
 See the [Automation API - Code Reference](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Code+Reference) documentation for more information.

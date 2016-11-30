@@ -15,7 +15,22 @@ import io.swagger.client.model.JobRunStatus;
 import io.swagger.client.model.JobStatusResult;
 import io.swagger.client.model.RunResult;
 /**
- * Example for a service class that run, wait and check the jobs status of Control-M jobs using Automation API REST calls.
+ * A service class that manage the RUN operations (cli: ctm run) such as:
+ * this.runJobs (json file) - order jobs
+ * this.waitForJobsToEnd (timeout) - wait for all the jobs in the current run to end
+ * this.waitForJobToEnd (specific job, timeout) - wait for specific job to end
+ * this.isJobStatus(specific job, status[]) - is job in certain status(es)
+ * this.confirm (specific job) - a wrapper for one of the many run operations  
+ *   
+ * Usage example:  
+ *		Order file 3JobsFlow.json and wait for 15 seconds for a specific job (name "FirstJobOk") to ended successfully.
+ *		Assert the result.
+ *		
+ *		boolean endedOk = rs.runJobs(new File("3JobsFlow.json")).waitForJobToEnd("FirstJobOk", 15*1000).isJobStatus("FirstJobOk", JobStatus.ENDED_OK);
+ *		Assert.assertTrue("job 3JobsFlow didn't end successfully as expected", endedOk);
+
+ * 		(note that you can still get exceptions)
+ * 
  * @author ybergman
  *
  */
