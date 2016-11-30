@@ -23,12 +23,10 @@ public class TestAuthomationApiJUnitExamples {
 	private static final Logger logger = LoggerFactory.getLogger(TestAuthomationApiJUnitExamples.class.getName());
 	
 	// TODO: change those parameter before build to hold your own configuration !!
-
 	private final static String AUTOMATION_API_ENDPOINT = "<end point url>";
 	private final static String USER = "<user>";
 	private final static String PASS = "<password>";
-	
-	
+
 	
 	Connection  conn;
 	File		endedOkJob;
@@ -147,7 +145,33 @@ public class TestAuthomationApiJUnitExamples {
 		logger.info("end test testJobFlow");
 	}
 	
-
+	/**
+	 * wait for job to be in confirm status and confirm it
+	 * 
+	 * @throws ApiException
+	 * @throws InterruptedException 
+	 */
+	@Test
+	public void testWaitForConfirmation() throws ApiException, TimeoutException, InterruptedException{
+		logger.info("start test testWaitForConfirmation");
+		rs.runJobs(new File("./src/test/resources/3JobsFlow.json"));
+		int timeout = 15*1000;
+		long startTime=System.currentTimeMillis();
+		
+		while(!rs.isJobStatus("SecondJobOk", JobStatus.WAIT_USER)){
+			Thread.sleep(2000);
+			if (System.currentTimeMillis()-startTime > timeout){
+				logger.error("SecondJobOk didn't get to user confirmation status for {}", timeout/1000);
+				throw new TimeoutException("SecondJobOk didn't get to user confirmation status for " + timeout/1000 );
+			}
+		}
+		logger.debug("SecondJobOk is waiting for user confirmation");
+		rs.confirm("SecondJobOk");
+		boolean isEndedOk = rs.waitForJobToEnd("SecondJobOk", timeout).isJobStatus("SecondJobOk", JobStatus.ENDED_OK);
+		Assert.assertTrue("job SecondJobOk didn't end ok", isEndedOk);
+		logger.info("end test testWaitForConfirmation");
+	}
+	
 	private File getJsonDefinitionFile(String file) throws URISyntaxException{
 		URL fileUrl = TestAuthomationApiJUnitExamples.class.getResource(file);
 		return new File(fileUrl.toURI());

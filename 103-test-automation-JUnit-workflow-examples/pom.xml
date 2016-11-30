@@ -1,16 +1,30 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>bmc.control-m.services</groupId>
-    <artifactId>control-m.services.root</artifactId>
-    <version>9.0.3</version>
-  </parent>
-  <artifactId>control-m.services.assertions</artifactId>
+  <groupId>bmc.control-m..examples</groupId>
+  <artifactId>control-m.examples.testAutomationJunitExample</artifactId>
   <packaging>jar</packaging>
-  <name>Control-M Services Assertions</name>
+  <name>Control-M testAutomationJunitExample</name>
+  <version>9.0.3</version>
+  
+  <build>
+	<pluginManagement>
+      <plugins>
+        <!-- http://stackoverflow.com/a/3209239/46635 -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.5</version>
+          <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
   <dependencies>
-  	<!-- swagger generate client -->
+  	<!-- swagger generate client, see README.MD -->
     <dependency>
       <groupId>io.swagger</groupId>
       <artifactId>swagger-java-client</artifactId>
@@ -27,5 +41,13 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.6.3</version>
     </dependency>
+    <!-- Testing framework -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
   </dependencies>
 </project>
