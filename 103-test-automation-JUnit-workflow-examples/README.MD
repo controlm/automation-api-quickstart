@@ -4,12 +4,23 @@ DISCLAIMER: This code was tested with version 9.0.3
 How to verify control-m workflows runs using JUnit
 
 
-**ENDPOINT** - Control-M endpoint   
+**AUTOMATION_API_ENDPOINT** - Control-M endpoint   
 **USER** - Control-M user account for automation  
 **PASSWORD** - Control-M account password for automation  
 
 ```java
 
+	@Before
+	public void connect() throws URISyntaxException, MalformedURLException, ApiException{
+		Assert.assertFalse("you must update USER, PASS and AUTOMATION_API_ENDPOINT in this class", "<user>".equals(USER) );
+
+		conn = new Connection(AUTOMATION_API_ENDPOINT);
+		// NOTE: Do NOT set to false in production code.
+		conn.getApiClient().setVerifyingSsl(false);
+		conn.login(USER, PASS);
+		rs = new RunService(conn);
+	}
+	
 	@Test
 	public void testIsJobFlowSuccedded() throws ApiException, TimeoutException{
 		logger.info("testIsJobFlowSuccedded");
