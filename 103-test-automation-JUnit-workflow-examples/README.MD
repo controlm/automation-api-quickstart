@@ -46,7 +46,7 @@ mvn test
 
 ##### Generate REST client
 The tests uses a java client classes generated from the Automation Api [swagger.io](http://swagger.io) yaml specification
-The url to the yaml sepecificion is <AUTOMATION_API_ENDPOINT>/yaml
+The url to the yaml sepecificion is \<AUTOMATION_API_ENDPOINT\>/yaml
 ```bash
 wget <AUTOMATION_API_ENDPOINT>/yaml
 ```
