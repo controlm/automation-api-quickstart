@@ -75,7 +75,7 @@ mvn install
 
 #####Execute the sample test
 ```bash
-cd <root project>
+cd automation-api-quickstart/103-test-automation-JUnit-workflow-examples
 mvn test
 ```
 
