@@ -34,36 +34,35 @@ How to verify control-m workflows runs using JUnit
 ```
 
 ##### Executing this example
-1.  Generate a REST client (see next section)
+1.  Generate java REST client for automation-api (see next section)
 2.  Change the USER, PASS and AUTOMATION_API_ENDPOINT in the code to use your connection parameters
-3.  Change the example jobs (.json) in /resource to use your Control-M Server and agent (usually the same of the hostname where Control-M is installed)
+3.  Change the example jobs (.json) in /resource to match your environment Control-M Server and Agent's host (usually the same of the hostname where Control-M is installed)
 2.  Use maven to build this project
 Build project using maven from the home directory (where pom.xml reside)
 ```bash
-mvn package 
+mvn test 
 ```
    
 
 ##### Generate REST client
-The tests using a client classes that been generated from the yaml api description
- 
-######Download the swagger generator 
+The tests uses a java client classes generated from the Automation Api [swagger.io](http://swagger.io) yaml specification
+```bash
+wget <AUTOMATION_API_ENDPOINT>/yaml
+
+######Download the swagger code generator 
+For more information see [Swagger Code Generator](https://github.com/swagger-api/swagger-codegen)
 ```bash
 wget http://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.2.1/swagger-codegen-cli-2.2.1.jar -O swagger-codegen-cli.jar
 ```
-######Generate the client 
+######Generate the client
 ```bash
-java -jar swagger-codegen-cli.jar generate -i <END_POINT>/yaml -l java -o client/
+java -jar swagger-codegen-cli.jar generate -i <AUTOMATION_API_ENDPOINT>/yaml -l java -o client/
 ```
-* \<END_POINT> automation api server (as shown in "ctm environment show")
 * -i yaml location 
 * -l generated client programming language
 * -o output location
 
 if you have problem getting to the yaml (for example: uncertified SSL connection) consider copy the yaml to your current location
-
-(for more information see [swagger-code project](https://github.com/swagger-api/swagger-codegen))
-
 
 ######Build the client jar
 Building the project using maven will add the jar to your local maven repository
