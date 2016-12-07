@@ -48,6 +48,7 @@ mvn test
 The tests uses a java client classes generated from the Automation Api [swagger.io](http://swagger.io) yaml specification
 ```bash
 wget <AUTOMATION_API_ENDPOINT>/yaml
+```
 
 ######Download the swagger code generator 
 For more information see [Swagger Code Generator](https://github.com/swagger-api/swagger-codegen)
