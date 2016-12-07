@@ -9,27 +9,16 @@ How to verify control-m workflows runs using JUnit
 **PASSWORD** - Control-M account password for automation  
 
 ```java
-        // create connection to automation-api server
-		conn = new Connection(ENDPOINT);
-		conn.login(USER, PASS);
-		// run the job file definition
-		rs = new RunService(conn).runJobs("/home/reports/startProduceEnd2016reports.json");
-		// check if specific job ended (within 15seconds) successfully
-		boolean isEnded = rs.waitForJobToEnd("end2016eu",15*1000).isJobStatus("end2016eu",JobStatus.ENDED_OK);
+
+	@Test
+	public void testIsJobFlowSuccedded() throws ApiException, TimeoutException{
+		logger.info("testIsJobFlowSuccedded");
+		rs.runJobs("jobflow.json" );
+		boolean isEnded = rs.waitForJobToEnd("job1",15*1000).isJobEndedOK("job1");
 		Assert.assertTrue(isEnded);
-		.
-		.
-		.
-		// check every 2 seconds if job SecondJobOk is waiting for user confirmation (timeout 15 seconds)
-		int timeout = 15*1000;
-		long startTime=System.currentTimeMillis();
-		while(!rs.isJobStatus("SecondJobOk", JobStatus.WAIT_USER)){
-			Thread.sleep(2000);
-			if (System.currentTimeMillis()-startTime > timeout){
-				logger.error("SecondJobOk didn't get to user confirmation status for {}sec", timeout);
-				throw new TimeoutException("SecondJobOk didn't get to user confirmation status within " + timeout );
-			}
-		}
+		logger.info("end test testIsJobEndedUsingJobName");
+	}	
+
 		
 ```
 
