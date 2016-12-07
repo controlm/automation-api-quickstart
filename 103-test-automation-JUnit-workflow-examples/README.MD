@@ -25,7 +25,7 @@ How to verify control-m workflows runs using JUnit
 	public void testIsJobFlowSuccedded() throws ApiException, TimeoutException{
 		logger.info("testIsJobFlowSuccedded");
 		rs.runJobs("jobflow.json" );
-		boolean isEnded = rs.waitForJobToEnd("job1",15*1000).isJobEndedOK("job1");
+		boolean isEnded = rs.waitForJobToEnd("job1",15*1000).isJobStatus("Job1", JobStatus.ENDED_OK);
 		Assert.assertTrue(isEnded);
 		logger.info("end test testIsJobEndedUsingJobName");
 	}	
