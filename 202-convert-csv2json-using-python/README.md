@@ -2,7 +2,7 @@
 A python script for converting Control-M jobs defined in a csv file into Automation-Api json definition file.
 
 
-#### - Getting Started
+### - Getting Started
 * Install
     - download and install python 2.7, https://www.python.org/downloads/
     - install python dictobj:
@@ -20,9 +20,9 @@ A python script for converting Control-M jobs defined in a csv file into Automat
     python aapi_csv2json.py input_sample.csv > jobs.json && ctm deploy jobs.json
     ```
 
-#### Modifying the script
+### - Modifying the script
 There are cases where you will want to modify the script in order to achieve flexibility lty with your csv format or support new json properties.
-##### 1. Adding new property to an object.
+#### 1. Adding new property to an object.
 For example let's say you want to add a new column to your csv file called "Job Prio" reflected in the json as `Priority` property under Job.
 * In the code create a new key identifier variable assigned with `Job Prio` under `#job keys` section.
     ```
@@ -56,7 +56,7 @@ For example let's say you want to add a new column to your csv file called "Job 
     event_fields.Events = raw_job_months.split(";")
     ...
     ```
-##### 2. changing column name
+#### 2. changing column name
 * The key identifier variable should be renamed
 from:
     ```
@@ -68,7 +68,7 @@ from:
     priority_key = "JobPriority"
     ```
 
-##### 3. Deleting a field
+#### 3. Deleting a field
 * The key identifier variable should be deleted
 ```
 priority_key = "job prio"
