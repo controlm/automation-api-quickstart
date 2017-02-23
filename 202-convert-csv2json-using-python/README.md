@@ -23,7 +23,8 @@ Python script example on how to convert from a csv file to Control-M Automation-
 ### - Getting more out of it
 There are cases where you will want to modify the script in order to achieve flexibility with your csv format or support new json properties.
 #### 1. Example of adding Job Priority field to csv
-Assumption: "Job Prio" is the column header
+Assumption: "Job Prio" is the column header.
+
 a. In the code create a new column key identifier variable assigned with `Job Prio` under `#job keys` section.
 ```python
 # job keys
@@ -47,6 +48,7 @@ if csv_row[sub_application_key]: job_fields.SubApplication = csv_row[sub_applica
 ```
 #### 2. Example of adding Months to When Object (Months is array type)
 Assumption: your month value in the csv will look like this: `JAN;OCT;DEC`
+
 a. Follow step 1a. and create your column key identifier for months.
 b. Under `create_when_object` method read the value and split it into python array by your chosen character.
 ```python
