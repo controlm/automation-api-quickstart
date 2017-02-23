@@ -1,5 +1,5 @@
-# convert csv to json using python
-A python script for converting Control-M jobs defined in a csv file into Automation-Api json definition file.
+# Convert csv to json using python
+Python script example on how to convert from a csv file to Control-M Automation-Api json definition file.
 
 
 ### - Getting Started
@@ -20,11 +20,11 @@ A python script for converting Control-M jobs defined in a csv file into Automat
     python aapi_csv2json.py input_sample.csv > jobs.json && ctm deploy jobs.json
     ```
 
-### - Modifying the script
-There are cases where you will want to modify the script in order to achieve flexibility lty with your csv format or support new json properties.
-#### 1. Adding new property to an object.
-For example let's say you want to add a new column to your csv file called "Job Prio" reflected in the json as `Priority` property under Job.
-* In the code create a new key identifier variable assigned with `Job Prio` under `#job keys` section.
+### - Getting more out of it
+There are cases where you will want to modify the script in order to achieve flexibility with your csv format or support new json properties.
+#### 1. Example of adding Job Priority field to csv
+Assumption: "Job Prio" is the column header
+a. In the code create a new column key identifier variable assigned with `Job Prio` under `#job keys` section.
 ```python
 # job keys
 priority_key = "job prio"  # the new key identifier
@@ -36,7 +36,7 @@ run_as_key = "Run As"
 application_key = "Application"
 sub_application_key = "Sub Application"
 ```
-* Inside the method `create_job_obj` create and assign to a new field called `job_fileds.Priority' the value from the csv_row object which represent the row from the csv file by using the priority key we defined previous step.
+b. Inside the method `create_job_obj` create and assign to a new field called `job_fileds.Priority' the value from the csv_row object which represent the row from the csv file by using the priority key we defined previous step.
 ```python
 # optional fields
 if csv_row[Priority]: job_fields.Description = csv_row[priority_key]  # the new field
@@ -45,7 +45,10 @@ if csv_row[host_key]: job_fields.Host = csv_row[host_key]
 if csv_row[application_key]: job_fields.Application =     csv_row[application_key]
 if csv_row[sub_application_key]: job_fields.SubApplication = csv_row[sub_application_key]
 ```
-* (optinal) Incase your csv contains array of values like for example Months of When object. You will have to split the array by your custom character and assign it as python array. in this example the seperator char is ";"
+#### 2. Example of adding Months to When Object (Months is array type)
+Assumption: your month value in the csv will look like this: `JAN;OCT;DEC`
+a. Follow step 1a. and create your column key identifier for months.
+b. Under `create_when_object` method read the value and split it into python array by your chosen character.
 ```python
 def create_when_object(csv_row):
 ...
@@ -56,25 +59,5 @@ raw_job_months = csv_row[months_key] # get months value from csv (for example:JA
 event_fields.Events = raw_job_months.split(";")
 ...
 ```
-#### 2. changing column name
-* The key identifier variable should be renamed
-from:
-    ```
-    priority_key = "job prio"
-    ```
-    To:
-
-    ```
-    priority_key = "JobPriority"
-    ```
-
-#### 3. Deleting a field
-* The key identifier variable should be deleted
-```
-priority_key = "job prio"
-```
-* New field Assignment should be deleted
-```
-if csv_row[Priority]: job_fields.Description = csv_row[priority_key]  # the new field
-```
-
+#### 2. Manipulate other json objects
+Just follow the methods in the script for example `create_folder_obj` will help you to add more fields to a folder such as `Application`
