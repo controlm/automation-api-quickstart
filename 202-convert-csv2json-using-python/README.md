@@ -49,8 +49,9 @@ if csv_row[sub_application_key]: job_fields.SubApplication = csv_row[sub_applica
 #### 2. Example of adding Months to When Object (Months is array type)
 Assumption: your month value in the csv will look like this: `JAN;OCT;DEC`
 
-a. Follow step 1a. and create your column key identifier for months.
-b. Under `create_when_object` method read the value and split it into python array by your chosen character.
+##### a. Follow step 1a. and create your column key identifier for months.
+
+##### b. Under `create_when_object` method read the value and split it into python array by your chosen character.
 ```python
 def create_when_object(csv_row):
 ...
