@@ -25,7 +25,7 @@ There are cases where you will want to modify the script in order to achieve fle
 #### 1. Example of adding Job Priority field to csv
 Assumption: "Job Prio" is the column header.
 
-a. In the code create a new column key identifier variable assigned with `Job Prio` under `#job keys` section.
+##### a. In the code create a new column key identifier variable assigned with `Job Prio` under `#job keys` section.
 ```python
 # job keys
 priority_key = "job prio"  # the new key identifier
@@ -37,7 +37,7 @@ run_as_key = "Run As"
 application_key = "Application"
 sub_application_key = "Sub Application"
 ```
-b. Inside the method `create_job_obj` create and assign to a new field called `job_fileds.Priority' the value from the csv_row object which represent the row from the csv file by using the priority key we defined previous step.
+##### b. Inside the method `create_job_obj` create and assign to a new field called `job_fileds.Priority' the value from the csv_row object which represent the row from the csv file by using the priority key we defined previous step.
 ```python
 # optional fields
 if csv_row[Priority]: job_fields.Description = csv_row[priority_key]  # the new field
