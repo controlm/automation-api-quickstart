@@ -5,7 +5,7 @@ A python script for converting Control-M jobs defined in a csv file into Automat
 #### - Getting Started
 * Install
     - download and install python 2.7, https://www.python.org/downloads/
-    - install python dictobj:
+    - install python 'dictobj':
         ```
         pip install dictobj
         ```
