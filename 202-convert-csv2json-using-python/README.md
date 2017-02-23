@@ -3,19 +3,19 @@ A python script for converting Control-M jobs defined in a csv file into Automat
 
 
 ### - Getting Started
-* Install
+#### * Install
     - download and install python 2.7, https://www.python.org/downloads/
     - install python dictobj:
         ```
         pip install dictobj
         ```
 
-* Convert
+#### * Convert
     ```
     python aapi_csv2json.py input_sample.csv
     ```
 
-* Convert and deploy to Control-M
+#### * Convert and deploy to Control-M
     ```
     python aapi_csv2json.py input_sample.csv > jobs.json && ctm deploy jobs.json
     ```
@@ -37,14 +37,14 @@ For example let's say you want to add a new column to your csv file called "Job 
     sub_application_key = "Sub Application"
     ```
 * Inside the method `create_job_obj` create and assign to a new field called `job_fileds.Priority' the value from the csv_row object which represent the row from the csv file by using the priority key we defined previous step.
-    ```
-    # optional fields
-    if csv_row[Priority]: job_fields.Description = csv_row[priority_key]  # the new field
-    if csv_row[description_key]: job_fields.Description = csv_row[description_key]
-    if csv_row[host_key]: job_fields.Host = csv_row[host_key]
-    if csv_row[application_key]: job_fields.Application =     csv_row[application_key]
-    if csv_row[sub_application_key]: job_fields.SubApplication = csv_row[sub_application_key]
-    ```
+```python
+# optional fields
+if csv_row[Priority]: job_fields.Description = csv_row[priority_key]  # the new field
+if csv_row[description_key]: job_fields.Description = csv_row[description_key]
+if csv_row[host_key]: job_fields.Host = csv_row[host_key]
+if csv_row[application_key]: job_fields.Application =     csv_row[application_key]
+if csv_row[sub_application_key]: job_fields.SubApplication = csv_row[sub_application_key]
+```
 * (optinal) Incase your csv contains array of values like for example Months of When object. You will have to split the array by your custom character and assign it as python array. in this example the seperator char is ";"
     ```
     def create_when_object(csv_row):
