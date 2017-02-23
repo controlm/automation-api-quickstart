@@ -5,7 +5,7 @@ A python script for converting Control-M jobs defined in a csv file into Automat
 #### - Getting Started
 * Install
     - download and install python 2.7, https://www.python.org/downloads/
-    - install python `dictobj`:
+    - install python dictobj:
         ```
         pip install dictobj
         ```
@@ -24,7 +24,7 @@ A python script for converting Control-M jobs defined in a csv file into Automat
 There are cases where you will want to modify the script in order to achieve flexibility lty with your csv format or support new json properties.
 ##### 1. Adding new property to an object.
 For example let's say you want to add a new column to your csv file called "Job Prio" reflected in the json as `Priority` property under Job.
-* In the code create a new key identifier variable assigned with "Job Prio" under #job keys         section
+* In the code create a new key identifier variable assigned with `Job Prio` under `#job keys` section.
     ```
     # job keys
     priority_key = "job prio"  # the new key identifier
@@ -46,7 +46,6 @@ For example let's say you want to add a new column to your csv file called "Job 
     if csv_row[sub_application_key]: job_fields.SubApplication = csv_row[sub_application_key]
     ```
 * (optinal) Incase your csv contains array of values like for example Months of When object. You will have to split the array by your custom character and assign it as python array. in this example the seperator char is ";"
-
     ```
     def create_when_object(csv_row):
     ...
@@ -71,7 +70,7 @@ from:
 
 ##### 3. Deleting a field
 * The key identifier variable should be deleted
-``` 
+```
 priority_key = "job prio"
 ```
 * New field Assignment should be deleted
