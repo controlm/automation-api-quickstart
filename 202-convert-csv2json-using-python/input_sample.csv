@@ -1,0 +1,6 @@
+Job Name,Parent Folder,Ctm Server,Description,Command,Host Group,Run As,Application,Sub Application,Start Time,End Time,Depends On,Wait For Event
+x1,csvFolder,LocalControlM,do something,echo 1235 up,ip-172-31-39-125.us-west-2.compute.internal,controlm,default,subdefault,2000,1600,x4;x2;x3,cond1;cond2
+x2,csvFolder,LocalControlM,do something,echo 1235,ip-172-31-39-125.us-west-2.compute.internal,controlm,default,subdefault,2100,1800,
+x3,csvFolder,LocalControlM,do something,echo 1235,ip-172-31-39-125.us-west-2.compute.internal,controlm,default,subdefault,2100,1800,,cond3
+x4,csvFolder,LocalControlM,do something,echo 1235,ip-172-31-39-125.us-west-2.compute.internal,controlm,default,subdefault,2100,1800,
+x5,csvFolder,LocalControlM,do something,echo 1235,ip-172-31-39-125.us-west-2.compute.internal,controlm,default,subdefault,2100,1800,x1;x2
