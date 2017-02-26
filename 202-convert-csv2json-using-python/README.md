@@ -40,7 +40,7 @@ sub_application_key = "Sub Application"
 ##### b. Inside the method `create_job_obj` create and assign to a new field called `job_fileds.Priority' the value from the csv_row object which represent the row from the csv file by using the priority key we defined previous step.
 ```python
 # optional fields
-if csv_row[Priority]: job_fields.Description = csv_row[priority_key]  # the new field
+if csv_row[Priority]: job_fields.Description = csv_row[Priority]  # the new field
 if csv_row[description_key]: job_fields.Description = csv_row[description_key]
 if csv_row[host_key]: job_fields.Host = csv_row[host_key]
 if csv_row[application_key]: job_fields.Application =     csv_row[application_key]
