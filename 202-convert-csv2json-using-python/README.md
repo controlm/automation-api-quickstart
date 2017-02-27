@@ -1,5 +1,5 @@
 # Convert CSV to JSON using Python
-Python script example on how to convert from a CSV file to Control-M Automation-Api JSON definition file.
+Python script example on how to convert from a CSV file to Control-M Automation Api JSON definition file.
 
 
 ### - Getting Started
@@ -7,8 +7,8 @@ Python script example on how to convert from a CSV file to Control-M Automation-
     - download and install Python 2.7, https://www.python.org/downloads/
     - install Python dictobj: 
         ```
-        pip install dictobj  (from the python/scripts directory)
-        ```
+        pip install dictobj ```  (from the python/scripts directory)
+        
 
 * Convert
     ```
