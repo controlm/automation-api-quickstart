@@ -65,5 +65,5 @@ raw_job_months = csv_row[months_key] # get months value from CSV (for example:JA
 event_fields.Events = raw_job_months.split(";")
 ...
 ```
-#### 2. Manipulate other JSON objects
+#### 3. Manipulate other JSON objects
 Just follow the methods in the script for example `create_folder_obj` will help you to add more fields to a folder such as `Application`
