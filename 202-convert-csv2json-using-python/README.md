@@ -6,8 +6,7 @@ Python script example on how to convert from a CSV file to Control-M Automation 
 * Install
     - download and install Python 2.7, https://www.python.org/downloads/
     - install Python dictobj: 
-        ```
-        pip install dictobj ```  (from the python/scripts directory)
+        ```pip install dictobj```  (from the python/scripts directory)
         
 
 * Convert
