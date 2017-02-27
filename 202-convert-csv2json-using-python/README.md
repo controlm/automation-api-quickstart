@@ -13,6 +13,10 @@ Python script example on how to convert from a CSV file to Control-M Automation 
     ```
     Python aapi_csv2json.py input.csv
     ```
+* Convert to output.json file
+    ```
+    Python aapi_csv2json.py input.csv > output.json
+    ```
 
 * Convert and deploy to Control-M
     ```
