@@ -1,5 +1,5 @@
 # Convert CSV to JSON using Python
-Python script example on how to convert from a CSV file to Control-M Automation Api JSON definition file.
+Python script example on how to convert from a CSV file to Control-M Automation API JSON definition file.
 
 
 ### - Getting Started
@@ -8,11 +8,6 @@ Python script example on how to convert from a CSV file to Control-M Automation 
     - install Python dictobj: 
         ```pip install dictobj```  (from the python/scripts directory)
         
-
-* Convert
-    ```
-    Python aapi_csv2json.py input.csv
-    ```
 * Convert to output.json file
     ```
     Python aapi_csv2json.py input.csv > output.json
@@ -40,7 +35,7 @@ run_as_key = "Run As"
 application_key = "Application"
 sub_application_key = "Sub Application"
 ```
-##### b. Inside the method `create_job_obj` create and assign to a new field called `job_fileds.Priority' the value from the csv_row object, which represent the row from the CSV file by using the priority key we defined previous step.
+##### b. Inside the method `create_job_obj` create and assign to a new field called `job_fileds.Priority' the value from the csv_row object, which represent the row from the CSV file by using the `priority_key` we defined previous step.
 ```python
 # optional fields
 if csv_row[priority_key]: job_fields.Priority = csv_row[priority_key]  # the new field
