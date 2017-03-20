@@ -4,6 +4,11 @@
 #
 #------------------------------------------------------------------------------------
 
+#------------------------------------------------------------------------------------
+#  To accept self-signed certificates uncomment next line
+#
+#[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
+
 #----------------------------------------------------------------
 #Login request
 $endPoint   = "https://<controlmEndPoint>:8443/automation-api"
@@ -27,8 +32,10 @@ try
 }
 catch
 {
+	$_.Exception.Message
 	$error[0].ErrorDetails	
 	$error[0].Exception.Response.StatusCode
+	exit
 }
 
 $token= $login_res.token
