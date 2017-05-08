@@ -160,7 +160,12 @@ def create_event_object(csv_row):
     if not raw_job_events:
         return
 
-    event_fields.Events = raw_job_events.split(";")
+    event_fields.Events = []
+    for event in raw_job_events.split(";"):
+        eventJson = ObjDict()
+        eventJson.Event = event
+        event_fields.Events.append(eventJson)
+
 
     # create events json object
     job_name = csv_row[job_name_key]
@@ -202,5 +207,3 @@ def read_csv(file):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-
-
