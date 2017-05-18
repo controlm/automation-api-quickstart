@@ -1,110 +1,232 @@
 <html>
 <body>
 <p>
-    Rev. 05-17-2016
+    Rev. 03-16-2017
 </p>
 <p>
-    <strong>CONTROL-M DEVELOPERS KIT TERMS OF USE ("TERMS")</strong>
+<strong>CONTROL-M DEVELOPERS KIT LICENSE AGREEMENT</strong>
 </p>
 <p>
-    <strong>
-        PLEASE READ THESE TERMS. THEY WILL BECOME A LEGAL AGREEMENT BETWEEN YOU AND YOUR EMPLOYER ("YOU") ON ONE SIDE, AND BMC SOFTWARE DISTRIBUTION B.V.
-        ("BMC") ON THE OTHER SIDE. YOUR USE OF ANY MATERIALS (AS DEFINED BELOW) MEANS YOU ACCEPT ALL THE TERMS.
-    </strong>
+BY OPENING THE PACKAGE, INSTALLING, CLICKING “AGREE”
+OR “YES”, DOWNLOADING, OR USING THE CONTROL-M AUTOMATION DEVELOPERS KIT AND/OR
+THE MATERIALS WITHIN THE KIT, THE ENTITY OR INDIVIDUAL ENTERING INTO THIS
+AGREEMENT AGREES TO BE BOUND BY THE FOLLOWING TERMS AND THE TERMS OF ANY
+THIRD-PARTY FILES OR PROGRAMS EMBEDDED IN THE CONTROL-M AUTOMATION DEVELOPERS
+KIT (SUCH THIRD-PARTY TERMS ARE FOUND IN THE APPLICABLE INSTALLATION
+INSTRUCTIONS, RELEASE NOTES, TEXT FILE, OR DISTRIBUTION FILE). IF YOU DO NOT
+AGREE WITH ANY OF THESE TERMS, DO NOT INSTALL OR USE THE CONTROL-M AUTOMATION
+DEVELOPERS KIT. IF YOU REJECT THIS AGREEMENT, YOU WILL NOT ACQUIRE ANY LICENSE
+TO USE THE CONTROL-M AUTOMATION DEVELOPERS KIT.
 </p>
 <p>
-    <strong>SCOPE OF AGREEMENT</strong>
-    . These Terms govern Your use of the Control-M Automation API Developers Kit ("Kit") and the materials within the Kit ("Materials").
+This Control-M Developers Kit License Agreement
+(“<b><u>Agreement</u></b>”) is an agreement between the entity or individual
+entering into this Agreement (“<b><u>Licensee</u></b>”) and BMC Software, Inc.,
+a Delaware corporation (“<b><u>BMC</u></b>”), located at 2103 CityWest Blvd.,
+Houston, Texas 77042.  In addition to the restrictions imposed under this
+Agreement, any other usage restrictions contained in the Control-M Automation
+Developers Kit’s installation instructions and release notes shall apply to Licensee’s
+use of the Control-M Automation Developers Kit and all materials contained
+therein.
 </p>
 <p>
-    1.<strong> RESERVATION OF RIGHT</strong>. BMC reserves the right to change, delete, or substitute the Kit or any Materials in the Kit at any time and at
-    BMC's sole discretion.
+1. <b><u>SCOPE OF AGREEMENT</u>.</b>  This
+Agreement governs Licensee’s use of the Control-M Automation Developers Kit and
+the materials it contains (collectively, the “<b><u>BMC Kit</u></b>”).
 </p>
 <p>
-    2. <strong>LICENSE GRANT</strong>. Subject to these Terms, BMC grants You a non-exclusive, non-transferable, non-sublicensable, revocable (per Section 5 of
-    these Terms), and royalty-free right under trade secrets rights and copyrights to use the Materials for the following purposes: (a) to exercise the
-    definition of workflows in JSON code format; (b) to run workflows in work bench mode; and (c) to use the APIs to define and activate work flows made in
-    JSON code format with the version of the Control-M software for which You are licensed ("Control-M Product").
+2.  <b><u>LICENSE</u>.  </b>Subject to this
+Agreement, BMC grants Licensee a non-exclusive, non-transferable,
+non-sublicensable, revocable (per Section 3 of this Agreement), and
+royalty-free right under trade secrets rights and copyrights to use the BMC Kit
+for the following purposes: (a) to exercise the definition of workflows in Control-M
+code format; (b) to run workflows in work bench mode; and (c) to use the APIs
+to define and activate work flows made in Control-M code format with the
+version of the Control-M software for which Licensee is licensed (“<b><u>Control-M
+Product</u></b>”). The use of the BMC Kit as described in Section 2(c) above is
+contingent on Licensee having a valid license to the Control-M Product. 
 </p>
 <p>
-    3. <strong>COPYRIGHT</strong>. The Kit and Materials are the copyrighted property of BMC Software Israel, Ltd.
+<b>3.  <u>TERMINATION</u></b>.  This Agreement
+terminates automatically if Licensee breaches any of its terms. Use of the BMC
+Kit as described under Sections 2(a) and 2(b) above in a non-development
+environment or use of the BMC Kit as described in Section 2(c) above without
+having a valid license to the Control-M Product will be considered a breach of this
+Agreement.  Either party may terminate this Agreement without cause. Upon termination,
+Licensee must cease use of the BMC Kit and the BMC Kit must be promptly
+destroyed and removed from any computer system.
 </p>
 <p>
-    4.<strong> USE OF MATERIALS</strong>. The use of the Materials described in Section 2(c) of these Terms is contingent on You having a valid license to the
-    Control-M Product. Upon using the Materials You are bound by these Terms, and You may use the Materials only as granted above.
-    <strong>
-        BMC supports the Materials in the same manner as the Control-M Product is supported, however, no modifications or changes to the Materials You make are
-        supported.
-    </strong>
+<b>4.  <u>OWNERSHIP</u>.  </b>BMC, or its affiliates
+or licensors, retains all right, title, and interest in the BMC Kit and copies thereof,
+and any intellectual property, informational, industrial property, and
+proprietary rights therein. The BMC Kit is protected by applicable copyright
+and trade secret rights and may be protected by patent and other intellectual
+and industrial property laws. BMC neither grants to Licensee any license to any
+BMC patents nor transfers any rights of ownership in the BMC Kit to Licensee.
 </p>
 <p>
-    5. <strong> TERMINATION. </strong>Use of the Materials as described under Sections 2(a) and 2(b) of these Terms in a non-development environment or use of
-    the Materials as described in Section 2(c) of these Terms without having a valid license to the Control-M Product will be considered a breach of these
-    Terms. This Agreement terminates automatically if You breach these Terms, but You may terminate this Agreement without cause. Upon termination, You must
-    cease use of the Kit and all Materials, and the Materials must be promptly destroyed and removed from any computer system.
+<b>5.  <u>CONFIDENTIAL AND PROPRIETARY
+INFORMATION</u>.  </b>The
+BMC Kit contains valuable confidential information and trade secrets of BMC. Licensee
+agrees to use all reasonable efforts to prevent the unauthorized use, copying,
+publication, or dissemination of the BMC Kit.  Licensee may not disclose the
+BMC Kit or any part thereof to any third party; provided, however, Licensee may
+disclose the BMC Kit, or parts thereof, to Licensee’s employees provided that
+such employee (i) is one that needs to receive the disclosure of the BMC Kit in
+order to install, use, support or maintain the BMC Kit, and (ii) has
+obligations of confidentiality with regard to the BMC Kit, which are at least
+as protective of BMC’s confidential information and trade secrets as the
+provisions of this Agreement.
 </p>
 <p>
-    6.
-    <strong>
-        DISCLAIMER. The Kit and Materials provided by BMC "AS IS", with all faults, and any express or implied warranties, including, but not limited to, the
-        implied warranties of merchantability and fitness for a particular purpose are disclaimed. BMC does not warrant that the Materials will be virus or
-        error free or that there are no defects.
-    </strong>
+<b>6.  <u>INDEMNIFICATION</u>.  </b>If a third party asserts
+a Claim (as defined herein) against BMC, Licensee will at its own expense defend
+or settle the Claim and indemnify and hold harmless BMC, its affiliates, and
+licensors, and each of their respective employees, officers, directors, and
+representatives from and against any loss, claim, liability, damage, action or
+cause of action (including reasonable attorneys’ fees) arising out of or
+relating to any third party claim concerning Licensee’s use of the BMC Kit in
+violation of this Agreement (a “<b><u>Claim</u></b>”).  Licensee will not bind BMC
+to a monetary obligation in a settlement or compromise, or make an admission on
+behalf of BMC, without obtaining BMC’s prior consent.  
 </p>
 <p>
-    7.
-    <strong>
-        LIMITATION OF DAMAGES. In no event shall BMC be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including,
-        but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any
-        theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of the Kit or
-        the Materials, even if advised of the possibility of such damage.
-    </strong>
+<b>7.  <u>DISCLAIMER OF WARRANTIES</u>.  </b>THE BMC KIT IS PROVIDED
+“AS IS”, WITH ALL FAULTS. BMC, ITS AFFILIATES, AND LICENSORS SPECIFICALLY
+DISCLAIM ALL WARRANTIES, INCLUDING WITHOUT LIMITATION THE IMPLIED WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND QUIET
+ENJOYMENT. BMC DOES NOT WARRANT THAT THE OPERATION OF THE BMC KIT WILL BE
+UNINTERRUPTED OR VIRUS OR ERROR FREE, THAT THERE ARE NO DEFECTS, OR THAT ANY DEFECT
+IN SUCH CAN BE CORRECTED.</p>
+<p>
+<b>8.  <u>LIMITS ON BMC’S LIABILITY</u>.  </b>NEITHER BMC, ITS
+AFFILIATES OR LICENSORS, WILL BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL,
+PUNITIVE OR CONSEQUENTIAL DAMAGES RELATING TO OR ARISING OUT OF THIS AGREEMENT,
+THE USE OF THE BMC KIT, OR ANY THIRD PARTY CODE OR SOFTWARE PROVIDED WITH THE
+BMC KIT (INCLUDING, WITHOUT LIMITATION, LOST PROFITS, LOST COMPUTER USAGE TIME,
+AND DAMAGE TO, OR LOSS OF USE OF DATA), EVEN IF ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGES, AND IRRESPECTIVE OF ANY NEGLIGENCE OF BMC OR WHETHER SUCH DAMAGES
+RESULT FROM A CLAIM ARISING UNDER TORT OR CONTRACT LAW. BMC’S LIABILITY FOR
+DIRECT DAMAGES UNDER THIS AGREEMENT, INCLUDING FOR INFRINGEMENT CLAIMS, IS
+LIMITED TO THE GREATER OF (I) THE AMOUNT PAID BY LICENSEE FOR THE BMC KIT, IF
+ANY, AND (II) $100.</p>
+<p>
+<b>9.  <u>VERIFICATION</u>.  </span></b>If requested by BMC, Licensee
+will deliver to BMC written certification relating to Licensee’s use of the BMC
+Kit in compliance with the terms of this Agreement. BMC may audit Licensee’s use
+of the BMC Kit to confirm such compliance.
+</p>
+<p><b>10.  <u>EXPORT CONTROLS</u>.  </b>Licensee represents and
+warrants that it: a) will comply with the United States Export Administration
+Regulations and other U.S. or foreign export regulations; b) no individual
+accessing or using the BMC Kit is a citizen of or from an embargoed country
+(currently Iran, Syria, Sudan, Cuba and North Korea); c) is not prohibited from
+receiving the BMC Kit under such regulations; d) will not acquire the BMC Kit for
+a person who is restricted under such regulations; e) will not use the BMC Kit in
+contradiction to such regulations; and f) will not use the BMC Kit for
+prohibited uses, including but not limited to nuclear, chemical, missile or
+biological weapons related end uses.  For BMC Kit exported from Ireland, EC No.
+428/2009 sets up a Community regime for control of exports of dual-use items
+and technology, and it is declared that this BMC Kit is intended for civil
+purposes only. Therefore, Licensee agrees to comply with both the U.S.
+regulations and those E.U. regulations and will not export in violation of the
+regulations and without all proper licenses. Any failure to comply with these
+regulations will result in Licensee forfeiting all rights to the BMC Kit.
 </p>
 <p>
-    8. <strong>EXPORT CONTROLS</strong>. You will cooperate with BMC to ensure compliance with the laws and regulations of the United States and all other
-    relevant countries, relating to exports and re-exports ("Export Laws"). You may not import, export, re-export or transfer, directly or indirectly,
-    including via remote access, any part of the Kit or any of the Materials in violation of any such laws and regulations, or without any written governmental
-    authorization required under applicable Export Laws. Neither the Materials nor the underlying information or technology in the Materials may be downloaded
-    or otherwise provided or made available, either directly or indirectly, i) into Cuba, Iran, North Korea, Syria, and Sudan or any other country subject to
-    U.S. trade sanctions, to individuals or entities controlled by such countries, or to nationals or residents of such countries, other than nationals who are
-    lawfully admitted permanent residents of countries not subject to such sanctions; (ii) to anyone on the U.S. Treasury Department's list of Specially
-    Designated Nationals and blocked persons or the U.S. Commerce Department's Table of Denial Orders; (iii) or will not use the Materials for prohibited uses,
-    including but not limited to nuclear, chemical, missile or biological weapons related end uses.
-    <strong>
-        By using the Materials, You agree to these export control requirements and represent and warrant that You are not located in, under the control of, or
-        are a national or resident of any such country or on any such list and that the Materials will not be used for a prohibited use
-    </strong>
-    .
+<b>11.  <u>GOVERNING LAW AND DISPUTE RESOLUTION</u></b>. A party will provide written notice to the other party of any controversy, dispute or claim arising out of or relating to this Agreement, or to the formation, interpretation, breach, termination, or validity thereof (“<b><u>Controversy</u></b>”).  The parties shall engage in good faith negotiations to resolve the Controversy.  Only if the Controversy is not resolved through good faith negotiations within 15 days of the sending of the written notice of Controversy, the Controversy may be submitted to litigation or binding arbitration, based on the place of incorporation of the parties, as follows:
+(i) If both parties to this Agreement are entities incorporated under the law of any state in the United States, the Controversy shall be tried in either state or federal court located in Houston, Texas and the laws of the State of Texas shall govern.  Both sides hereby submit to the exclusive jurisdiction of the courts in Houston, Texas and waive all defenses based on forum non conveniens.
+(ii) If both parties to this Agreement are entities incorporated in countries in the Europe, Middle East, or Africa regions, the arbitration shall be held in Amsterdam, Netherlands under the then-applicable rules of the International Chamber of Commerce and the substantive laws of the Netherlands will govern.
+(iii) If both parties to this Agreement are entities incorporated in countries in the Asia Pacific region, the arbitration shall be held in Singapore under the then-applicable rules of the Singapore International Arbitration Centre and the substantive laws of Singapore will govern.
+(iv) In all other instances, the arbitration shall be held in New York City, New York, under the then-applicable international rules of the American Arbitration Association and the substantive laws of the State of Texas will govern.
+For all arbitrations conducted hereunder: (a) the arbitration shall be conducted in English; (b) the relevant arbitral institution shall determine the number of arbitrators, but any Controversy in which the amount in dispute is greater than $10 million USD shall be decided by three arbitrators, with each party having the right to select one arbitrator; (c) the costs of such arbitration shall be borne equally, pending the arbitrator’s award; (d) the arbitration award rendered shall be final and binding on the parties, shall not be subject to appeal to any court and shall be enforceable in any court having jurisdiction over the Parties; (e) the arbitration proceedings, award and pleadings shall all be confidential, unless disclosure of particular information is required for purposes of enforcing/challenging the award or to meet local securities law requirements; and (f) the party prevailing in arbitration shall be entitled to recover its reasonable attorneys’ fees and the necessary costs incurred in connection with the arbitration.
 </p>
 <p>
-    9. <strong>DISPUTE RESOLUTION AND GOVERNING LAW</strong>. Any controversy or claim arising out or relating to this Agreement is governed under the laws of
-    the State of Texas, USA.
+The United Nations Convention on Contracts for
+the International Sale of Goods shall not apply to this Agreement.  Nothing in
+this Agreement shall be deemed as preventing either party from seeking
+immediate injunctive relief from any court having jurisdiction over the parties
+and the subject matter of the dispute.
 </p>
 <p>
-    10. <strong>U.S. GOVERNMENT RESTRICTED RIGHTS. UNPUBLISHED - RIGHTS RESERVED UNDER THE COPYRIGHT LAWS OF THE UNITED STATES.</strong> Use, duplication, or
-    disclosure of any data and computer software by the U.S. Government is subject to restrictions, as applicable, set forth in FAR Section 52.227-19, DFARS
-    252.227-7013,DFARS 227.227-7014, DFARS 252.227-7015, and DFARS 252.227-7025, as amended from time to time. Contractor/Manufacturer is BMC Software, Inc.,
-    2101 CityWest Blvd., Houston, TX 77042-2827, USA.
+<b>12.  <u>U.S. FEDERAL ACQUISITIONS</u>.  </b>This Section applies
+only to acquisitions of the commercial BMC Kit subject to this Agreement by or
+on behalf of the United States Government, or by any prime contractor or
+subcontractor (at any tier) under any contract, grant, cooperative agreement or
+other activity with the United States Government.  In the event the BMC Kit is delivered
+to the United States Government, the United States Government hereby agrees
+that the BMC Kit qualifies as “commercial items” within the meaning of the
+Federal acquisition regulation(s) applicable to this procurement. The terms and
+conditions of this Agreement shall pertain to the United States Government’s
+use and disclosure of the BMC Kit, and shall supersede any conflicting
+contractual terms and conditions. The following additional statement applies
+only to acquisitions governed by DFARS Subpart 227.4 (October 1988): 
+“Restricted Rights – Use, duplication and disclosure by the Government is
+subject to restrictions as set forth in subparagraph (c)(1)(ii) of the Rights
+in Technical Data and Computer Software clause at DFARS 252.227-7013 (Oct.
+1988).”
 </p>
 <p>
-    11. <strong>MISCELLANEOUS TERMS</strong>. This Agreement constitutes the entire agreement between You and BMC relating to the Kit and Materials, and
-    supersedes any prior or contemporaneous negotiations or agreements, whether oral or written. You may not assign this Agreement or any rights granted by
-    this Agreement to a successor, except in the event of merger, consolidation, or sale of all or substantially all of Your assets. Should any provision of
-    this Agreement be invalid, or unenforceable, the remainder of the provisions will remain in effect. You agree that this Agreement and the documents related
-    thereto be drawn up in the English language. Les parties exigent que la presente convention ainsi que les documents qui s'y rattachent soient rediges en
-    anglais.
+<b>13.  <u>ASSIGNMENT AND TRANSFERS</u>.  </b>Licensee may not assign
+or transfer the BMC Kit separate from this Agreement, and may not assign or
+transfer this Agreement except in the event of a merger with or into, or a
+transfer of all or substantially all of Licensee’s assets to, a third party who
+assumes all of Licensee’s liabilities and obligations under the Agreement, and
+expressly agrees in writing to be bound by and comply with all of the terms of this
+Agreement. Except as specifically authorized by applicable law, any attempt to
+assign or transfer this Agreement in violation of this provision will be null
+and void and be treated as a violation of BMC’s intellectual property rights or
+use outside the scope of this Agreement.
 </p>
 <p>
-    <strong>
-        By selecting the "Yes, I Agree" option, You acknowledge and agree that You have read these Terms and that You intend to be bound by these Terms, as if
-        You or Your authorized representative had signed in writing.
-    </strong>
+<b>14.  <u>DATA PROTECTION</u>.  </span></b>(a) Licensee acknowledges
+that BMC neither requires nor needs Licensee to (i) send BMC any personal data
+collected by Licensee (“<b><u>Licensee Collected Data</u></b>”) or (ii) give
+BMC access to any Licensee Collected Data. Consequently, Licensee remains
+responsible for either filtering, making anonymous, encrypting such Licensee Collected
+Data or for having proper procedures in place to prevent Licensee Collected
+Data from being sent to or accessed by BMC. (b) In the course of normal
+business, BMC may collect and process personal information related to the Licensee
+(mainly contact and related information) in order to perform its obligations
+under this Agreement, such information being referred to hereinafter as “<b><u>Licensee
+Contact Information</u></b>”. Where the Licensee Contact Information is to be
+processed by BMC, BMC will comply with its Controller and Processor Binding
+Corporate Rules Policy found at http://media.cms.bmc.com/documents/External+Privacy+Binding+Coporate+Rules+Policy+-+Aug+04.pdf" 
+(the “<b><u>BCR</u></b>”)
+with respect to compliance with data protection laws and/or regulations. The
+BCR policy is incorporated into a BMC corporate wide policy, requiring all BMC
+entities, employees and third party providers to comply with and respect the
+BCR policy, which is governing the collection, use, access, storage and
+transfer of personal data among BMC entities and third-party sub-processors. 
+The details of the BCR approval of BMC Software are available at 
+http://ec.europa.eu/justice/data-protection/international-transfers/binding-corporate-rules/bcr_cooperation/index_en.htm. BMC shall in
+particular: (i) allow Licensee to access, modify, correct or erase Licensee Contact
+Information when necessary; (ii) take reasonable technical and organizational
+security measures to maintain the confidentiality and integrity of Licensee Contact
+Information and to prevent its unauthorized access, use, or disclosure; and
+(iii) refrain from using Licensee Contact Information for any other purpose
+than performing its obligations under this Agreement.
 </p>
-<p>
-    <strong>
-        The individual selecting "Yes, I Agree" warrants that he or she has the authority to accept these Terms on behalf of his or her employer and on his or
-        her behalf.
-    </strong>
+<p><b>15.  <u>MISCELLANEOUS TERMS</u>.  </span></b>A waiver by a party of
+any breach of any term of this Agreement will not be construed as a waiver of
+any continuing or succeeding breach.<b>  </b>The parties acknowledge they have
+read this Agreement and agree that it is the complete and exclusive statement
+of the parties and supercedes any prior or contemporaneous negotiations or
+agreements, between the parties relating to the BMC Kit and any subject matter related
+to this Agreement.<b>  </b>This Agreement may be modified only in a mutually-signed,
+whether in writing or electronic, agreement between Licensee and BMC. Should
+any term of this Agreement be invalid or unenforceable, the remaining terms will
+remain in effect. The prevailing party in any litigation is entitled to recover
+its attorney’s fees and costs from the other party.  Any delay or failure of
+any party to perform any obligation under this Agreement caused by governmental
+restrictions, labor disputes, storms or natural disasters, emergency, or other
+causes beyond the reasonable control of the party, will not be deemed a breach
+of this Agreement; provided, however, this provision does not apply to the
+payment of monies or any breach of Section 5. The parties have agreed that this
+Agreement and the documents related thereto be drawn up in the English
+language. Les parties exigent que la présente convention ainsi que les
+documents qui s’y rattachent soient rédigés en anglais.
 </p>
 </body>
 </html>
