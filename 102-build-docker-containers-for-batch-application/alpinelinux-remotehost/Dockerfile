@@ -19,9 +19,7 @@ RUN apk add --update nodejs \
 WORKDIR /root
 RUN mkdir ctm-automation-api \
 	&& cd ctm-automation-api \
-	&& wget $CTMHOST:18080/ctm-automation-api.zip \
-	&& unzip ctm-automation-api.zip \
-	&& rm ctm-automation-api.zip  \
+	&& wget --no-check-certificate https://$CTMHOST:8443/automation-api/ctm-cli.tgz \
 	&& npm install -g ctm-cli.tgz \
 	&& ctm -v
 
