@@ -1,0 +1,79 @@
+{
+    "Defaults" : {
+        "Application" : "SampleApp",
+        "SubApplication" : "SampleSubApp",
+        "Host" : "<HOST>",
+
+        "When" : {
+            "FromTime":"0300",
+            "ToTime":"2100"
+        }
+    },
+
+    "SFTPConnectionProfile": {
+        "Type": "ConnectionProfile:FileTransfer:SFTP",
+        "TargetAgent": "<HOST>",
+        "HostName": "<SFTP_SERVER>",
+        "Port": "22",
+        "User" : "<SFTP_USER>",
+        "Password" : "<SFTP_PASSWORD>"
+    },
+
+    "LocalConnectionProfile" : {
+        "Type" : "ConnectionProfile:FileTransfer:Local",
+        "TargetAgent" : "<HOST>",
+        "User" : "<USER>",
+        "Password" : "<PASSWORD>"
+    },
+
+    "AutomationAPIFileTransferDatabaseSampleFlow": {
+        "Type": "Folder",
+        "Comment" : "Code reviewed by John",
+
+        "GetData": {
+            "Type" : "Job:FileTransfer",
+            "ConnectionProfileSrc" : "SFTPConnectionProfile",
+            "ConnectionProfileDest" : "LocalConnectionProfile",
+            "FileTransfers" :
+            [
+                {
+                    "Src" : "<SOURCE_FILE>",
+                    "Dest" : "<DESTINATION_FILE>",
+                    "TransferOption": "SrcToDest",
+                    "TransferType": "Binary",
+                    "PreCommandDest": {
+                        "action": "rm",
+                        "arg1": "<DESTINATION_FILE>"
+                    },
+                    "PostCommandDest": {
+                        "action": "chmod",
+                        "arg1": "700",
+                        "arg2": "<DESTINATION_FILE>"
+                    }
+                }
+            ]
+        },
+
+        "DatabaseConnectionProfile": {
+            "Type": "ConnectionProfile:Database:PostgreSQL",
+            "TargetAgent": "<HOST>",
+            "Host": "<DATABASE_SERVER>",
+            "Port":"5432",
+            "User": "<DATABASE_USER>",
+            "Password": "<DATABASE_PASSWORD>",
+            "DatabaseName": "postgres"
+        },
+
+        "UpdateRecords": {
+            "Type": "Job:Database:SQLScript",
+            "Host": "<HOST>",
+            "SQLScript": "/home/<USER>/automation-api-quickstart/101-running-file-transfer-and-database-queries-job-flow/processRecords.sql",
+            "ConnectionProfile": "DatabaseConnectionProfile"
+        },
+
+        "Flow": {
+            "Type": "Flow",
+            "Sequence": ["GetData", "UpdateRecords"]
+        }
+    }
+}
