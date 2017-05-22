@@ -10,7 +10,7 @@
         }
     },
 
-    "SFTPConnectionProfile": {
+    "SFTP-CP": {
         "Type": "ConnectionProfile:FileTransfer:SFTP",
         "TargetAgent": "<HOST>",
         "HostName": "<SFTP_SERVER>",
@@ -19,11 +19,21 @@
         "Password" : "<SFTP_PASSWORD>"
     },
 
-    "LocalConnectionProfile" : {
+    "Local-CP" : {
         "Type" : "ConnectionProfile:FileTransfer:Local",
         "TargetAgent" : "<HOST>",
         "User" : "<USER>",
         "Password" : "<PASSWORD>"
+    },
+
+    "DB-CP": {
+        "Type": "ConnectionProfile:Database:PostgreSQL",
+        "TargetAgent": "<HOST>",
+        "Host": "<DATABASE_SERVER>",
+        "Port":"5432",
+        "User": "<DATABASE_USER>",
+        "Password": "<DATABASE_PASSWORD>",
+        "DatabaseName": "postgres"
     },
 
     "AutomationAPIFileTransferDatabaseSampleFlow": {
@@ -32,8 +42,8 @@
 
         "GetData": {
             "Type" : "Job:FileTransfer",
-            "ConnectionProfileSrc" : "SFTPConnectionProfile",
-            "ConnectionProfileDest" : "LocalConnectionProfile",
+            "ConnectionProfileSrc" : "SFTP-CP",
+            "ConnectionProfileDest" : "Local-CP",
             "FileTransfers" :
             [
                 {
@@ -54,21 +64,11 @@
             ]
         },
 
-        "DatabaseConnectionProfile": {
-            "Type": "ConnectionProfile:Database:PostgreSQL",
-            "TargetAgent": "<HOST>",
-            "Host": "<DATABASE_SERVER>",
-            "Port":"5432",
-            "User": "<DATABASE_USER>",
-            "Password": "<DATABASE_PASSWORD>",
-            "DatabaseName": "postgres"
-        },
-
         "UpdateRecords": {
             "Type": "Job:Database:SQLScript",
             "Host": "<HOST>",
             "SQLScript": "/home/<USER>/automation-api-quickstart/101-running-file-transfer-and-database-queries-job-flow/processRecords.sql",
-            "ConnectionProfile": "DatabaseConnectionProfile"
+            "ConnectionProfile": "DB-CP"
         },
 
         "Flow": {
