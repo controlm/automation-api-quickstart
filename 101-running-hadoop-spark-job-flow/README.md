@@ -5,16 +5,16 @@ Tutorial on the [product web page](https://docs.bmc.com/docs/display/public/work
 ```javascript
 "ProcessData": {
     "Type": "Job:Hadoop:Spark:Python",
-    "SparkScript": "file:///home/[USER]/ctmdk/samples/processData.py",
+    "SparkScript": "file:///home/[USER]/automation-api-quickstart/101-running-hadoop-spark-job-flow/processData.py",
 
     "Arguments": [
-        "file:///home/[USER]/ctmdk/samples/processData.py",
-        "file:///home/[USER]/ctmdk/samples/processDataOutDir"
+        "file:///home/[USER]/automation-api-quickstart/101-running-hadoop-spark-job-flow/processData.py",
+        "file:///home/[USER]/automation-api-quickstart/101-running-hadoop-spark-job-flow/processDataOutDir"
     ],
 
     "PreCommands" : {
         "Commands" : [
-            { "rm":"-R -f  file:///home/[USER]/ctmdk/samples/processDataOutDir" }
+            { "rm":"-R -f file:///home/[USER]/automation-api-quickstart/101-running-hadoop-spark-job-flow/processDataOutDir" }
         ]                   
     }
 }
