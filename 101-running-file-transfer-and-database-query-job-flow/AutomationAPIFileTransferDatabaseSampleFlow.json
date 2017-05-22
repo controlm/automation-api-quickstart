@@ -67,7 +67,7 @@
         "UpdateRecords": {
             "Type": "Job:Database:SQLScript",
             "Host": "<HOST>",
-            "SQLScript": "/home/<USER>/automation-api-quickstart/101-running-file-transfer-and-database-queries-job-flow/processRecords.sql",
+            "SQLScript": "/home/<USER>/automation-api-quickstart/101-running-file-transfer-and-database-query-job-flow/processRecords.sql",
             "ConnectionProfile": "DB-CP"
         },
 
