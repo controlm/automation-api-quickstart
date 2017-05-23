@@ -3,7 +3,13 @@
         "Application" : "SampleApp",
         "SubApplication" : "SampleSubApp",
         "Host" : "<HOST>",
-
+        "TargetAgent" : "<HOST>",
+		
+		"Variables": [
+			{"DestDataFile": "<DESTINATION_FILE>"},
+			{"SrcDataFile":  "<SOURCE_FILE>"}
+		],
+		
         "When" : {
             "FromTime":"0300",
             "ToTime":"2100"
@@ -12,7 +18,6 @@
 
     "SFTP-CP": {
         "Type": "ConnectionProfile:FileTransfer:SFTP",
-        "TargetAgent": "<HOST>",
         "HostName": "<SFTP_SERVER>",
         "Port": "22",
         "User" : "<SFTP_USER>",
@@ -21,14 +26,12 @@
 
     "Local-CP" : {
         "Type" : "ConnectionProfile:FileTransfer:Local",
-        "TargetAgent" : "<HOST>",
         "User" : "<USER>",
         "Password" : "<PASSWORD>"
     },
 
     "DB-CP": {
         "Type": "ConnectionProfile:Database:PostgreSQL",
-        "TargetAgent": "<HOST>",
         "Host": "<DATABASE_SERVER>",
         "Port":"5432",
         "User": "<DATABASE_USER>",
@@ -44,21 +47,22 @@
             "Type" : "Job:FileTransfer",
             "ConnectionProfileSrc" : "SFTP-CP",
             "ConnectionProfileDest" : "Local-CP",
+		
             "FileTransfers" :
             [
                 {
-                    "Src" : "<SOURCE_FILE>",
-                    "Dest" : "<DESTINATION_FILE>",
+                    "Src" : "%%SrcDataFile",
+                    "Dest": "%%DestDataFile",
                     "TransferOption": "SrcToDest",
                     "TransferType": "Binary",
                     "PreCommandDest": {
                         "action": "rm",
-                        "arg1": "<DESTINATION_FILE>"
+                        "arg1": "%%DestDataFile"
                     },
                     "PostCommandDest": {
                         "action": "chmod",
                         "arg1": "700",
-                        "arg2": "<DESTINATION_FILE>"
+                        "arg2": "%%DestDataFile"
                     }
                 }
             ]
@@ -66,7 +70,6 @@
 
         "UpdateRecords": {
             "Type": "Job:Database:SQLScript",
-            "Host": "<HOST>",
             "SQLScript": "/home/<USER>/automation-api-quickstart/101-running-file-transfer-and-database-query-job-flow/processRecords.sql",
             "ConnectionProfile": "DB-CP"
         },
