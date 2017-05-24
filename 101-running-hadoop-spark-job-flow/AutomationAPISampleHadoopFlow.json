@@ -44,7 +44,7 @@
             "Commands" : [
                 {"rm"    : "-R -f samplesOut" },
                 {"mkdir" : "samplesOut" },
-                {"cp"   : "file:///home/<USER>/automation-api-quickstart/101-running-hadoop-spark-job-flow/samples/* samplesOut" }
+                {"cp"   : "file:///home/<USER>/automation-api-quickstart/101-running-hadoop-spark-job-flow/* samplesOut" }
             ]
         },
 
