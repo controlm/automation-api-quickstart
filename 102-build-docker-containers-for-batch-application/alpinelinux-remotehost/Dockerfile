@@ -9,11 +9,17 @@ ARG CTMHOST
 ARG USER
 ARG PASSWORD
 
-# install nodejs
-RUN apk add --update nodejs \
-  && npm -g install npm@latest \
-	&& node -v \
-	&& npm -v
+#install wget openssl ca-certificates
+RUN apk update \
+    && apk add ca-certificates wget \
+    && update-ca-certificates
+
+# install nodejs npm
+RUN apk update \
+    && apk add --update nodejs nodejs-npm \
+    && npm -g install npm@latest \
+    && node -v \
+    && npm -v
 
 # install ctm-automation-api kit
 WORKDIR /root
