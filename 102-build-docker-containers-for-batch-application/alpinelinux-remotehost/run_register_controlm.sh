@@ -8,7 +8,7 @@ CTM_ENV=endpoint
 ALIAS=$DOCKER_HOST:$PORT
 
 echo register controlm remotehost [$ALIAS] with controlm [$CTM_SERVER], environment [$CTM_ENV]
-ctm config server:remotehost::add $CTM_SERVER "$ALIAS/" $PORT -e $CTM_ENV
+ctm config server:remotehost::add $CTM_SERVER "$ALIAS" $PORT -e $CTM_ENV
 
 echo add or create a controlm hostgroup [$CTM_HOSTGROUP] with controlm agent [$ALIAS]
 ctm config server:hostgroup:agent::add $CTM_SERVER $CTM_HOSTGROUP "$ALIAS" -e $CTM_ENV
