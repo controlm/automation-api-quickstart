@@ -7,7 +7,7 @@
       "Replace" : [ {"(.*)" : "Dev$1"} ]
     },
 	{
-	  "Comment": "Distribute jobs across hosts avalibele in Development environment based on job names",
+	  "Comment": "Distribute jobs across hosts available in Development environment based on job names",
 	  "Property": "Host",
 	  "Source": "@",
 	  "Replace": [
