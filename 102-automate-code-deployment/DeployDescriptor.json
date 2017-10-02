@@ -2,12 +2,12 @@
   "DeployDescriptor":
   [    
     {
-      "Comment": "Change of Application property so it complly with Dev environment naming.",
+      "Comment": "Modify Application property to comply with Development environment",
       "Property" :"Application",
       "Replace" : [ {"(.*)" : "Dev$1"} ]
     },
 	{
-	  "Comment": "Spred jobs acrosse hosts avalibele in Dev environment based on job names pattern.",
+	  "Comment": "Distribute jobs across hosts avalibele in Development environment based on job names",
 	  "Property": "Host",
 	  "Source": "@",
 	  "Replace": [
