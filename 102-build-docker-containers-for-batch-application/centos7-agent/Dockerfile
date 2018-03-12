@@ -14,7 +14,8 @@ RUN yum -y update \
 	&& yum -y install wget \
 	&& yum -y install unzip \
 	&& yum -y install sudo \
-	&& yum -y install net-tools
+	&& yum -y install net-tools \ 
+	&& yum -y install which
 
 # install nodejs
 RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash - \
