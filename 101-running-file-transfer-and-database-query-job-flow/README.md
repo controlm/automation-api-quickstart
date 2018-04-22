@@ -1,6 +1,6 @@
 ## Running File Transfer and Database queries job flow
 
-Tutorial on the [product web page](updade link) that explains how to write jobs that execute File Transfer and Database queries.
+Tutorial on the [product web page](https://docs.bmc.com/docs/display/workloadautomation/Tutorial+-+Running+applications+and+programs+in+your+environment) that explains how to write jobs that execute File Transfer and Database queries.
 
 ```javascript
 update me

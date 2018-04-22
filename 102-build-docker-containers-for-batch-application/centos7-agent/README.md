@@ -1,5 +1,8 @@
 ## How to build docker containers for Control-M
 
+Tutorial on the [product web page](https://docs.bmc.com/docs/display/workloadautomation/Tutorial+-+Building+a+docker+container+for+batch+applications)
+that explains how to build a docker container for batch applications.
+
 To build container image of Control-M/Agent:  
 **CTMHOST** - Control-M endpoint host  
 **USER** - Control-M user account for automation  

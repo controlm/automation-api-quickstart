@@ -1,6 +1,6 @@
 ## Running Script, Program and Command job flow
 
-Tutorial on the [product web page](updade link) that explains how to write jobs that execute Scripts, Programs and Commands.
+Tutorial on the [product web page](https://docs.bmc.com/docs/display/workloadautomation/Tutorial+-+Running+applications+and+programs+in+your+environment) that explains how to write jobs that execute Scripts, Programs and Commands.
 
 ```javascript
 update me

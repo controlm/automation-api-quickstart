@@ -1,6 +1,6 @@
 ## Create Your First Hadoop Job Flow
 
-Tutorial on the [product web page](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Getting+Started+Guide#Control-MAutomationAPI-GettingStartedGuide-GS_for_Hadoop) that explains how to write jobs that execute Spark and HDFS commands.
+Tutorial on the [product web page](https://docs.bmc.com/docs/display/workloadautomation/Tutorial+-+Running+applications+and+programs+in+your+environment) that explains how to write jobs that execute Spark and HDFS commands.
 
 ```javascript
 "ProcessData": {
