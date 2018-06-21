@@ -53,7 +53,7 @@ RUN cd \
 # enable controlm agent utilities
 RUN echo "source /home/controlm/.bash_profile" >> /home/controlm/.bashrc
 
-# copy run and resiter controlm agent script to container
+# copy run and register controlm agent script to container
 COPY run_register_controlm.sh /tmp
 COPY decommission_controlm.sh /tmp
 RUN cp /tmp/run_register_controlm.sh /home/controlm \
