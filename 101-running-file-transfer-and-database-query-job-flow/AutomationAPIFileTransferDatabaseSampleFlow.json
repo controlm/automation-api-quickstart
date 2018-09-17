@@ -5,15 +5,17 @@
         "Host" : "<HOST>",
         "TargetAgent" : "<HOST>",
 		
-		"Variables": [
-			{"DestDataFile": "<DESTINATION_FILE>"},
-			{"SrcDataFile":  "<SOURCE_FILE>"}
-		],
-		
-        "When" : {
-            "FromTime":"0300",
-            "ToTime":"2100"
-        }
+				"Variables": [
+					{"DestDataFile": "<DESTINATION_FILE>"},
+					{"SrcDataFile":  "<SOURCE_FILE>"}
+				],
+
+        "Job": {
+	        "When" : {
+	            "FromTime":"0300",
+	            "ToTime":"2100"
+	        }
+				}
     },
 
     "SFTP-CP": {
