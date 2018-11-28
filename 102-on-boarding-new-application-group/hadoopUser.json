@@ -1,0 +1,12 @@
+{    
+	"Name": "John",    
+	"FullName": "John Doe",    
+	"Description": "John Doe, developer for hadoop ",    
+	"Authentication": {
+		"ControlM": {      
+			"Password": "John123",      
+			"PasswordExpirationDays": 60					
+		}    
+	},
+	"Roles": ["hadoop_developers"]
+}

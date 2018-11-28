@@ -1,0 +1,74 @@
+{
+  "Name": "hadoop_developers",
+  "Description": "hadoop developers",
+  "AllowedJobs": {
+    "Included": [
+      [
+        [
+          "Application",
+          "like",
+          "hadoop*"
+        ],
+        [
+          "Host",
+          "like",
+          "hadoop*"
+        ],
+        [
+          "JobName",
+          "like",
+          "hadoop*"
+        ],
+        [
+          "Folder",
+          "like",
+          "hadoop*"
+        ]
+      ]
+    ]
+  },
+  "AllowedJobActions": {
+    "ViewProperties": true,
+    "Documentation": true,
+    "Log": true,
+    "Statistics": true,
+    "ViewOutputList": true,
+    "ViewJcl": true,
+    "Why": true,
+    "Rerun": true,
+    "SetToOk": true,
+    "EditProperties": true
+  },
+  "Privileges": {
+    "ClientAccess": {
+      "SelfServiceAccess": "Full",
+      "WorkloadChangeManagerAccess": "Full",
+      "UtilitiesAccess": "Full",
+      "ApplicationIntegratorAccess": "Full"
+    },
+    "Monitoring": {
+      "Alert": "Full"
+    },
+    "Tools": {
+      "Cli": "Full"
+    }
+  },
+  "Folders": [
+    {
+      "Privilege": "Full",
+      "Folder": "hadoop*"
+    }
+  ],
+  "Calendars": [
+    {
+      "Privilege": "Browse",
+      "Name": "hadoop*"
+    }
+  ],
+  "SiteStandard": [
+    {
+      "Privilege": "Browse",
+      "Name": "hadoop_*"
+    }
+  ]
+}
