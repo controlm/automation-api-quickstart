@@ -90,7 +90,7 @@ public class RunService {
 		conn.validateConnection();
 		logger.debug("running job file {}", definitionsFile.getAbsolutePath() );
 		
-		RunResult res = api.runJobs(definitionsFile) ;
+		RunResult res = api.runJobs(definitionsFile, null) ;
 		logger.debug("result of running job file {}: {}", definitionsFile.getAbsolutePath(), res );
 		runId = res.getRunId();
 		// wait to make sure the job was ordered, otherwise we might ask from status before the job was processed (and executed)
