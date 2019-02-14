@@ -86,17 +86,26 @@ public class RunService {
 	 * @return this instance
 	 * @throws ApiException - internal error, check message for more info
 	 */
-	public RunService runJobs (File definitionsFile) throws ApiException{
+	public RunService runJobs (File definitionsFile, File deployDescriptorFile) throws ApiException{
 		conn.validateConnection();
 		logger.debug("running job file {}", definitionsFile.getAbsolutePath() );
 		
-		RunResult res = api.runJobs(definitionsFile, null) ;
+		RunResult res = api.runJobs(definitionsFile, deployDescriptorFile) ;
 		logger.debug("result of running job file {}: {}", definitionsFile.getAbsolutePath(), res );
 		runId = res.getRunId();
 		// wait to make sure the job was ordered, otherwise we might ask from status before the job was processed (and executed)
 		sleep(5);
 		return this;
-	}	
+	}
+	/**
+	 * overloading runJobs without deploy descriptor file
+	 * @param definitionsFile
+	 * @return this instance
+	 * @throws ApiException
+	 */
+	public RunService runJobs (File definitionsFile) throws ApiException{
+		return runJobs(definitionsFile, null);
+	}
 
 	/**
 	 * Wait for the job(s) to end. The check is made every 2sec interval (may be change by of starting the jvm with -DDELAY_BETWEEN_JOB_STATUS_CHECK_IN_SEC=x)
