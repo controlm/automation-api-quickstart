@@ -97,6 +97,11 @@ public class RunService {
 		sleep(5);
 		return this;
 	}
+	public RunService runJobs (File definitionsFile) throws ApiException{
+		return runJobs(definitionsFile, null);
+	}
+	
+	
 	/**
 	 * overloading runJobs without deploy descriptor file
 	 * @param definitionsFile
