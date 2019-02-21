@@ -14,7 +14,8 @@ RUN yum -y update \
 	&& yum -y install wget \
 	&& yum -y install unzip \
 	&& yum -y install sudo \
-	&& yum -y install net-tools
+	&& yum -y install net-tools \ 
+	&& yum -y install which
 
 # install nodejs
 RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash - \
@@ -30,9 +31,7 @@ RUN yum -y install java-1.8.0-openjdk \
 WORKDIR /root
 RUN mkdir ctm-automation-api \
 	&& cd ctm-automation-api \
-	&& wget $CTMHOST:18080/ctm-automation-api.zip \
-	&& unzip ctm-automation-api.zip \
-	&& rm ctm-automation-api.zip  \
+	&& wget --no-check-certificate https://$CTMHOST:8443/automation-api/ctm-cli.tgz \
 	&& npm install -g ctm-cli.tgz \
 	&& ctm -v
 
@@ -54,7 +53,7 @@ RUN cd \
 # enable controlm agent utilities
 RUN echo "source /home/controlm/.bash_profile" >> /home/controlm/.bashrc
 
-# copy run and resiter controlm agent script to container
+# copy run and register controlm agent script to container
 COPY run_register_controlm.sh /tmp
 COPY decommission_controlm.sh /tmp
 RUN cp /tmp/run_register_controlm.sh /home/controlm \

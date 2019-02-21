@@ -9,19 +9,23 @@ ARG CTMHOST
 ARG USER
 ARG PASSWORD
 
-# install nodejs
-RUN apk add --update nodejs \
-  && npm -g install npm@latest \
-	&& node -v \
-	&& npm -v
+#install wget openssl ca-certificates
+RUN apk update \
+    && apk add ca-certificates wget \
+    && update-ca-certificates
+
+# install nodejs npm
+RUN apk update \
+    && apk add --update nodejs nodejs-npm \
+    && npm -g install npm@latest \
+    && node -v \
+    && npm -v
 
 # install ctm-automation-api kit
 WORKDIR /root
 RUN mkdir ctm-automation-api \
 	&& cd ctm-automation-api \
-	&& wget $CTMHOST:18080/ctm-automation-api.zip \
-	&& unzip ctm-automation-api.zip \
-	&& rm ctm-automation-api.zip  \
+	&& wget --no-check-certificate https://$CTMHOST:8443/automation-api/ctm-cli.tgz \
 	&& npm install -g ctm-cli.tgz \
 	&& ctm -v
 

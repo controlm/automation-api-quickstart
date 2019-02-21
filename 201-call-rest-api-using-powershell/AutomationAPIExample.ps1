@@ -4,9 +4,14 @@
 #
 #------------------------------------------------------------------------------------
 
+#------------------------------------------------------------------------------------
+#  To accept self-signed certificates uncomment next line
+#
+#[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
+
 #----------------------------------------------------------------
 #Login request
-$endPoint   = "http://<controlmEndPoint>:8443/automation-api"
+$endPoint   = "https://<controlmEndPoint>:8443/automation-api"
 #------------------------------------------------------------------------------------
 $username 	= "<ControlmUser>"
 $password   = "<ControlmPassword>"
@@ -17,14 +22,20 @@ $login_data = @{
 
 try
 {	
-	$login_res = Invoke-RestMethod -Method Post -Uri $endPoint/session/login  -Body (ConvertTo-Json $login_data) -ContentType "application/json"
+	"The login credentials:"
+	$login_data
 	
-	$login_res 
+	$login_res = Invoke-RestMethod -Method Post -Uri $endPoint/session/login  -Body (ConvertTo-Json $login_data) -ContentType "application/json"
+		
+	"The login results"	
+	$login_res
 }
 catch
 {
+	$_.Exception.Message
 	$error[0].ErrorDetails	
 	$error[0].Exception.Response.StatusCode
+	exit
 }
 
 $token= $login_res.token
@@ -38,6 +49,7 @@ try
 {	
 	$servers_res = Invoke-RestMethod -Method Get -Uri "$endPoint/config/servers"  -Headers $headers 
 	
+	"List of control-M servers:"
 	$servers_res
 }
 catch
@@ -55,6 +67,7 @@ try
 {	
 	$server_agents_res = Invoke-RestMethod -Method Get -Uri "$endPoint/config/server/$controlm/agents"  -Headers $headers 
 	
+	"List of Agents connected to control-M server '$controlm':"
 	$server_agents_res
 }
 catch
@@ -76,6 +89,8 @@ $add_host_data = @{	host = "$agenthost"; }
 
 try
 {	
+	"Adding host '$agenthost' to hostgroup '$hostgroup':"
+	
 	$uri="$endpoint/config/server/$controlm/hostgroup/$hostgroup/agent"
 	$add_to_hostgroup_res = Invoke-RestMethod -Method Post -Uri "$uri"  -Body (ConvertTo-Json $add_host_data) -ContentType "application/json"  -Headers $headers 
 	

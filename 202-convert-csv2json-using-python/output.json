@@ -1,0 +1,119 @@
+{
+    "csvFolder": {
+        "Type": "Folder", 
+        "ControlmServer": "LocalControlM", 
+        "x1": {
+            "Type": "Job:Command", 
+            "Command": "echo 1235 up", 
+            "RunAs": "controlm", 
+            "Description": "do something", 
+            "Host": "ip-172-31-39-125.us-west-2.compute.internal", 
+            "Application": "default", 
+            "SubApplication": "subdefault", 
+            "When": {
+                "FromTime": "2000", 
+                "ToTime": "1600"
+            }, 
+            "x1-Events": {
+                "Type": "WaitForEvents", 
+                "Events": [
+                    "cond1", 
+                    "cond2"
+                ]
+            }
+        }, 
+        "x4-TO-x1": {
+            "Type": "Flow", 
+            "Sequence": [
+                "x4", 
+                "x1"
+            ]
+        }, 
+        "x2-TO-x1": {
+            "Type": "Flow", 
+            "Sequence": [
+                "x2", 
+                "x1"
+            ]
+        }, 
+        "x3-TO-x1": {
+            "Type": "Flow", 
+            "Sequence": [
+                "x3", 
+                "x1"
+            ]
+        }, 
+        "x2": {
+            "Type": "Job:Command", 
+            "Command": "echo 1235", 
+            "RunAs": "controlm", 
+            "Description": "do something", 
+            "Host": "ip-172-31-39-125.us-west-2.compute.internal", 
+            "Application": "default", 
+            "SubApplication": "subdefault", 
+            "When": {
+                "FromTime": "2100", 
+                "ToTime": "1800"
+            }
+        }, 
+        "x3": {
+            "Type": "Job:Command", 
+            "Command": "echo 1235", 
+            "RunAs": "controlm", 
+            "Description": "do something", 
+            "Host": "ip-172-31-39-125.us-west-2.compute.internal", 
+            "Application": "default", 
+            "SubApplication": "subdefault", 
+            "When": {
+                "FromTime": "2100", 
+                "ToTime": "1800"
+            }, 
+            "x3-Events": {
+                "Type": "WaitForEvents", 
+                "Events": [
+                    "cond3"
+                ]
+            }
+        }, 
+        "x4": {
+            "Type": "Job:Command", 
+            "Command": "echo 1235", 
+            "RunAs": "controlm", 
+            "Description": "do something", 
+            "Host": "ip-172-31-39-125.us-west-2.compute.internal", 
+            "Application": "default", 
+            "SubApplication": "subdefault", 
+            "When": {
+                "FromTime": "2100", 
+                "ToTime": "1800"
+            }
+        }, 
+        "x5": {
+            "Type": "Job:Command", 
+            "Command": "echo 1235", 
+            "RunAs": "controlm", 
+            "Description": "do something", 
+            "Host": "ip-172-31-39-125.us-west-2.compute.internal", 
+            "Application": "default", 
+            "SubApplication": "subdefault", 
+            "When": {
+                "FromTime": "2100", 
+                "ToTime": "1800"
+            }
+        }, 
+        "x1-TO-x5": {
+            "Type": "Flow", 
+            "Sequence": [
+                "x1", 
+                "x5"
+            ]
+        }, 
+        "x2-TO-x5": {
+            "Type": "Flow", 
+            "Sequence": [
+                "x2", 
+                "x5"
+            ]
+        }
+    }
+}

@@ -7,7 +7,7 @@
 
         "Job": {
             "When" : {
-                "Months": ["8", "5", "2"],
+                "Months": ["JAN", "OCT", "DEC"],
                 "MonthDays":["22","1","11"],
                 "WeekDays":["MON","TUE", "WED", "THU", "FRI"],
                 "FromTime":"0300",

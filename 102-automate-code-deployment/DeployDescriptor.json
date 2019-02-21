@@ -1,0 +1,19 @@
+{
+  "DeployDescriptor":
+  [    
+    {
+      "Comment": "Modify Application property to comply with Development environment",
+      "Property" :"Application",
+      "Replace" : [ {"(.*)" : "Dev$1"} ]
+    },
+	{
+	  "Comment": "Distribute jobs across hosts available in Development environment based on job names",
+	  "Property": "Host",
+	  "Source": "@",
+	  "Replace": [
+		{ "Command.*" : "workbench"},
+		{ "Script.*"  : "workbench"}
+	  ]
+	}
+  ]
+}
