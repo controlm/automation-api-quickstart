@@ -4,7 +4,7 @@
   <artifactId>control-m.examples.testAutomationJunitExample</artifactId>
   <packaging>jar</packaging>
   <name>Control-M testAutomationJunitExample</name>
-  <version>9.0.3</version>
+  <version>9.19.0</version>
   
   <build>
 	<pluginManagement>

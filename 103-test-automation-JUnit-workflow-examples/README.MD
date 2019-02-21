@@ -1,4 +1,4 @@
-DISCLAIMER: Was tested with Automation-Api version 9.0.3 that will be avalible in Control-m Workload AUtomation V9 FP4
+DISCLAIMER: This code was tested with version 9.0.19
 
 ## JUnit Control-M job using the automation api
 How to verify control-m workflows runs using JUnit
