@@ -1,8 +1,8 @@
 # Control-M Automation API quickstart
 
 This repository contains code samples and how-to for Control-M Automation API.  
-+ [**Download Workbench**](https://s3-us-west-2.amazonaws.com/controlm-appdev/release/v9.18.2/workbench_ova-9.0.18.200-20180802.141536-16.ova) latest development Control-M environment Open Virtual Appliance (OVA).  
-+ [**Download Automation API CLI**](https://s3-us-west-2.amazonaws.com/controlm-appdev/release/v9.18.2/ctm-cli.tgz) (ctm-cli.tgz).  
++ [**Download Workbench for Oracle Virtual Box**](https://s3-us-west-2.amazonaws.com/controlm-appdev/release/v9.18.3/workbench_oracle_virtual_box_ova-9.0.18.300-20190218.133426-1.ova) or [**Download Workbench for VMWare**](https://s3-us-west-2.amazonaws.com/controlm-appdev/release/v9.18.3/workbench_vmware_ova-9.0.18.300-20190218.132300-1.ova) - the latest development Control-M environment Open Virtual Appliance (OVA). 
++ [**Download Automation API CLI**](https://s3-us-west-2.amazonaws.com/controlm-appdev/release/v9.18.3/ctm-cli.tgz) (ctm-cli.tgz).  
 + [**Installation instructions**](https://docs.bmc.com/docs/display/public/workloadautomation/Control-M+Automation+API+-+Installation).  
 
 ## Online Documentation
