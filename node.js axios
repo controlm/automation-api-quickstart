@@ -7,7 +7,7 @@ var https = require('https');
 //-----------------------------------------------
 // Global Variables
 //-----------------------------------------------
-const endpoint = 'https://ctrlm-prep.iad.ca.inet:8443/automation-api';
+const endpoint = 'https://<controlmEndPoint>:8443/automation-api';
 var TOKEN_URL = endpoint .concat('/session/login');
 var username = 'your username';
 var password = 'your password';
