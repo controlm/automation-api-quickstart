@@ -1,14 +1,14 @@
 #! /bin/bash
 
 # PROD
-prodEndPoint=https://clm-aus-t2k1pd:8443/automation-api
+prodEndPoint=https://<endpoint server>:8443/automation-api
 prodUser=apiuser 
 prodPasswd=empass 
 deploydescriptor_path=/cygdrive/c/DeployDescriptorPROD.json 
 Temp_JobDef_path=/cygdrive/c/temp_job_file.json
 
 #Dev
-devEndPoint=https://clm-aus-tm9gcb:8443/automation-api
+devEndPoint=https://<enpoint server>:8443/automation-api
 devUser=apiuser 
 devPasswd=empass 
 
