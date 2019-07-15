@@ -24,7 +24,7 @@ def parse_inputs():
     parser.add_argument('-u', '--username', dest='username', type=str,
                         help='Username to login to Control-M/Enterprise Manager')
     parser.add_argument('-p', '--password', dest='password', type=str,
-                        help='Passowrd to login to Control-M/Enterprise Manager')
+                        help='Password to login to Control-M/Enterprise Manager')
     parser.add_argument('-h', '--host', dest='host', type=str, help='Control-M/Enterprise Manager hostname')
     parser.add_argument('-i', '--insecure', dest='insecure', action='store_const', const=True,
                         help='Disable SSL Certification Verification')
