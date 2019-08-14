@@ -53,17 +53,17 @@ def parse_inputs():
 
     host = args.host
     if host == None:
-        host = raw_input("EM Hostname: ")
+        host = input("EM Hostname: ")
     username = args.username
     if username == None:
-        username = raw_input("EM username: ")
+        username = input("EM username: ")
     password = args.password
     if password == None:
         try:
             password = getpass("Passowrd: ",
                            sys.stderr)  # getpass has an issue using /dev/tty as the stream (second argument) using sys.stderr is the alternative, this argument is ignored on windows
         except:
-            password = raw_input("Password: ") # adding try & execpt block to fail back to raw_input encase getpass encounters an error
+            password = input("Password: ") # adding try & execpt block to fail back to input encase getpass encounters an error
 
     baseurl = 'https://' + host + ':8443/automation-api/'  # Control-M Automation API v2 (EM 9 FP3) base url
     login_args = collections.namedtuple('Login_Args', ['baseurl', 'username', 'password'])
@@ -88,11 +88,9 @@ def login(auth):
     except requests.exceptions.ConnectTimeout as err:
         print("Connecting to Automation API REST Server failed with error: " + str(err))
         quit(1)
-    except requests.exceptions.ConnectionError as err:
+    except requests.exceptions.SSLError as err:
         print("Connecting to Automation API REST Server failed with error: " + str(err))
-        if 'CERTIFICATE_VERIFY_FAILED' in str(err.message):
-            print(
-            'INFO: If using a Self Signed Certificate use the -i flag to disable cert verification or add the certificate to this systems trusted CA store')
+        print('INFO: If using a Self Signed Certificate use the -i flag to disable cert verification or add the certificate to this systems trusted CA store')
         quit(1)
     except requests.exceptions.HTTPError as err:
         print("Connecting to Automation API REST Server failed with error: " + str(err))
@@ -160,31 +158,28 @@ def list_jobs(token, baseurl):
             statuses[x]['type'])
             x += 1
 
-        selected = raw_input("Enter a number to see it's output: ")
+        selected = input("Enter a number to see it's output, or q to quit: ")
 
         if selected == 'q':
             logout(token, baseurl)
         try:
             selected = int(selected)
-        except:
+            outputurl = statuses[selected]['outputURI']  # get the outputURI from the select job in statuses
+            print_output(outputurl, data)
+        except TypeError:
             print("Please enter either a number or q to quit")
-            logout(token, baseurl, 1)
-
-        if selected > length:
+        except ValueError:
+            print("Please enter either a number or q to quit")
+        except IndexError:
             print('That does not exist')
-            logout(token, baseurl, 1)
-
-        outputurl = statuses[selected]['outputURI']  # get the outputURI from the select job in statuses
-
-        print_output(outputurl)
 
 
-def print_output(outputurl):
+def print_output(outputurl, data):
     global verbose
     if verbose:
         print(outputurl)
 
-    r3 = requests.get(outputurl,
+    r3 = requests.get(outputurl, headers=data,
                       verify=verify_certs)  # go a get on the outputURI, outputURI already includes the current token
     print(r3.text)  # this request returns the raw text output of the job and not json
 
