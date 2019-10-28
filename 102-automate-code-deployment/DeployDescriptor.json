@@ -7,7 +7,7 @@
 	"@":"Defaults"
        },
       "Property" :"RunAs",
-      "Assign" : "username"
+      "Assign" : "workbench"
     },  
     {
       "Comment": "Modify Application property to comply with Development environment",
