@@ -7,10 +7,14 @@ password=                                                        # Set this vari
 curl_params=-k                                                   # Out Of the Box the end point comes with self signed certificate, -k option accept such certificates
  
 # Session Login and get access API session token
-login=$(curl $curl_params -H "Content-Type: application/json" -X POST -d "{\"username\":\"$user\",\"password\":\"$password\"}"   "$endpoint/session/login" )
-echo $login
-
-token=$(echo ${login##*token\" : \"} | cut -d "\"" -f 1)
+login=$(curl $curl_params -s -H "Content-Type: application/json" -X POST -d "{\"username\":\"$username\",\"password\":\"$password\"}" "$endpoint/session/login" )
+if [[ $login == *token* ]] ; then
+	token=$(echo ${login##*token\" : \"} | cut -d '"' -f 1)
+else
+	printf "%s\n" "$login"
+	printf "Login failed!\n"
+	exit 1
+fi
 echo token=$token
 
 # using curl to GET information
