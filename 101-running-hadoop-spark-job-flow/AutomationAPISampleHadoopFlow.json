@@ -11,11 +11,11 @@
 		        }
 				},
         "Job:Hadoop" : {
-            "ConnectionProfile": "SampleConnectionProfile"
+            "ConnectionProfile": "SAMPLE_CP"
         }
     },
 
-    "SampleConnectionProfile" :
+    "SAMPLE_CP" :
     {
         "Type" : "ConnectionProfile:Hadoop",
         "TargetAgent" : "<HOST>"
