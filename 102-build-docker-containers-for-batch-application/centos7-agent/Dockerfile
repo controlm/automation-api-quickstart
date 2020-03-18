@@ -18,7 +18,7 @@ RUN yum -y update \
 	&& yum -y install which
 
 # install nodejs
-RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash - \
+RUN curl --silent --location https://rpm.nodesource.com/setup_12.x | bash - \
 	&& yum -y install nodejs \
 	&& node -v \
 	&& npm -v
