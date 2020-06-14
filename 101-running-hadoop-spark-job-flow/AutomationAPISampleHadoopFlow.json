@@ -2,7 +2,7 @@
     "Defaults" : {
         "Application": "SampleApp",
         "SubApplication": "SampleSubApp",
-        "Host" : "<HOST>",
+        "Host" : "HOST",
 
         "Job": {
 		        "When" : {
@@ -18,7 +18,7 @@
     "SAMPLE_CP" :
     {
         "Type" : "ConnectionProfile:Hadoop",
-        "TargetAgent" : "<HOST>"
+        "TargetAgent" : "HOST"
     },
 
     "AutomationAPIHadoopSampleFlow": {
@@ -27,16 +27,16 @@
 
         "ProcessData": {
             "Type": "Job:Hadoop:Spark:Python",
-            "SparkScript": "file:///home/<USER>/automation-api-quickstart/101-running-hadoop-spark-job-flow/processData.py",
+            "SparkScript": "file:///home/USER/automation-api-quickstart/101-running-hadoop-spark-job-flow/processData.py",
             
             "Arguments": [
-                "file:///home/<USER>/automation-api-quickstart/101-running-hadoop-spark-job-flow/processData.py",
-                "file:///home/<USER>/automation-api-quickstart/101-running-hadoop-spark-job-flow/processDataOutDir"
+                "file:///home/USER/automation-api-quickstart/101-running-hadoop-spark-job-flow/processData.py",
+                "file:///home/USER/automation-api-quickstart/101-running-hadoop-spark-job-flow/processDataOutDir"
             ],
 
             "PreCommands" : {
                 "Commands" : [
-                    { "rm":"-R -f file:///home/<USER>/automation-api-quickstart/101-running-hadoop-spark-job-flow/processDataOutDir" }
+                    { "rm":"-R -f file:///home/USER/automation-api-quickstart/101-running-hadoop-spark-job-flow/processDataOutDir" }
                 ]                   
             }
         },
@@ -46,7 +46,7 @@
             "Commands" : [
                 {"rm"    : "-R -f samplesOut" },
                 {"mkdir" : "samplesOut" },
-                {"cp"   : "file:///home/<USER>/automation-api-quickstart/101-running-hadoop-spark-job-flow/* samplesOut" }
+                {"cp"   : "file:///home/USER/automation-api-quickstart/101-running-hadoop-spark-job-flow/* samplesOut" }
             ]
         },
 
