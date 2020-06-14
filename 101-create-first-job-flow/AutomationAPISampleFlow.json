@@ -2,8 +2,8 @@
     "Defaults" : {
         "Application" : "SampleApp",
         "SubApplication" : "SampleSubApp",
-        "RunAs" : "<USERNAME>",
-        "Host" : "<HOST>",
+        "RunAs" : "USERNAME",
+        "Host" : "HOST",
 
         "Job": {
             "When" : {
@@ -37,8 +37,8 @@
 
         "ScriptJob": {
             "Type": "Job:Script",
-          	"FilePath":"<SCRIPT_PATH>",
-          	"FileName":"<SCRIPT_NAME>"
+          	"FilePath":"SCRIPT_PATH",
+          	"FileName":"SCRIPT_NAME"
         },
 
         "Flow": {
