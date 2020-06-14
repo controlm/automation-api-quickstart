@@ -5,13 +5,13 @@ Tutorial on the [product web page](https://docs.bmc.com/docs/display/workloadaut
 ```javascript
 "CommandJob": {
     "Type": "Job:Command",
-    "Command": "<COMMAND>"
+    "Command": "COMMAND"
 },
 
 "ScriptJob": {
     "Type": "Job:Script",
-  	"FilePath":"<SCRIPT_PATH>",
-  	"FileName":"<SCRIPT_NAME>"
+  	"FilePath":"SCRIPT_PATH",
+  	"FileName":"SCRIPT_NAME"
 }
 ```
 
