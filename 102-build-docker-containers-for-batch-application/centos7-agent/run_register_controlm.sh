@@ -1,5 +1,6 @@
 #!/bin/bash
-
+#use agent's java for provision setup
+PATH=$PATH:~/ctm/JRE_1.8/bin
 CTM_ENV=endpoint
 #CTM_SERVER=[CTM_HOST]
 #CTM_HOSTGROUP=app0
