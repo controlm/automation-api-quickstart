@@ -2,7 +2,7 @@
 # Control-M Remote Host docker container
 #---------------------------------------
 
-FROM alpine:latest
+FROM mhart/alpine-node:latest
 MAINTAINER Nathan Amichay <nathan_amichay@bmc.com>
 
 ARG CTMHOST

@@ -2,7 +2,7 @@
 # Container for Control-M Automation API cli 
 #-------------------------------------------
 
-FROM alpine:latest
+FROM mhart/alpine-node:latest
 MAINTAINER Gad Ron <gad_ron@bmc.com>
 
 ARG CTMHOST
