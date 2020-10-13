@@ -54,7 +54,7 @@ wget <AUTOMATION_API_ENDPOINT>/yaml
 ######Download the swagger code generator 
 For more information see [Swagger Code Generator](https://github.com/swagger-api/swagger-codegen)
 ```bash
-wget http://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.2.1/swagger-codegen-cli-2.2.1.jar -O swagger-codegen-cli.jar
+wget https://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.2.1/swagger-codegen-cli-2.2.1.jar -O swagger-codegen-cli.jar
 ```
 ######Generate the client
 ```bash
