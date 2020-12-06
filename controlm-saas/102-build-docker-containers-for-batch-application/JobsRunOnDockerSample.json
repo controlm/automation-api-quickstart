@@ -1,0 +1,18 @@
+{
+    "Defaults" : {
+        "Application" : "SampleApp",
+        "SubApplication" : "SampleSubApp",
+        "RunAs" : "controlm",
+        "Host" : "<HOSTGROUP>"
+	},
+
+    "JobsRunInDockerSample": {
+        "Type": "Folder",
+        "Comment" : "Code reviewed by John",
+
+        "CommandJob": {
+            "Type": "Job:Command",
+            "Command": "whoami ; pwd; ls -l"
+        }
+    }
+}

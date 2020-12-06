@@ -1,0 +1,65 @@
+{
+  "DeployDescriptor":
+  [
+    {
+	  "Comment": "Assign Control-M Server",
+      "Property" :"ControlmServer",
+      "Assign" : "clm-aus-t2k2e4"
+    },
+    {
+	  "Comment": "Rename folder prefix from Dev to PROD",
+      "ApplyOn"     :  {"Type":"SimpleFolder"},
+      "Property" : "@",
+      "Replace" : [ {"Dev_(.*)" : "PROD_$1"} ]
+    },
+	{
+	  "Comment": "Rename Job name prefix from Dev to PROD",
+	  "ApplyOn" : {"Type":"Job"},
+      "Property" : "@",
+      "Replace" : [ {"Dev_(.*)" : "PROD_$1"} ]
+	},
+	{
+	  "Comment": "Rename File Name from Dev to PROD",
+	  "ApplyOn" : {"Type":"Job:Script"},
+	  "Property":"FileName",
+	  "Replace" : [ {"Dev_(.*)" : "PROD_$1"} ]
+	},
+	{
+      "Comment": "Assigns the RunAs property to the correct user for all jobs in the folder and subfolders.",
+      "Property": "RunAs",
+      "Assign": "ctmfinuser"
+    },
+	{
+	  "Comment": "Change File Path location of script",
+	  "ApplyOn" : {"Type":"Job:Script"},
+	  "Property":"FilePath",
+	  "Assign" : "C:\\Scripts"
+	},
+	{
+	  "Comment": "Change Host of a Job based on application Finance",
+	  "ApplyOn" : {"Type":"Job"},
+	  "Property":"Host",
+	  "Source":"Application",
+	  "Replace" : [ { "Finance.*":"clm-aus-t2k2e4"} ]
+	},
+	{
+	  "Comment": "Change Host of a Job based on application Audit",
+	  "ApplyOn" : {"Type":"Job"},
+	  "Property":"Host",
+	  "Source":"Application",
+	  "Replace" : [ { "Audit.*":"clm-aus-t2k2e4"} ]
+	},
+    {
+	  "Comment": "Change the In-Conditions",
+      "Property": "Events[0]['Event']",
+      "ApplyOn": {"Type": "WaitForEvents"},
+	  "Replace": [ {"Dev_(.*)-TO-Dev_(.*)": "PROD_$1-TO-PROD_$2"} ] 
+    },
+	{
+	 "Comment": "Change the Out-Conditions",
+	 "Property": "Events[0]['Event']",
+	 "ApplyOn" : {"Type": "AddEvents"},
+	 "Replace": [ {"Dev_(.*)-TO-Dev_(.*)": "PROD_$1-TO-PROD_$2"} ]
+	}
+  ]
+}
