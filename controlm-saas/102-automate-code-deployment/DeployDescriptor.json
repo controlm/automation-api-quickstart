@@ -1,0 +1,27 @@
+{
+  "DeployDescriptor":
+  [    
+    {
+      "Comment": "Set run as user in Defaults to the prod automation user",
+      "ApplyOn": {
+	"@":"Defaults"
+       },
+      "Property" :"RunAs",
+      "Assign" : "workbench"
+    },  
+    {
+      "Comment": "Modify Application property to comply with Development environment",
+      "Property" :"Application",
+      "Replace" : [ {"(.*)" : "Dev$1"} ]
+    },
+	{
+	  "Comment": "Distribute jobs across hosts available in Development environment based on job names",
+	  "Property": "Host",
+	  "Source": "@",
+	  "Replace": [
+		{ "Command.*" : "workbench"},
+		{ "Script.*"  : "workbench"}
+	  ]
+	}
+  ]
+}

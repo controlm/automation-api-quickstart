@@ -1,0 +1,49 @@
+{
+    "Defaults" : {
+        "Application" : "SampleApp",
+        "SubApplication" : "SampleSubApp",
+        "RunAs" : "USERNAME",
+        "Host" : "HOST",
+
+        "Job": {
+            "When" : {
+                "Months": ["JAN", "OCT", "DEC"],
+                "MonthDays":["22","1","11"],
+                "WeekDays":["MON","TUE", "WED", "THU", "FRI"],
+                "FromTime":"0300",
+                "ToTime":"2100"
+            },
+            "ActionIfFailure" : {
+                "Type": "If",       
+                "CompletionStatus": "NOTOK",
+                
+                "mailToTeam": {
+                    "Type": "Mail",
+                    "Message": "%%JOBNAME failed",
+                    "To": "team@mycomp.com"
+                }
+            }
+        }
+    },
+
+    "AutomationAPISampleFlow": {
+        "Type": "Folder",
+        "Comment" : "Code reviewed by John",
+
+        "CommandJob": {
+            "Type": "Job:Command",
+            "Command": "echo my 1st job"
+        },
+
+        "ScriptJob": {
+            "Type": "Job:Script",
+          	"FilePath":"SCRIPT_PATH",
+          	"FileName":"SCRIPT_NAME"
+        },
+
+        "Flow": {
+            "Type": "Flow",
+            "Sequence": ["CommandJob", "ScriptJob"]
+        }
+    }
+}
