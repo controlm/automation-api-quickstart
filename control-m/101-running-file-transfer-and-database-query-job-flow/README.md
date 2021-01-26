@@ -30,7 +30,7 @@ Tutorial on the [product web page](https://docs.bmc.com/docs/display/workloadaut
 
 "UpdateRecords": {
     "Type": "Job:Database:SQLScript",
-    "SQLScript": "/home/<USER>/automation-api-quickstart/101-running-file-transfer-and-database-query-job-flow/processRecords.sql",
+    "SQLScript": "/home/<USER>/automation-api-quickstart/control-m/101-running-file-transfer-and-database-query-job-flow/processRecords.sql",
     "ConnectionProfile": "DB-CP"
 }
 ```
