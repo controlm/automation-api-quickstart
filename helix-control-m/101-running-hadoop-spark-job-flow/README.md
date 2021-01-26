@@ -5,16 +5,16 @@ Tutorial on the [product web page](https://docs.bmc.com/docs/display/ctmSaaSAPI/
 ```javascript
 "ProcessData": {
     "Type": "Job:Hadoop:Spark:Python",
-    "SparkScript": "file:///home/[USER]/automation-api-quickstart/controlm-saas/101-running-hadoop-spark-job-flow/processData.py",
+    "SparkScript": "file:///home/[USER]/automation-api-quickstart/helix-control-m/101-running-hadoop-spark-job-flow/processData.py",
 
     "Arguments": [
-        "file:///home/[USER]/automation-api-quickstart/controlm-saas/101-running-hadoop-spark-job-flow/processData.py",
-        "file:///home/[USER]/automation-api-quickstart/controlm-saas/101-running-hadoop-spark-job-flow/processDataOutDir"
+        "file:///home/[USER]/automation-api-quickstart/helix-control-m/101-running-hadoop-spark-job-flow/processData.py",
+        "file:///home/[USER]/automation-api-quickstart/helix-control-m/101-running-hadoop-spark-job-flow/processDataOutDir"
     ],
 
     "PreCommands" : {
         "Commands" : [
-            { "rm":"-R -f file:///home/[USER]/automation-api-quickstart/controlm-saas/101-running-hadoop-spark-job-flow/processDataOutDir" }
+            { "rm":"-R -f file:///home/[USER]/automation-api-quickstart/helix-control-m/101-running-hadoop-spark-job-flow/processDataOutDir" }
         ]                   
     }
 }
