@@ -4,7 +4,7 @@ CTM_ENV=endpoint
 #CTM_SERVER=[CTM_HOST]
 #CTM_HOSTGROUP=app1 
 #CTM_AGENT_PORT=7020
-ALIAS=$(hostname):$CTM_AGENT_PORT/
+ALIAS=$(hostname):$CTM_AGENT_PORT
 
 #cd
 #source .bash_profile
