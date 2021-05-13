@@ -19,7 +19,7 @@ import io.swagger.client.ApiException;
 import junit.framework.Assert;
 
 
-public class TestAuthomationApiJUnitExamples {
+public class TestAutomationApiJUnitExamples {
 	private static final Logger logger = LoggerFactory.getLogger(TestAuthomationApiJUnitExamples.class.getName());
 	
 	// TODO: change those parameter before build to hold your own configuration !!
