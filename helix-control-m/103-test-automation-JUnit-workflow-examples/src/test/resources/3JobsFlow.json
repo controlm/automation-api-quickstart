@@ -1,0 +1,33 @@
+{
+  "JobsFlowForJUnit": {
+    "Type": "Folder",
+    "OrderMethod": "Manual",
+    "FirstJobOk": {
+      "Type": "Job:Command",
+      "Command": "echo this is job 1 - ended successfully",
+      "Host": "HOST",
+      "RunAs": "USERNAME"
+    },
+    "SecondJobOk": {
+      "Type": "Job:Command",
+      "Confirm": true,
+      "Command": "echo this is job 2 - ended successfully",
+      "Host": "HOST",
+      "RunAs": "USERNAME"
+    },
+    "ThirdJobNotOk": {
+      "Type": "Job:Command",
+      "Command": "echo this is job 3 - ended with failure && exit 3",
+      "Host": "HOST",
+      "RunAs": "USERNAME"
+    },
+    "flow1": {
+      "Type": "Flow",
+      "Sequence": [
+        "FirstJobOk",
+        "SecondJobOk",
+        "ThirdJobNotOk"
+      ]
+    }
+  }
+}
