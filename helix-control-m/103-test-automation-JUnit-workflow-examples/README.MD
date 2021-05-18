@@ -41,7 +41,8 @@ How to verify control-m workflows runs using JUnit
 1.  Generate java REST client for automation-api (see next section)
 2.  Change the API_KEY and AUTOMATION_API_ENDPOINT in the code to use your connection parameters
 3.  Change the example jobs (.json) in test/resources to match your environment Control-M Server and Agent's host (usually the same of the hostname where Control-M is installed)
-2.  Use maven to build this project
+4.  Uncomment the correct twoMinJob definition, according to your agent's OS type - Windows or Linux /Unix in TestAutomationApiJUnitExamples class (in setUp method)
+5.  Use maven to build this project
 Build project using maven from the home directory (where pom.xml reside)
 ```bash
 mvn test 
