@@ -226,6 +226,10 @@ public class RunService {
      */
     public boolean isJobEnded(String jobName) throws ApiException {
         JobRunStatus jobDetails = getJobDetailsByName(jobName);
+        if (Arrays.asList(JobStatus.EXEC_FAILURE_STATUSES).contains(JobStatus.toJobStatus(jobDetails.getStatus()))) {
+            throw new RuntimeException("job name " + jobName + " not executed due to configuration error");
+        }
+
         if (jobDetails == null) throw new ApiException("job name " + jobName + " not found in runId " + runId);
 
         return Arrays.asList(JobStatus.ENDED_STATUSES).contains(JobStatus.toJobStatus(jobDetails.getStatus()));

@@ -1,10 +1,10 @@
 {
-  "NotOk": {
+  "LongJob": {
     "Type": "Folder",
     "OrderMethod": "Manual",
-    "failJob": {
+    "twoMinJob": {
       "Type": "Job:Command",
-      "Command": "invalid command, exit code none 0",
+      "Command": "echo long waiting && sleep 2m && echo finish long waiting",
       "Host": "HOST",
       "RunAs": "USERNAME"
     }

@@ -20,7 +20,7 @@ import io.swagger.client.ApiException;
 public class TestAutomationApiJUnitExamples {
     private static final Logger logger = LoggerFactory.getLogger(TestAutomationApiJUnitExamples.class.getName());
 
-    // TODO: change those parameter before build to hold your own configuration !
+    //TODO: change those parameter before build to hold your own configuration !
     private final static String AUTOMATION_API_ENDPOINT = "<end point url>";
     private final static String API_KEY = "<api_key-token>";
 
@@ -35,9 +35,13 @@ public class TestAutomationApiJUnitExamples {
     public void setUp() throws URISyntaxException {
         Assert.assertFalse("you must update API_KEY and AUTOMATION_API_ENDPOINT in this class", "<api_key-token>".equals(API_KEY));
 
+        //TODO - Uncomment the correct twoMinJob definition, according to your agent's OS type - Windows or Linux /Unix
+        //twoMinJob = getJsonDefinitionFile("/TwoMinJob_Windows.json");
+        //twoMinJob = getJsonDefinitionFile("/TwoMinJob_Linux.json");
+        Assert.assertFalse("uncomment relevant twoMinJob definition.", twoMinJob == null);
+
         endedOkJob = getJsonDefinitionFile("/JobEndedOk.json");
         endedNotOkJob = getJsonDefinitionFile("/JobEndedNotOk.json");
-        twoMinJob = getJsonDefinitionFile("/TwoMinJob.json");
         threeJobFlow = getJsonDefinitionFile("/3JobsFlow.json");
 
         conn = new Connection(AUTOMATION_API_ENDPOINT, API_KEY);
@@ -59,14 +63,6 @@ public class TestAutomationApiJUnitExamples {
         boolean isEnded = rs.waitForJobToEnd("failJob", 15 * 1000).isJobEnded("failJob");
         Assert.assertTrue(isEnded);
         logger.info("end test testIsJobEndedUsingJobName");
-    }
-
-
-    @Test
-    public void test() throws ApiException, TimeoutException {
-        logger.info("start test testIsJobEndedUsingJobName");
-        rs.test();
-
     }
 
     /**
@@ -100,6 +96,7 @@ public class TestAutomationApiJUnitExamples {
             throw new ApiException("should never get here, the above wait should throw timeout since the job takes 2min to end");
         } catch (TimeoutException e) {
         }
+
         logger.info("end test testJobStillExecuting");
     }
 
@@ -158,7 +155,7 @@ public class TestAutomationApiJUnitExamples {
     @Test
     public void testWaitForConfirmation() throws ApiException, TimeoutException, InterruptedException {
         logger.info("start test testWaitForConfirmation");
-        rs.runJobs(new File("./src/test/resources/3JobsFlow.json"));
+        rs.runJobs(threeJobFlow);
         int timeout = 15 * 1000;
         long startTime = System.currentTimeMillis();
 
