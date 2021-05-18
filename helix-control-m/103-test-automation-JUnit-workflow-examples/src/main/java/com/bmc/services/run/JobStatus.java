@@ -44,5 +44,10 @@ public enum JobStatus {
 	 * Job that ended are in one of the following statuses
 	 */
 	public static final JobStatus[] ENDED_STATUSES = {ENDED_OK, ENDED_NOT_OK, STATUS_UNKNOWN};
-	
+
+	/**
+	 * Job that failed to execute in one of the following statuses
+	 */
+	public static final JobStatus[] EXEC_FAILURE_STATUSES = {WAIT_USER, WAIT_HOST};
+
 }
