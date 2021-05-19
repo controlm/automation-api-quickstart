@@ -3,7 +3,7 @@
     "Host": "HOST",
     "RunAs": "USERNAME"
   },
-  "JobsFlowForJUnit1": {
+  "JobsFlowForJUnit": {
     "Type": "Folder",
     "OrderMethod": "Manual",
     "FirstJobOk": {
