@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ha-agent-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    type: stateful-service-ctmag-srv
+  name: ha-statefulset-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: stateful-service-ctmag-srv
+  serviceName: ctmag
+  template:
+    metadata:
+      labels:
+        type: stateful-service-ctmag-srv
+    spec:
+      containers:
+      - env:
+        - name: PERSISTENT_VOL
+          value: /home/controlm/persistent_folder
+        - name: AAPI_END_POINT
+          value: https://<END_POINT_URL>/automation-api
+        - name: AAPI_USER
+          value: <AAPI_USER_NAME>
+        - name: AAPI_PASS
+          value: <AAPI_PASSWORD>
+        - name: CTM_SERVER_NAME
+          value: <CTM_NAME>
+        - name: PERM_HOSTS
+          value: <HOST_NAMES>
+        - name: CTM_HOST_NAME
+          value: <HOST_GROUP_NAME>
+        image: <IMAGE_NAME>
+        imagePullPolicy: Always
+        name: ctmagent-container
+        ports:
+        - containerPort: 7006
+        volumeMounts:
+        - mountPath: /home/controlm/persistent_folder
+          name: pv-data
+      hostAliases:
+      - hostnames:
+        - <SERVER_NAME>
+        ip: <SERVER_IP>
+      securityContext:
+        fsGroup: 1000
+      terminationGracePeriodSeconds: 10
+      volumes:
+      - name: pv-data
+        persistentVolumeClaim:
+          claimName: ha-agent-pvc
