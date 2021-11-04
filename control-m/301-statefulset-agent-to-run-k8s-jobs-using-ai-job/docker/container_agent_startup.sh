@@ -17,6 +17,9 @@ agentName=$(hostname)
 echo 'mapping persistent volume'
 cd /home/controlm
 
+sudo echo PATH="${PATH}:/home/controlm/bmcjava/bmcjava-V2/bin:/home/controlm/ctm/scripts:/home/controlm/ctm/exe">>~/.bash_profile
+sudo echo export PATH>>~/.bash_profile
+
 source ~/.bash_profile
 
 if [ ! -d $PERSISTENT_VOL/pid ];

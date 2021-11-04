@@ -49,15 +49,17 @@ RUN ctm env add myenv $AAPI_END_POINT $AAPI_USER $AAPI_PASS \
         && java -version \
 # install agent, setup will be done during statup
 		&& ctm provision image $AGENT_IMAGE_NAME && echo installation ended successfully \
-                && ctm env del myenv \
+        && ctm env del myenv \
 
 # Persistent connection : internal AR keep-alive
 		&& echo "AR_PING_TO_SERVER_IND Y" >> /home/controlm/ctm/data/CONFIG.dat \
 		&& echo "AR_PING_TO_SERVER_INTERVAL 30" >> /home/controlm/ctm/data/CONFIG.dat \
 		&& echo "AR_PING_TO_SERVER_TIMEOUT 60" >> /home/controlm/ctm/data/CONFIG.dat \
-# clean
+# clean and uninstall java 11
+		&& sudo yum -y autoremove java-11-openjdk \
 		&& sudo yum clean all \
 		&& sudo rm -rf /var/cache/yum
+
 # install kubectl
 COPY  install_kubectl.sh .
 RUN ./install_kubectl.sh
