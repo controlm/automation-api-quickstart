@@ -49,11 +49,12 @@ To view a sample container and pod, refer to [Sample Objects](#sample-objects).
 
 ## Sample Objects
 
-Use the following links to access and obtain 
-Note that you will need to edit these samples and customize them to match the
+Use the following links to access and obtain sample objects in GitHub.
+> You will need to edit these samples and customize them to match the
 unique needs of your environment.
-[All files except the AI job type](https://github.com/automation-api-quickstart/tree/master/control-m/301-statefulset-agent-to-run-k8s-jobs-using-ai-job)
-[AI job type](https://controlm-appdev.s3.us-west-2.amazonaws.com/automation/BEST_PRACTICE/AI+Kubernetes.ctmai)
+
+- [All files except the AI job type](https://github.com/automation-api-quickstart/tree/master/control-m/301-statefulset-agent-to-run-k8s-jobs-using-ai-job)
+- [AI job type](https://controlm-appdev.s3.us-west-2.amazonaws.com/automation/BEST_PRACTICE/AI+Kubernetes.ctmai)
 
 | File Name | Description |
 |---------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
@@ -117,14 +118,14 @@ Use the stateful_ha.yaml file to allocate persistent storage for Agent usage and
 Run the following command:  
 ```
 kubectl apply -f stateful_ha.yaml
-
+```
 After executing the apply command, verify that the pod is running. After all 
 setup processes of the Agent have completed (in the container_agent_startup.sh script), the ctmhost_keepalive.sh script runs in an endless loop. This script verifies agent-server connection and writes its output to the pod’s standard output.
 
 ### Step 4: Verify permissions
 Verify with your Kubernetes Administrator that the agent's pod has permissions
 to start the requested "run pod to completion". 
-Note that in the BMC test environment, the *roles.yaml* file was applied, to ensure that the agent can apply Kubernetes jobs from inside the pod. 
+> In the BMC test environment, the *roles.yaml* file was applied, to ensure that the agent can apply Kubernetes jobs from inside the pod. 
 
 ### Step 5: Run Control-M jobs
 To run the Control-M job, perform the following actions:
@@ -132,4 +133,4 @@ To run the Control-M job, perform the following actions:
 1.	Create a connection profile between the deployed agent and KUBERNETES job type. In the connection profile you will be asked to supply the kubectl path in the Agent. 
 2.	Create a new KUBERNETES type job and point it to the created Agent or Agent host group. Supply the created connection profile and a yaml file path or Kubernetes resource id and run the job.
 
-Note: By default the PersistentVolumeClaim accessModes property is configured to ReadWriteOnce. To use ReadWriteMany, the cluster must be configured before applying the stateful_ha.yaml file. In the AWS environment you can use the following link: https://newbedev.com/kubernetes-pvc-with-readwritemany-on-aws  
+> By default the PersistentVolumeClaim accessModes property is configured to ReadWriteOnce. To use ReadWriteMany, the cluster must be configured before applying the stateful_ha.yaml file. In the AWS environment you can use the following link: https://newbedev.com/kubernetes-pvc-with-readwritemany-on-aws  
