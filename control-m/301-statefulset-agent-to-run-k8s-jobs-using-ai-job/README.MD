@@ -101,10 +101,10 @@ This produces an image that contains a Control-M/Agent with kubectl and support 
 
 The container contains the following items:
 -   Control-M/Agent
+-   Control-M Application Integrator
+-   Control-M Automation API CLI
 -   Java 11 run time
 -   NodeJS version 14
--   Control-M Automation API CLI
--   Control-M Application Integrator Application Type
 -   KubeCtl 
 -   Bash startup scripts
 
@@ -112,7 +112,7 @@ Automation API instructions in the Dockerfile are invoked during the build of
 the image for provisioning of an Agent.
 
 When the container is loaded, the container_agent_startup.sh is invoked. The startup script performs the folowing actions:
-1. Mounts the container to use the persistent storage.
+1. Mounts the container to use the persistent volume.
 2. Registers and configures the Agent in Control-M.
 3. Adds the Agent to the k8s hostgroup. This ensures high aviliblity and load balancing between the Agents.
 4. Deploys the Control-M Application Integrator KUBERNETES job type to enable running it with the Agent.
@@ -124,7 +124,8 @@ Use Control-M Application Integrator to import the file AI Kubernetes.ctmai:
 1. Open the BMC Welcome page.
 2. Click Application Integrator and log in to Control-M Application Integrator. 
 3. Click *Import job type from file*, and choose the AI Kubernetes.ctmai file that you downloaded earlier.
-This creates a new job type named KUBERNETES.
+4. Click *Deploy*.
+This creates a new job type named KUBERNETES. This job type can now be used on any Agent associated with the Control-M/EM.
 
 ### Step 3: Create persistent storage and run the Agent
 Use the stateful_ha.yaml file to allocate persistent storage for Agent usage and run the Agent, so that the state of the Control-M/Agent is kept across shutdown and startup of the pod. 
