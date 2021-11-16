@@ -27,8 +27,8 @@ The information in this document is based on the following assumptions:
 ## Methodological Approach
 
 There are several ways to run a Kubernetes (K8s) pod to completion using Control-M. 
-This document describes a selected methodology for utilizing an OS job with a BMC Application Integrator job type to run your Control-M workloads in Kubernetes. 
-The BMC Application Integrator job starts a Kubernetes job entity and monitors its status until the job ends.
+This document describes a selected methodology for utilizing an OS job with a Control-M Application Integrator job type to run your Control-M workloads in Kubernetes. 
+The Control-M Application Integrator job starts a Kubernetes job entity and monitors its status until the job ends.
 After the job ends, the pod’s output is captured and is presented in the Control-M job output. The Kubernetes job is then deleted, so that another job with the same name can be run.
 
 The Agent pod is run as a StatefulSet, so that the hostname will be identified
@@ -51,8 +51,8 @@ Use the following links to access and obtain sample objects in GitHub.
 > You will need to edit these samples and customize them to match the
 unique needs of your environment.
 
-- [All files except the BMC Application Integrator job type](https://github.com/automation-api-quickstart/tree/master/control-m/301-statefulset-agent-to-run-k8s-jobs-using-ai-job)
-- [BMC Application Integrator job type](https://controlm-appdev.s3.us-west-2.amazonaws.com/automation/BEST_PRACTICE/AI+Kubernetes.ctmai)
+- [All files except the Control-M Application Integrator job type](https://github.com/automation-api-quickstart/tree/master/control-m/301-statefulset-agent-to-run-k8s-jobs-using-ai-job)
+- [Control-M Application Integrator job type](https://controlm-appdev.s3.us-west-2.amazonaws.com/automation/BEST_PRACTICE/AI+Kubernetes.ctmai)
 
 | File Name | Description |
 |---------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
@@ -60,14 +60,14 @@ unique needs of your environment.
 | Dockerfile | A file that contains instructions for how to construct a Control-M/Agent Docker image |
 | container_agent_startup.sh | A bash script that is used to start up the Control-M/Agent |
 | ctmhost_keepalive.sh | A bash script that is used to keep the persistent connection between the installed Agent in the pod and Control-M |
-| install_ai.sh | A bash script that is used for installing support for execution of BMC Application Integrator job types in the installed Agent during the docker build process |
+| install_ai.sh | A bash script that is used for installing support for execution of Control-M Application Integrator job types in the installed Agent during the docker build process |
 | install_kubectl.sh | A bash script that is used for installing kubectl on the Agent during the docker build process |
-| silent.xml | A configuration file for installation of BMC Application Integrator, used during the docker build process |
+| silent.xml | A configuration file for installation of Control-M Application Integrator, used during the docker build process |
 | agent_configuration.json | A configuration file for the Agent |
+| AI Kubernetes.ctmai | A Kubernetes job type definition file |
 | stateful_ha.yaml | A file that contains StatefulSet definitions for running a Control-M/Agent container, Kubernetes definitions for creation of the Persistent Volume Claim, and a linkage between them |
 | sleep_for_20sec_job.yaml | A sample Kubernetes job for testing: Print the current time and sleep for 20 seconds |
 | roles.yaml | A sample file used to enforce RBAC authorization in the test environment |
-| AI Kubernetes.ctmai | A Kubernetes job type definition file |
 
 
 ## Process Steps
@@ -97,14 +97,14 @@ The script contains the following variables:
 - AGENT_IMAGE_NAME - The image name of the Agent. For more details, see [Provision Service](https://docs.bmc.com/docs/display/workloadautomation/API+Services+-+Provision+service).
 
 
-This produces an image that contains a Control-M/Agent with kubectl and support for executing BMC Application Integrator jobs types. 
+This produces an image that contains a Control-M/Agent with kubectl and support for executing Control-M Application Integrator jobs types. 
 
 The container contains the following items:
 -   Control-M/Agent
 -   Java 11 run time
 -   NodeJS version 14
 -   Control-M Automation API CLI
--   BMC Application Integrator Application Type
+-   Control-M Application Integrator Application Type
 -   KubeCtl 
 -   Bash startup scripts
 
@@ -115,14 +115,14 @@ When the container is loaded, the container_agent_startup.sh is invoked. The sta
 1. Mounts the container to use the persistent storage.
 2. Registers and configures the Agent in Control-M.
 3. Adds the Agent to the k8s hostgroup. This ensures high aviliblity and load balancing between the Agents.
-4. Deploys the BMC Application Integrator KUBERNETES job type to enable running it with the Agent.
+4. Deploys the Control-M Application Integrator KUBERNETES job type to enable running it with the Agent.
 5. Executes the ctmhost_keepalive.sh script. This script verifies the Agent-Server connection and writes its output to the pod’s standard output.   
 
 ### Step 2: Add Kubernetes job type to Application Integrator
 
-Use BMC Application Integrator to import the file AI Kubernetes.ctmai:
+Use Control-M Application Integrator to import the file AI Kubernetes.ctmai:
 1. Open the BMC Welcome page.
-2. Click Application Integrator and log in to BMC Application Integrator. 
+2. Click Application Integrator and log in to Control-M Application Integrator. 
 3. Click *Import job type from file*, and choose the AI Kubernetes.ctmai file that you downloaded earlier.
 This creates a new job type named KUBERNETES.
 
