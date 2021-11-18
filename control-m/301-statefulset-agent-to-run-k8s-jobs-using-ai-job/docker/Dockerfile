@@ -18,6 +18,7 @@ RUN  yum -y install wget \
         && yum -y install zlib-devel \
         && yum -y install libffi-devel \
 		&& yum -y install compat-libstdc++-33.x86_64 \
+		&& yum -y install psmisc \
 		&& cd /usr/src \
 
 # install nodejs
@@ -63,13 +64,6 @@ RUN ctm env add myenv $AAPI_END_POINT $AAPI_USER $AAPI_PASS \
 # install kubectl
 COPY  install_kubectl.sh .
 RUN ./install_kubectl.sh
-
-# install ai
-COPY  install_ai.sh .
-COPY  silent.xml .
-RUN wget -nv https://controlm-appdev.s3.us-west-2.amazonaws.com/automation/BEST_PRACTICE/DR1CM.9.0.20.100_Linux-x86_64.tar.Z \
-	&& mv DR1CM.9.0.20.100_Linux-x86_64.tar.Z DRAIT.tar.Z \
-	&& ./install_ai.sh
 
 RUN echo "DISABLE_CM_SHUTDOWN Y" >> /home/controlm/ctm/data/CONFIG.dat \
                 && touch /home/controlm/ctm/data/DISABLE_CM_SHUTDOWN_Y.cfg

@@ -60,9 +60,8 @@ unique needs of your environment.
 | Dockerfile | A file that contains instructions for how to construct a Control-M/Agent Docker image |
 | container_agent_startup.sh | A bash script that is used to start up the Control-M/Agent |
 | ctmhost_keepalive.sh | A bash script that is used to keep the persistent connection between the installed Agent in the pod and Control-M |
-| install_ai.sh | A bash script that is used for installing support for execution of Control-M Application Integrator job types in the installed Agent during the docker build process |
 | install_kubectl.sh | A bash script that is used for installing kubectl on the Agent during the docker build process |
-| silent.xml | A configuration file for installation of Control-M Application Integrator, used during the docker build process |
+| Agent_20.100+OneCM.Linux.json | A configuration file for provisioning the Control-M/Agent and Control-M Application Integrator, used during the docker build process |
 | agent_configuration.json | A configuration file for the Agent |
 | AI Kubernetes.ctmai | A Kubernetes job type definition file |
 | stateful_ha.yaml | A file that contains StatefulSet definitions for running a Control-M/Agent container, Kubernetes definitions for creation of the Persistent Volume Claim, and a linkage between them |

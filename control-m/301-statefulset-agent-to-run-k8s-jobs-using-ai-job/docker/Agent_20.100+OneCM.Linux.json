@@ -1,0 +1,8 @@
+{
+    "OS": "Linux-x86_64",
+    "Installers":
+    [
+      "DRKAI.9.0.20.100_Linux-x86_64.tar.Z",
+	  "DR1CM.9.0.20.100_Linux-x86_64.tar.Z"
+    ]
+}
