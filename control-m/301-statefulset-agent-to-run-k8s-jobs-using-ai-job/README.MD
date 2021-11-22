@@ -10,7 +10,7 @@ The document demonstrates how to do this while leveraging Control-M scheduling a
 ## Working Assumptions
 The information in this document is based on the following assumptions:
 -   The following guidelines and configuration are based on Amazon Elastic Kubernetes Service and were tested in a Linux environment with Control-M 9.0.20.100.
--   Deployment of Control-M/Agent on Kubernetes requires Control-M 9.0.19.200 or later as the basis for running Control-M Automation API.
+-   Deployment of Control-M/Agent on Kubernetes requires Control-M 9.0.19.200 or later as the basis for running Control-M Automation API.  For the Automation API, the [latest monthly release](https://docs.bmc.com/docs/display/workloadautomation/Control-M+Automation+API+-+Getting+Started+Guide) is recommended.
 -   Control-M/Server resides outside of the Kubernetes cluster.
 
 ## Methodological Approach
@@ -48,15 +48,15 @@ Use the following link to access and obtain sample objects in GitHub.
 | stateful_ha.yaml | A file that contains StatefulSet definitions for running a Control-M/Agent container, Kubernetes definitions for creation of the Persistent Volume Claim, and a linkage between them |
 | sleep_for_20sec_job.yaml | A sample Kubernetes job for testing: Print the current time and sleep for 20 seconds |
 | roles.yaml | A sample file used to enforce RBAC authorization in the test environment |
+| testAiConnectionProfile.json | A json configuration file for creating a connection profile that uses the kubectl utility in the Agent container |
+| testAIJob.json | A json configuration file for creating the Control-M Application Integrator KUBERNETES job type  |
 
 ## Required Control-M Authorizations
 To perform the processes described in this document, you must have various Control-M authorizations configured:
--   For building and executing the Control-M/Agent container:
+-   For building and executing the Control-M/Agent container and deploying the Application Integrator job type:
 -- API access, as described in [API session service authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#94102.htm)
 -- Provisioning of Control-M/Agent and applications, as described in [API Provision service authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#101610.htm)
-- For deploying the Application Integrator job type:
--- API access, as described in [API session service authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#94102.htm)
--- Access to Control-M Application Integrator, as described in [Application Integrator privileges](https://documents.bmc.com/supportu/9.0.20/etc/ai/help/en-US/Web_Help/index.htm#66300.htm)
+-- Access to Control-M Application Integrator, as described in [API build and deploy services authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#94172.htm)
 - For creating and monitoring jobs that run the Kubernetes pod:
 -- API access, as described in [API session service authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#94102.htm)
 -- Folder authorizations, as described in [Folder authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#AuthorizationsTableProperties.htm)
@@ -96,10 +96,10 @@ The container contains the following items:
 
 Automation API instructions in the Dockerfile are invoked during the build of the image for provisioning of an Agent.
 
-When the container is loaded, the container_agent_startup.sh is invoked. The startup script performs the folowing actions:
+When the container is loaded, the container_agent_startup.sh is invoked. The startup script performs the following actions:
 1. Mounts the container to use the persistent volume.
 2. Registers and configures the Agent in Control-M.
-3. Adds the Agent to the k8s hostgroup. This ensures high aviliblity and load balancing between the Agents.
+3. Adds the Agent to the k8s hostgroup. This ensures high availability and load balancing between the Agents.
 4. Deploys the Control-M Application Integrator KUBERNETES job type to enable running it with the Agent.
 5. Executes the ctmhost_keepalive.sh script. This script verifies the Agent-Server connection and writes its output to the pod’s standard output.   
 
@@ -129,7 +129,38 @@ Run the following command:
 kubectl apply -f stateful_ha.yaml
 ```
 After executing the apply command, verify that the pod is running. After all setup processes of the Agent have completed (in the container_agent_startup.sh script), the ctmhost_keepalive.sh script runs in an endless loop. 
+After the pod is loaded successfully, the pod’s output log should contain a report regarding the Agent Control-M connection. Here is an example of such a report:
+```
+Control-M/Agent Communication Diagnostic Report
+-----------------------------------------------
 
+ Agent User Name                : controlm
+ Agent Directory                : /home/controlm/ctm
+ Agent Platform Architecture    : Linux
+ Agent Version                  : 9.0.20.100
+ Agent Host Name                : ha-statefulset-agent-0
+ Logical Agent Name             : ha-statefulset-agent-0
+ Listen to Network Interface    : *ANY
+ Server Host Name               : example.compute.amazonaws.com
+ Authorized Servers Host Names  : example.compute.amazonaws.com
+ 
+ Server-to-Agent Port Number    : 7006
+ Agent-to-Server Port Number    : 7005
+ Server-Agent Protocol Version  : 12
+ Server-Agent Comm. Protocol    : TCP
+ Server-Agent Connection mode   : Persistent
+ Allow agent to init connection : Yes
+ Unix Ping to Server Platform   : Succeeded
+ Agent Ping to Control-M/Server : Succeeded
+
+ Agent processes status
+ ======================
+ Agent Router                   : Running as controlm (512)
+ Java services                  : ["housekeeping","ssh-courier"] on port 44483
+ Agent Listener                 : Running as controlm (552)
+ Agent Tracker                  : Running as controlm (642)
+ Agent Tracker-Worker           : Running as controlm (644)
+```
 ### Step 4: Verify permissions
 Verify with your Kubernetes Administrator that the Agent's pod has permissions to start the requested "run pod to completion". 
 > In the BMC test environment, the *roles.yaml* file was applied, to ensure that the Agent can apply Kubernetes jobs from inside the pod. 
@@ -140,4 +171,15 @@ To run the Control-M job, perform the following actions:
 1.	Create a connection profile between the deployed Agent and KUBERNETES job type. In the connection profile you will be asked to supply the kubectl path in the Agent container. This connection profile synchronizes between the kubectl utilty in the Agent and the KUBERNETES job type. 
 2.	Create a new KUBERNETES type job and point it to the created Agent or Agent host group. Supply the created connection profile and a yaml file path or Kubernetes resource id and run the job.
 
+Alternatively, you can use Automation API to run the Control-M job:
+
+1. Execute the following API command for the one-time creation of the connection profile:
+```
+	ctm deploy testAiConnectionProfile.json
+```
+2. Execute the following API command to run the Control-M Application Integrator KUBERNETES job:
+```
+	ctm run testAIJob.json
+```
+> Before running the job, ensure that the yaml file or the resource id are available in the container
 > By default the PersistentVolumeClaim accessModes property is configured to ReadWriteOnce. You can use ReadWriteMany value when needed.
