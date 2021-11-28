@@ -10,7 +10,7 @@ The document demonstrates how to do this while leveraging Control-M scheduling a
 ## Working Assumptions
 The information in this document is based on the following assumptions:
 -   The following guidelines and configuration are based on Amazon Elastic Kubernetes Service and were tested in a Linux environment with Control-M 9.0.20.100.
--   Deployment of Control-M/Agent on Kubernetes requires Control-M 9.0.19.200 or later as the basis for running Control-M Automation API.  For the Automation API, the [latest monthly release](https://docs.bmc.com/docs/display/workloadautomation/Control-M+Automation+API+-+Getting+Started+Guide) is recommended.
+-   Deployment of Control-M/Agent on Kubernetes requires Control-M 9.0.19.200 or later as the basis for running Control-M Automation API and Control-M Application Integrator.  For the Automation API, the [latest monthly release](https://docs.bmc.com/docs/display/workloadautomation/Control-M+Automation+API+-+Getting+Started+Guide) is recommended.
 -   Control-M/Server resides outside of the Kubernetes cluster.
 
 ## Methodological Approach
@@ -127,38 +127,16 @@ Run the following command:
 kubectl apply -f stateful_ha.yaml
 ```
 After executing the apply command, verify that the pod is running. After all setup processes of the Agent have completed (in the container_agent_startup.sh script), the ctmhost_keepalive.sh script runs in an endless loop. 
-After the pod is loaded successfully, the pod’s output log should contain a report regarding the Agent Control-M connection. Here is an example of such a report:
-```
-Control-M/Agent Communication Diagnostic Report
------------------------------------------------
+After the pod is loaded successfully, the pod’s output log should contain a report regarding the Agent Control-M connection. 
 
- Agent User Name                : controlm
- Agent Directory                : /home/controlm/ctm
- Agent Platform Architecture    : Linux
- Agent Version                  : 9.0.20.100
- Agent Host Name                : ha-statefulset-agent-0
- Logical Agent Name             : ha-statefulset-agent-0
- Listen to Network Interface    : *ANY
- Server Host Name               : example.compute.amazonaws.com
- Authorized Servers Host Names  : example.compute.amazonaws.com
- 
- Server-to-Agent Port Number    : 7006
- Agent-to-Server Port Number    : 7005
- Server-Agent Protocol Version  : 12
- Server-Agent Comm. Protocol    : TCP
- Server-Agent Connection mode   : Persistent
- Allow agent to init connection : Yes
- Unix Ping to Server Platform   : Succeeded
- Agent Ping to Control-M/Server : Succeeded
+To verify the connection between the Control-M/Agent and Control-M/Server, run
+the following checks:
 
- Agent processes status
- ======================
- Agent Router                   : Running as controlm (512)
- Java services                  : ["housekeeping","ssh-courier"] on port 44483
- Agent Listener                 : Running as controlm (552)
- Agent Tracker                  : Running as controlm (642)
- Agent Tracker-Worker           : Running as controlm (644)
-```
+| Check                 | Command                                                                                                                                                                                                                                 | Expected Output                      |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|
+| Control-M/Agent side  | ```kubectl exec -it ha-statefulset-agent -- tcsh -c ag_ping``` This command runs the ag_ping utility, which resides in the Control-M/Agent image. The StatefulSet is named satefulset-agent, with a number suffix for the instance number (0). | Server is alive. Result: Success.    |
+| Control-M/Server side | Run the following command from the Control-M/Server account: ```ctmping -HOSTID ha-statefulset-agent-0``` This command runs the ctmping utility to verify the connection between the server and the agent.                                       | Agent : ha-statefulset-agent-0 is alive |
+
 ### Step 4: Verify permissions
 Verify with your Kubernetes Administrator that the Agent's pod has permissions to start the requested "run pod to completion". 
 > In the BMC test environment, the *roles.yaml* file was applied, to ensure that the Agent can apply Kubernetes jobs from inside the pod. 
@@ -166,18 +144,20 @@ Verify with your Kubernetes Administrator that the Agent's pod has permissions t
 ### Step 5: Run Control-M jobs
 To run the Control-M job, perform the following actions:
 
-1.	Create a connection profile between the deployed Agent and KUBERNETES job type. In the connection profile you will be asked to supply the kubectl path in the Agent container. This connection profile synchronizes between the kubectl utilty in the Agent and the KUBERNETES job type. 
-2.	Create a new KUBERNETES type job and point it to the created Agent or Agent host group. Supply the created connection profile and a yaml file path or Kubernetes resource id and run the job.
+1.	Create a connection profile between the deployed Agent and KUBERNETES job type. In the connection profile you need to supply the kubectl path in the Agent container. This connection profile synchronizes between the kubectl utilty in the Agent and the KUBERNETES job type. 
 
-Alternatively, you can use Automation API to run the Control-M job:
-
-1. Execute the following API command for the one-time creation of the connection profile:
+	For example, execute the following API command for the one-time creation of the connection profile:
 ```
 	ctm deploy testAiConnectionProfile.json
 ```
-2. Execute the following API command to run the Control-M Application Integrator KUBERNETES job:
+
+2.	Create a new KUBERNETES type job and point it to the created Agent or Agent host group. Supply the created connection profile and a yaml file path or Kubernetes resource id (object UID)   and run the job.
+	For example execute the following API command to run the Control-M Application Integrator KUBERNETES job:
 ```
 	ctm run testAIJob.json
 ```
-> Before running the job, ensure that the yaml file or the resource id are available in the container
-> By default the PersistentVolumeClaim accessModes property is configured to ReadWriteOnce. You can use ReadWriteMany value when needed.
+
+	> Before running the job, ensure that the yaml file is available in the container
+	> By default the PersistentVolumeClaim accessModes property is configured to ReadWriteOnce. You can use ReadWriteMany value when needed.
+
+3. Check job status: ctm run status <run id> Check job output: ctm job:output::get <job id>
