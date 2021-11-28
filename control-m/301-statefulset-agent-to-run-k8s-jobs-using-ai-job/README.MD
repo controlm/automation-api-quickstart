@@ -28,7 +28,6 @@ The pod uses a persistent volume, so that job data and Control-M/Agent state are
 
 The connection between the Control-M/Agent and Control-M/Server is set up as a persistent connection that is initiated by the Agent. This was designed to avoid exposing the Kubernetes cluster to outside connections.
 
-To view a sample container and pod, refer to [Sample Objects](#sample-objects).
 
 ## Sample Files
 
