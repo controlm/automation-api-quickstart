@@ -30,10 +30,9 @@ The connection between the Control-M/Agent and Control-M/Server is set up as a p
 
 To view a sample container and pod, refer to [Sample Objects](#sample-objects).
 
-## Sample Objects
-Use the following link to access and obtain sample objects in GitHub.
-(https://github.com/automation-api-quickstart/tree/master/control-m/301-statefulset-agent-to-run-k8s-jobs-using-ai-job)
-> You will need to edit these samples and customize them to match the unique needs of your environment.																																						
+## Sample Files
+
+> The following files in this directory are sample files. You will need to edit these samples and customize them to match the unique needs of your environment.																																						
 
 | File Name | Description |
 |---------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
