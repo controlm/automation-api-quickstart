@@ -38,10 +38,10 @@ The connection between the Control-M/Agent and Control-M/Server is set up as a p
 | build_docker_example.sh | A bash script that is used to build a Docker image |
 | Dockerfile | A file that contains instructions for how to construct a Control-M/Agent Docker image |
 | container_agent_startup.sh | A bash script that is used to start up the Control-M/Agent |
-| ctmhost_keepalive.sh | A bash script that is used to keep the persistent connection between the installed Agent in the pod and Control-M |
-| install_kubectl.sh | A bash script that is used for installing kubectl on the Agent during the docker build process |
+| ctmhost_keepalive.sh | A bash script that is used to keep the persistent connection between the installed Control-M/Agent in the pod and Control-M/Server |
+| install_kubectl.sh | A bash script that is used for installing kubectl on the Control-M/Agent during the docker build process |
 | Agent_20.100+OneCM.Linux.json | A configuration file for provisioning the Control-M/Agent and Control-M Application Integrator, used during the docker build process |
-| agent_configuration.json | A configuration file for the Agent provision setup |
+| agent_configuration.json | A configuration file for the Control-M/Agent provision setup |
 | AI Kubernetes.ctmai | A Kubernetes job type definition file |
 | stateful_ha.yaml | A file that contains StatefulSet definitions for running a Control-M/Agent container, Kubernetes definitions for creation of the Persistent Volume Claim, and a linkage between them |
 | sleep_for_20sec_job.yaml | A sample Kubernetes job for testing: Print the current time and sleep for 20 seconds |
@@ -97,7 +97,7 @@ Automation API instructions in the Dockerfile are invoked during the build of th
 When the container is loaded, the container_agent_startup.sh is invoked. The startup script performs the following actions:
 1. Mounts the container to use the persistent volume.
 2. Registers and configures the Agent in Control-M.
-3. Adds the Agent to the k8s hostgroup. This ensures high availability and load balancing between the Agents.
+3. Adds the Agent to the K8s hostgroup. This ensures high availability and load balancing between the Agents.
 4. Deploys the Control-M Application Integrator KUBERNETES job type to enable running it with the Agent.
 5. Executes the ctmhost_keepalive.sh script. This script verifies the Agent-Server connection and writes its output to the pod’s standard output.   
 
@@ -119,7 +119,7 @@ Before applying the file, edit the following parameters:
 - CTM_SERVER_NAME - The name of the Control-M/Server.
 - PERM_HOSTS -  The name of the Control-M/Server host.
 - CTM_HOST_NAME - The name of the host group that that the deployed Agent will be added to.
-- PERSISTENT_VOL - The name of the directory of the persistent volume.
+- PERSISTENT_VOL - The name of the directory of the persistent volume. 
 - IMAGE_NAME - The image that will be deployed in the container.
 
 Run the following command:  
@@ -127,7 +127,7 @@ Run the following command:
 kubectl apply -f stateful_ha.yaml
 ```
 After executing the apply command, verify that the pod is running. After all setup processes of the Agent have completed (in the container_agent_startup.sh script), the ctmhost_keepalive.sh script runs in an endless loop. 
-After the pod is loaded successfully, the pod’s output log should contain a report regarding the Agent Control-M connection. 
+After the pod is loaded successfully, the pod’s output log should contain a report regarding the connection between Control-M/Agent to Control-M/Server. 
 
 To verify the connection between the Control-M/Agent and Control-M/Server, run
 the following checks:
@@ -136,6 +136,8 @@ the following checks:
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|
 | Control-M/Agent side  | ```kubectl exec -it ha-statefulset-agent -- tcsh -c ag_ping``` This command runs the ag_ping utility, which resides in the Control-M/Agent image. The StatefulSet is named satefulset-agent, with a number suffix for the instance number (0). | Server is alive. Result: Success.    |
 | Control-M/Server side | Run the following command from the Control-M/Server account: ```ctmping -HOSTID ha-statefulset-agent-0``` This command runs the ctmping utility to verify the connection between the server and the agent.                                       | Agent : ha-statefulset-agent-0 is alive |
+
+> By default the PersistentVolumeClaim accessModes property is configured to ReadWriteOnce. You can use ReadWriteMany value when needed.
 
 ### Step 4: Verify permissions
 Verify with your Kubernetes Administrator that the Agent's pod has permissions to start the requested "run pod to completion". 
@@ -157,7 +159,18 @@ To run the Control-M job, perform the following actions:
 	ctm run testAIJob.json
 ```
 
-	> Before running the job, ensure that the yaml file is available in the container
-	> By default the PersistentVolumeClaim accessModes property is configured to ReadWriteOnce. You can use ReadWriteMany value when needed.
+> Before running the job, ensure that the yaml file is available in the container
 
-3. Check job status: ctm run status <run id> Check job output: ctm job:output::get <job id>
+3. 	Check job status and output.
+	To check the job status run: 
+```
+	ctm run status <run id>
+```
+> run id is obtained from the output of the run command.
+	To check the job output run: 
+```
+	ctm job:output::get <job id>
+```
+> job id is obtained from the output of the run status command.
+	
+
