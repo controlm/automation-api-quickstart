@@ -51,14 +51,14 @@ The connection between the Control-M/Agent and Control-M/Server is set up as a p
 
 ## Required Control-M Authorizations
 To perform the processes described in this document, you must have various Control-M authorizations configured:
--   For building and executing the Control-M/Agent container and deploying the Application Integrator job type:
--- API access, as described in [API session service authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#94102.htm)
--- Provisioning of Control-M/Agent and applications, as described in [API Provision service authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#101610.htm)
--- Access to Control-M Application Integrator, as described in [API build and deploy services authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#94172.htm)
+- For building and executing the Control-M/Agent container and deploying the Application Integrator job type:
+    - API access, as described in [API session service authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#94102.htm)
+    - Provisioning of Control-M/Agent and applications, as described in [API Provision service authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#101610.htm)
+    - Access to Control-M Application Integrator, as described in [API build and deploy services authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#94172.htm)
 - For creating and monitoring jobs that run the Kubernetes pod:
--- API access, as described in [API session service authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#94102.htm)
--- Folder authorizations, as described in [Folder authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#AuthorizationsTableProperties.htm)
--- Active Job authorizations, as described in [Active authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#AuthorizationsActivePage.htm)  
+    - API access, as described in [API session service authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#94102.htm)
+    - Folder authorizations, as described in [Folder authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#AuthorizationsTableProperties.htm)
+    - Active Job authorizations, as described in [Active authorizations](https://documents.bmc.com/supportu/9.0.20/help/Main_help/en-US/index.htm#AuthorizationsActivePage.htm)  
 
 ## Process Steps
 A typical process of deploying Control-M/Agent on Kubernetes consists of the following steps:
