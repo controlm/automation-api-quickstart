@@ -52,8 +52,8 @@ spec:
           name: pv-data
       hostAliases:
       - hostnames:
-        - <SERVER_NAME>
-        ip: <SERVER_IP>
+        - <CTM_SERVER_NAME>
+        ip: <CTM_SERVER_PUBLIC_IP>
       securityContext:
         fsGroup: 1000
       terminationGracePeriodSeconds: 10
