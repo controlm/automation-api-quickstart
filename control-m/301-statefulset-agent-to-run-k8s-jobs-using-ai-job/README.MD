@@ -121,6 +121,7 @@ Before applying the file, edit the following parameters:
 - CTM_HOST_NAME - The name of the host group that that the deployed Agent will be added to.
 - PERSISTENT_VOL - The name of the directory of the persistent volume. 
 - IMAGE_NAME - The image that will be deployed in the container.
+- CTM_SERVER_PUBLIC_IP - The public IP address of the Control-M/Server.
 
 Run the following command:  
 ```
