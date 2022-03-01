@@ -17,7 +17,7 @@ agentName=$(hostname)
 echo 'mapping persistent volume'
 cd /home/controlm
 
-sudo echo PATH="${PATH}:/home/controlm/bmcjava/bmcjava-V2/bin:/home/controlm/ctm/scripts:/home/controlm/ctm/exe">>~/.bash_profile
+sudo echo PATH="${PATH}:/home/controlm/bmcjava/bmcjava-V3/bin:/home/controlm/ctm/scripts:/home/controlm/ctm/exe">>~/.bash_profile
 sudo echo export PATH>>~/.bash_profile
 
 source ~/.bash_profile
@@ -34,6 +34,7 @@ else
         echo 'this is not the first time an agent is running using this persistent volume, mapping folder to existing persistent volume'
         FOLDERS_EXISTS=true
 		rm -Rf $CONTROLM/backup $CONTROLM/capdef $CONTROLM/dailylog $CONTROLM/data $CONTROLM/measure $CONTROLM/onstmt $CONTROLM/pid $CONTROLM/procid $CONTROLM/status $CONTROLM/sysout $CONTROLM/temp $CONTROLM/cm
+		sed '/CM_LIST_SENT2CTMS/d' $PERSISTENT_VOL/data/CONFIG.dat
 fi
 # create link to persistent volume
 ln -s $PERSISTENT_VOL/backup    $CONTROLM/backup
