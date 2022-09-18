@@ -1,0 +1,13 @@
+{
+  "job_to_modify": {
+  "Type": "Job:Command",
+  "Description": "this job was created to editing part of an existing flow - Ended Not OK",
+  "RunAs": "controlm",
+  "Application": "FOLDER_HOLDER",
+  "Command": "echo job that need to be modify",
+  "PathElement": {
+  "Folder": "Folder_1:Project_Folder1",
+  "Server": "LocalControlM"
+} 
+}  
+} 
