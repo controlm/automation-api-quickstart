@@ -1,0 +1,28 @@
+{
+  "Folder_1" : {
+    "Type" : "Folder",
+    "ControlmServer" : "LocalControlM",
+    "Project_Folder1" : {
+      "Type" : "SubFolder",
+      "CreatedBy" : "emuser1",
+      "job_to_modify" : {
+        "Type": "Job:Command",
+        "Command": "job that need to be modify",
+        "RunAs": "controlm",
+        "Application": "FOLDER_HOLDER",
+        "Description": "this job was created to editing part of an existing flow - Ended Not OK"
+      }
+    },
+    "Project_Folder2" : {
+      "Type" : "SubFolder",
+      "AdjustEvents" : false,
+      "good_Job" : {
+        "Type": "Job:Command",
+        "Command": "echo good job",
+        "RunAs": "controlm",
+        "Application": "FOLDER_HOLDER",
+        "Description": "this job was created to editing part of an existing flow - ended ok"
+      }
+    }
+  }
+}
