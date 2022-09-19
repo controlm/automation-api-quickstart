@@ -1,3 +1,4 @@
+
 # Best Practices for Using Control-M to Run a Pod to Completion in a Kubernetes-based Cluster
 
 ## Running Control-M Workloads in Kubernetes
@@ -10,6 +11,7 @@ The document demonstrates how to do this while leveraging Control-M scheduling a
 ## Working Assumptions
 The information in this document is based on the following assumptions:
 -   The following guidelines and configuration are based on Amazon Elastic Kubernetes Service and were tested in a Linux environment with Control-M 9.0.20.100.
+- Testing was done on an Amazon Elastic Kubernetes Service (Amazon EKS) cluster of version 1.20. If you have an Amazon EKS cluster of version 1.23, you must install the Amazon EBS CSI driver. For more information, see [Amazon EBS CSI driver](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html).
 -   Deployment of Control-M/Agent on Kubernetes requires Control-M 9.0.19.200 or later as the basis for running Control-M Automation API and Control-M Application Integrator.  For the Automation API, the [latest monthly release](https://docs.bmc.com/docs/display/workloadautomation/Control-M+Automation+API+-+Getting+Started+Guide) is recommended.
 -   Control-M/Server resides outside of the Kubernetes cluster.
 
@@ -170,7 +172,7 @@ To run the Control-M job, perform the following actions:
 > run id is obtained from the output of the run command.
 	To check the job output run: 
 ```
-	ctm job:output::get <job id>
+	ctm run job:output::get <job id>
 ```
 > job id is obtained from the output of the run status command.
 	

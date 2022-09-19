@@ -1,0 +1,10 @@
+{
+  "TEST_KUBECTL": {
+    "Type": "ConnectionProfile:ApplicationIntegrator:AI Kubernetes",
+    "AI-Kubectl Location": "kubectl",
+    "AI-Run As:": "controlm",
+    "Description": "K8S connection profile example",
+    "Centralized": true,
+	"NoTestOnDeploy": true
+	}
+}
