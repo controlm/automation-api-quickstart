@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job.20.sec
+spec:
+  template:
+    metadata:
+        name: job.20.sec
+        labels: {
+           app: controlm,
+           controlm-order-id-internal-label : controlm.00001.1
+        }     
+
+    spec:
+      containers:
+      - name: ubuntu
+        image: ubuntu:latest
+        # Just spin & wait forever
+        command: [ "/bin/bash", "-c", "--" ]
+        args: [ "echo START-`date`; sleep 21; echo END-`date`" ]
+      restartPolicy: Never
+      
+
