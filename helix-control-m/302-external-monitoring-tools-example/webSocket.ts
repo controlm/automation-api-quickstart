@@ -1,4 +1,4 @@
-/// <reference path="../../typings/node/node.d.ts" />
+// <reference path="../../typings/node/node.d.ts" />
 
 const webSocket = require('ws')
 const winston = require('winston');
@@ -7,7 +7,6 @@ const exec = require('child_process').exec
 const fs = require('fs');
 const os = require("os");
 
-const args = process.argv;
 let scriptArgs = "";
 let headers;
 let logger;
@@ -38,6 +37,9 @@ export function switchToScriptDir(scriptPathArgument: string) {
     }
 }
 
+// This function creates the webSocket instance and handling the following events : open, close, error and message.
+// There is a check via ping that ensures the server is up.
+//each message that is received from the server is being logged and modified in order to run as parameters for the given script.
 export function connect(url, headers, delay) {
     let ws = new webSocket(url, [], headers);
     ws.isAlive = true;
@@ -86,6 +88,7 @@ export function checkScriptExists(scriptPath: string): boolean {
     return true;
 }
 
+// Restricts the amount of files in the log's directory, keeps the latest update logs, default 10 files.
 function handleLogsDir() {
     const alertLogDir = path.join(ctmDir(), "logs");
     const files = fs.readdirSync(alertLogDir);
@@ -130,10 +133,6 @@ export function createScriptPath(object) {
     }
 }
 
-export function modifyScript() {
-    return scriptArgs;
-}
-
 function createPingInterval(url: string, ws, delay: number) {
     return setInterval(function () {
         if (ws.isAlive === false) {
@@ -147,29 +146,19 @@ function createPingInterval(url: string, ws, delay: number) {
     }, delay);
 }
 
-function sendMessageToParentProcess(message: string) {
-    process.send = process.send || function () {
-    };
-    process.send(message);
-}
-
 function handleErrorCode(errorCode: number, ws, url, delay) {
     switch (errorCode) {
         case 401 :
             logger.error("User is not authorized to perform this operation")
-            sendMessageToParentProcess("User is not authorized to perform this operation");
             break
         case 403 :
             logger.error("User is not permitted to perform this operation")
-            sendMessageToParentProcess("User is not permitted to perform this operation")
             break
         case 409 :
             logger.error("Another Alerts listener is already connected")
-            sendMessageToParentProcess("Another Alerts listener is already connected")
             break
         case 503 :
             logger.error("External Alerts Service is disabled")
-            sendMessageToParentProcess("External Alerts Service is disabled")
             break
         default :
             ws.close();
@@ -209,7 +198,7 @@ export function validateTokenAndUrlArgs(apiKeyArgument, UrlArgument) {
     }
 }
 
-function parseArgsAndValidate(args: string[]) {
+function parseArgsAndValidate() {
     scriptPathArgument = getSettings("listenerScript", "")
     environmentArgument = getSettings("listenerEnvironment", "")
     validateScriptAndEnvArgs(scriptPathArgument, environmentArgument)
@@ -225,8 +214,11 @@ function printArgs() {
     logger.info("Running WebSocket with the following URL: " + UrlArgument, "and the following script path: " + scriptPathArgument + " against the following environment: " + environmentArgument)
 }
 
+// Creates the log's directory if needed, preparing the arguments for the webSocket.
 export function init() {
-    parseArgsAndValidate(args)
+    createAlertsDir(ctmDir())
+    setLogger(createLogger());
+    parseArgsAndValidate()
     printArgs()
     headers = {headers: {['x-api-key']: apiKeyArgument}};
     try {
@@ -236,18 +228,7 @@ export function init() {
     }
 }
 
-process.on('message', (msg) => {
-    if (msg === 'start') {
-        createAlertsDir(ctmDir())
-        setLogger(createLogger());
-        init();
-    } else if (msg === 'disconnect') {
-        process.send("ok");
-        process.disconnect();
-    }
-});
-
-
+// Creating winston logger, for more info about the flags and configuration see - https://www.npmjs.com/package/winston/v/0.9.0
 export function createLogger() {
     return new (winston.Logger)({
         transports: [
@@ -355,3 +336,5 @@ function validateListenerScriptPath(path: string) {
         throw new Error("Alerts listener script: " + path + " file not found");
     }
 }
+
+init();
