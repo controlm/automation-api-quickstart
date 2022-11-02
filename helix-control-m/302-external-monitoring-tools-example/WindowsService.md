@@ -19,7 +19,7 @@ Use a wrapper executable such as [WinSW](https://github.com/winsw/winsw)
 [Control-M Automation API CLI](https://docs.bmc.com/docs/saas-api/setting-up-the-api-946711372.html#SettinguptheAPI-ctm_cliInstallingtheControl-MAutomationAPICLI)
 as a system service named alerts_listener, as follows:
 
-- ####WinSW
+- #### WinSW
 
 Create a configuration file with the details of the service, as in the following example:
 ```xml
@@ -40,7 +40,7 @@ Create a configuration file with the details of the service, as in the following
 Submit your configuration file when you install the service by running the following command:
 **alerts_listener install**
 
-- ####NSSM
+- #### NSSM
 
 Install the **alerts_listener** service using the following command
 
