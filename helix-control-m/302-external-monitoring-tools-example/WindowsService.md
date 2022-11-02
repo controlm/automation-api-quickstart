@@ -3,7 +3,7 @@
 This procedure describes how to configure an alerts_listener system service on a Windows operating system.
 You can use this service instead of the Automation API commands to start or stop alerts listening.
 
-#### Before You Begin
+### Before You Begin
 
 Ensure successful completion of the following steps described in [Setting Up External Alerts](https://documents.bmc.com/supportu/dev-saas/en-US/Documentation/Alerts.htm#Setting).
 1. Enable external alerts.
@@ -12,14 +12,14 @@ Ensure successful completion of the following steps described in [Setting Up Ext
 4. Submit a script with details of external alert handling
 
 
-#### Begin
+### Begin
 Use a wrapper executable such as [WinSW](https://github.com/winsw/winsw)
 (Windows Service Wrapper), Or [NSSM](https://nssm.cc/scenarios)
 (Non-Sucking Service Manager) to register the ctm.cmd executable of 
 [Control-M Automation API CLI](https://docs.bmc.com/docs/saas-api/setting-up-the-api-946711372.html#SettinguptheAPI-ctm_cliInstallingtheControl-MAutomationAPICLI)
 as a system service named alerts_listener, as follows:
 
-- **WinSW**
+- ####WinSW
 
 Create a configuration file with the details of the service, as in the following example:
 ```xml
@@ -40,7 +40,7 @@ Create a configuration file with the details of the service, as in the following
 Submit your configuration file when you install the service by running the following command:
 **alerts_listener install**
 
-- **NSSM**
+- ####NSSM
 
 Install the **alerts_listener** service using the following command
 

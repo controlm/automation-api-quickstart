@@ -14,7 +14,6 @@ let environmentArgument;
 let scriptPathArgument;
 let apiKeyArgument;
 let UrlArgument;
-let attachedMode;
 
 export function getLoggerFileName() {
     return path.join(ctmDir(), "logs", `alertsListener_${getCurrentTime()}.log`);
@@ -205,11 +204,9 @@ function parseArgsAndValidate() {
     apiKeyArgument = getSettings("token", "")
     UrlArgument = getSettings("url", "");
     validateTokenAndUrlArgs(apiKeyArgument, UrlArgument);
-    attachedMode = getSettings("attachedMode", "");
 }
 
 function printArgs() {
-    logger.info("starting client in " + (attachedMode === "true" ? "attached" : "unattached") + " mode")
     logger.info("process pid is: " + getSettings("listenerPid", ""));
     logger.info("Running WebSocket with the following URL: " + UrlArgument, "and the following script path: " + scriptPathArgument + " against the following environment: " + environmentArgument)
 }
