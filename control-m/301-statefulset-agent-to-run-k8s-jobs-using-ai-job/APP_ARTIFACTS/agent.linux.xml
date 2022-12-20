@@ -1,0 +1,15 @@
+<AutomatedInstallation langpack="eng">
+    <agent.parameters>
+        <entry key="ctm_agent.AR_AT.Common.Port" value="${free.port(7135)}"/>
+        <entry key="ctm_agent.AR_UT.Common.Port" value="${free.port(7235)}"/>
+        <entry key="ctm_agent.AR_AG.Common.Port" value="${free.port(7335)}"/>
+        <entry key="ctm_agent.Tracker.Event.Port" value="${free.port(7035)}"/>
+        <entry key="field.Authorized.Controlm.Server.Host" value="BMC-APPDEV-SAMPLE"/>
+        <entry key="field.Agent.To.Server.Port.Number" value="7005"/>
+        <entry key="ctm_agent.Tcp_ip.Timeout" value="60"/>
+        <entry key="field.Server.To.Agent.Port.Number" value="${free.port(7006)}"/>
+        <entry key="Ignore.Disabling.Agent.Failure" value="false"/>
+        <entry key="ctm_agent.Force.Upgrade" value="false"/>
+        <entry key="field.Primary.Controlm.Server.Host" value="BMC-APPDEV-SAMPLE"/>
+    </agent.parameters>
+</AutomatedInstallation>

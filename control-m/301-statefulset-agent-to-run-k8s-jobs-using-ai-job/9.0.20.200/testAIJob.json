@@ -1,13 +1,13 @@
 {
 	"Folder_Test_K8S": {
 		"Type": "SimpleFolder",
-		"ControlmServer": "<CTM_NAME>",
+		"ControlmServer": "ec2_44_242_172_157",
 		"AIKubernetes_Job_Test": {
 			"Type": "Job:ApplicationIntegrator:AI Kubernetes",
 			"ConnectionProfile": "TEST_KUBECTL",
 			"AI-Action": "Apply",
-			"AI-YamlFile": "/home/controlm/sleep_for_20sec_job.yaml",
-			"Host": "<HOST_GROUP_NAME>"
+			"AI-YamlFile": "/home/controlm/testjob.yaml",
+			"Host": "k8s_hostgroup"
 		}
 	}
 }
