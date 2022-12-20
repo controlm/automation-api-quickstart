@@ -32,8 +32,10 @@ spec:
           value: /home/controlm/persistent_folder
         - name: AAPI_END_POINT
           value: https://<END_POINT_URL>/automation-api
-        - name: AAPI_TOKEN
-          value: <AAPI_TOKEN>
+        - name: AAPI_USER
+          value: <AAPI_USER_NAME>
+        - name: AAPI_PASS
+          value: <AAPI_PASSWORD>
         - name: CTM_SERVER_NAME
           value: <CTM_NAME>
         - name: PERM_HOSTS

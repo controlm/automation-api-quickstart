@@ -1,87 +1,65 @@
-FROM centos:7 as builder
-
-ARG AAPI_END_POINT
-ARG AAPI_USER
-ARG AAPI_PASS
-ARG AGENT_IMAGE_NAME
-ARG CTM_SERVER_NAME
-
+FROM centos:7
 LABEL Description="This is a Control-M/Agent image that planned to run in K8s env"
 
-# install basic packages
-RUN  yum -y install wget \
-        && yum -y install telnet \
-        && yum -y install unzip \
-        && yum -y install sudo \
-        && yum -y install net-tools \
-        && yum -y install which \
-        && yum -y install zlib-devel \
-        && yum -y install libffi-devel \
-		&& yum -y install compat-libstdc++-33.x86_64 \
-		&& yum -y install psmisc \
-		&& cd /usr/src \
+RUN echo "Create controlm user" \
+    && useradd -d /home/controlm -s /bin/bash -m controlm  \
+    && chmod -R 755 /home/controlm \
+    && echo "add controlm user and root to soduers list" \
+    && echo 'root ALL=(ALL) ALL' >> /etc/sudoers \
+    && echo 'controlm ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-# install nodejs
-		&& curl --silent --location https://rpm.nodesource.com/setup_14.x | bash - \
-		&& yum -y install nodejs \
-		&& node -v \
-		&& npm -v \
-# install aapi CLI
-		&& wget --no-check-certificate $AAPI_END_POINT/ctm-cli.tgz \
-		&& npm install -g ctm-cli.tgz \
-		&& ctm -v \
-		&& rm -rf $AAPI_END_POINT/ctm-cli.tgz \
-# create controlm useruser
-		&& useradd -d /home/controlm -s /bin/bash -m controlm \
-		&&  chmod -R 755 /home/controlm \
-# add controlm user and root to soduers list
-		&& echo 'root ALL=(ALL) ALL' >> /etc/sudoers \
-		&& echo 'controlm ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
-		&& yum clean all \
-		&& rm -rf /var/cache/yum
+RUN echo "Update Centos to the latest version" \
+    && yum -y -q update \
+    && echo "Install required packages for Control-M/Agent" \
+    && yum install -y -q java-11-openjdk \
+                      net-tools \
+                      psmisc \
+                      which \
+                      sudo \
+    && curl -sLO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl \
+    && kubectl version --client || exit 1 \
+    && java -version || exit 1 \
+    && kubectl version --client || exit 1 \
+    && yum clean all
 
 USER controlm
 WORKDIR /home/controlm
 
-# Create AAPI env
-RUN ctm env add myenv $AAPI_END_POINT $AAPI_USER $AAPI_PASS \
-# install java 11
-		&& sudo yum -y install java-11-openjdk \
-        && java -version \
-# install agent, setup will be done during statup
-		&& ctm provision image $AGENT_IMAGE_NAME && echo installation ended successfully \
-        && ctm env del myenv \
+# ARG EXT_AUTO_DEPLOY=file:///home/controlm/AUTO_DEPLOY
+# ARG EXT_APPLICATION_ARTIFACTS_JSON_URL=file:///home/controlm/APP_ARTIFACTS
+ARG EXT_AUTO_DEPLOY=https://s3.amazonaws.com/bucket_name/localRepoForAutoDeploy
+ARG EXT_APPLICATION_ARTIFACTS_JSON_URL=https://s3.amazonaws.com/bucket_name/localRepoForAppArtifacts
+ARG AGENT_IMAGE_NAME=Agent
 
-# Persistent connection : internal AR keep-alive
-		&& echo "AR_PING_TO_SERVER_IND Y" >> /home/controlm/ctm/data/CONFIG.dat \
-		&& echo "AR_PING_TO_SERVER_INTERVAL 30" >> /home/controlm/ctm/data/CONFIG.dat \
-		&& echo "AR_PING_TO_SERVER_TIMEOUT 60" >> /home/controlm/ctm/data/CONFIG.dat \
-# clean and uninstall java 11
-		&& sudo yum -y autoremove java-11-openjdk \
-		&& sudo yum clean all \
-		&& sudo rm -rf /var/cache/yum
+ENV BMC_INST_JAVA_HOME=/etc/alternatives/jre_11_openjdk
 
-# install kubectl
-COPY  install_kubectl.sh .
-RUN ./install_kubectl.sh
+RUN echo "Install Node.Js and Automation API CLI" \
+    && NODEJS_VERSION="node-v16.13.0-linux-x64" \
+    && export NODEJS_HOME="/home/controlm/${NODEJS_VERSION}" \
+    && export PATH="$PATH:$NODEJS_HOME/bin" \
+    && curl -so node.tar.xz "https://nodejs.org/dist/v16.13.0/${NODEJS_VERSION}.tar.xz" \
+    && xz -d node.tar.xz \
+    && tar -xf node.tar \
+    && rm node.tar \
+    && curl -sO https://s3-us-west-2.amazonaws.com/controlm-appdev/release/latest/ctm-cli.tgz \
+    && npm install ctm-cli.tgz \
+    && echo "Provision Control-M/Agent" \
+    && npx ctm env config EXT_AUTO_DEPLOY $EXT_AUTO_DEPLOY \
+    && npx ctm env config EXT_APPLICATION_ARTIFACTS_JSON_URL $EXT_APPLICATION_ARTIFACTS_JSON_URL \
+    && npx ctm provision image $AGENT_IMAGE_NAME || exit 1 \
+    && echo "source .bash_profile" >> .bashrc \
+    # uncomment the next line when you are installing patch for Agent
+    # && rm -rf bmcnode/$NODEJS_VERSION \
+    && rm -rf install BMCINSTALL $NODEJS_HOME node_modules .npm ctm-cli.tgz package.json package-lock.json
 
-RUN echo "DISABLE_CM_SHUTDOWN Y" >> /home/controlm/ctm/data/CONFIG.dat \
-                && touch /home/controlm/ctm/data/DISABLE_CM_SHUTDOWN_Y.cfg
+ARG AI_KUBERNETES_PLUGIN_NAME=AI_Kubernetes
+RUN echo "Provision Control-M Application Integrator KUBERNETES job type" \
+    && /home/controlm/ctm_cli/9.0.21.000/ctm provision image $AI_KUBERNETES_PLUGIN_NAME \
+    && /home/controlm/ctm/cm/AI/exe-921000/get_plugins | grep KUBERNETES
 
-# entry point script
-COPY  container_agent_startup.sh .
-# agent configuration file
-COPY agent_configuration.json .
-# ctmhostkeep alive script 
-COPY ctmhost_keepalive.sh .
+ADD --chown=controlm:controlm resources/* /home/controlm/
+RUN chmod +x *.sh
 
 EXPOSE 7006
-
-
-
-USER controlm
-WORKDIR /home/controlm
-
-ENTRYPOINT /bin/bash -c "/home/controlm/container_agent_startup.sh $PERSISTENT_VOL $AAPI_END_POINT $AAPI_USER $AAPI_PASS $CTM_SERVER_NAME $CTM_HOST_NAME"
-
-
+ENTRYPOINT /bin/bash -c "./startup.sh $PERSISTENT_VOL $AAPI_END_POINT $AAPI_TOKEN $CTM_SERVER_NAME $CTM_HOST_NAME"
