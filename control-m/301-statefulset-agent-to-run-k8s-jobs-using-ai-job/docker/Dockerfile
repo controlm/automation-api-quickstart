@@ -10,6 +10,16 @@ RUN echo "Create controlm user" \
 
 RUN echo "Update Centos to the latest version" \
     && yum -y -q update \
+    && echo "The next packages used by Control-M/Agent" \
+    && echo "   binutils used for strings" \
+    && echo "   hostname used for hostname" \
+    && echo "   libnsl used for perl" \
+    && echo "   ncurses used for installer engine" \
+    && echo "   net-tools used for netstat and ss" \
+    && echo "   procps used for ps" \
+    && echo "   psmisc used for pstree" \
+    && echo "   which used for which" \
+    && echo "   sudo used for sudo" \
     && echo "Install required packages for Control-M/Agent" \
     && yum install -y -q java-11-openjdk \
                       net-tools \
@@ -49,9 +59,7 @@ RUN echo "Install Node.Js and Automation API CLI" \
     && npx ctm env config EXT_APPLICATION_ARTIFACTS_JSON_URL $EXT_APPLICATION_ARTIFACTS_JSON_URL \
     && npx ctm provision image $AGENT_IMAGE_NAME || exit 1 \
     && echo "source .bash_profile" >> .bashrc \
-    # uncomment the next line when you are installing patch for Agent
-    # && rm -rf bmcnode/$NODEJS_VERSION \
-    && rm -rf install BMCINSTALL $NODEJS_HOME node_modules .npm ctm-cli.tgz package.json package-lock.json
+    && rm -rf install BMCINSTALL rm -rf bmcnode/$NODEJS_VERSION $NODEJS_HOME node_modules .npm ctm-cli.tgz package.json package-lock.json
 
 ARG AI_KUBERNETES_PLUGIN_NAME=AI_Kubernetes
 RUN echo "Provision Control-M Application Integrator KUBERNETES job type" \

@@ -114,11 +114,8 @@ When the container is loaded, the startup.sh is invoked. The startup script perf
 4. Executes the ctmhost_keepalive.sh script. This script verifies the Agent-Server connection and writes its output to the pod’s standard output.   
 
 ### Step 2: Add Kubernetes job type to Application Integrator
-Use ctm cli to import the AI_Kubernetes.ctmai: ```ctm deploy jobtype AI_Kubernetes.ctmai```
 
-This creates a new job type named KUBERNETES. This job type can now be used on any Agent associated with the Control-M/EM.
-
-Or, you can use Control-M Application Integrator to import the file AI_Kubernetes.ctmai:
+Use Control-M Application Integrator to import the file AI Kubernetes.ctmai:
 1. Open the BMC Welcome page.
 2. Click Application Integrator and log in to Control-M Application Integrator. 
 3. Click *Import job type from file*, and choose the AI_Kubernetes.ctmai file that you downloaded earlier.
@@ -136,7 +133,12 @@ Before applying the file, edit the following parameters:
 - IMAGE_NAME - The image that will be deployed in the container.
 - CTM_SERVER_PUBLIC_IP - The public IP address of the Control-M/Server.
 
-Run the following command:  
+Run the following command to create secret for AAPI_TOKEN:
+```
+kubectl create secret generic credentials --from-literal=AAPI_TOKEN=value
+```
+
+Run the following command to create StatefulSet:
 ```
 kubectl apply -f stateful_ha.yaml
 ```
