@@ -30,16 +30,21 @@ agentName=$(hostname)
 echo 'Mapping persistent volume'
 source ~/.bash_profile
 
-echo "Persistent connection : internal AR keep-alive"
-{
-  echo "AR_PING_TO_SERVER_IND Y"
-  echo "AR_PING_TO_SERVER_INTERVAL 30"
-  echo "AR_PING_TO_SERVER_TIMEOUT 60"
-  echo "DISABLE_CM_SHUTDOWN Y"
-} >>~/ctm/data/CONFIG.dat
-touch ~/ctm/data/DISABLE_CM_SHUTDOWN_Y.cfg
-
 if [ ! -d "$PERSISTENT_VOL"/pid ]; then
+  echo "Persistent connection : internal AR keep-alive"
+  {
+    echo "AR_PING_TO_SERVER_IND Y"
+    echo "AR_PING_TO_SERVER_INTERVAL 30"
+    echo "AR_PING_TO_SERVER_TIMEOUT 60"
+    echo "DISABLE_CM_SHUTDOWN Y"
+  } >>~/ctm/data/CONFIG.dat
+  touch ~/ctm/data/DISABLE_CM_SHUTDOWN_Y.cfg
+
+  echo "Update Agent configuration file with current hostname"
+  ctmcfg -table CONFIG -action update -parameter INSTALL_HOSTNAME -value "${agentName}"
+  ctmcfg -table CONFIG -action update -parameter LOCALHOST -value "${agentName}"
+  ctmcfg -table CONFIG -action update -parameter PHYSICAL_UNIQUE_AGENT_NAME -value "${agentName}"
+
   echo 'first time the agent is using the persistent volume, moving folders to persistent volume'
   # no agent files exist in PV, copy the current agent files to PV
   mkdir "$PERSISTENT_VOL"
