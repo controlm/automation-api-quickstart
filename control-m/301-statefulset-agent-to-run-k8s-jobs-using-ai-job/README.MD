@@ -11,7 +11,7 @@ The document demonstrates how to do this while leveraging Control-M scheduling a
 ## Working Assumptions
 The information in this document is based on the following assumptions:
 -   The following guidelines and configuration are based on Amazon Elastic Kubernetes Service and were tested in a Linux environment with Control-M 9.0.21.000.
--   The previous version of guidelines with support for Control-M 9.0.20.200 located in the folder 9.0.20.200.
+-   The previous version of these guidelines for Control-M 9.0.20.200 is located in the **9.0.20.200** folder.
 -   Testing was done on an Amazon Elastic Kubernetes Service (Amazon EKS) cluster of version 1.20. If you have an Amazon EKS cluster of version 1.23, you must install the Amazon EBS CSI driver. For more information, see [Amazon EBS CSI driver](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html).
 -   Deployment of Control-M/Agent on Kubernetes requires Control-M 9.0.21.000 or later as the basis for running Control-M Automation API and Control-M Application Integrator.  For the Automation API, the [latest monthly release](https://docs.bmc.com/docs/display/workloadautomation/Control-M+Automation+API+-+Getting+Started+Guide) is recommended.
 -   Control-M/Server resides outside of the Kubernetes cluster.
@@ -36,24 +36,24 @@ The connection between the Control-M/Agent and Control-M/Server is set up as a p
 
 > The following files in this directory are sample files. You will need to edit these samples and customize them to match the unique needs of your environment.																																						
 
-| File Name                                             | Description                                                                                                                                                                             |
-|-------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| docker/Dockerfile                                     | A file that contains instructions for how to construct a Control-M/Agent Docker image                                                                                                   |
-| docker/resources/startup.sh                           | A bash script that is used to start up the Control-M/Agent                                                                                                                              |
-| docker/resources/ctmhost_keepalive.sh                 | A bash script that is used to keep the persistent connection between the installed Control-M/Agent in the pod and Control-M/Server                                                      |
-| docker/resources/agent_configuration.json             | A configuration file for the Control-M/Agent provision setup                                                                                                                            |
-| build_docker_example.sh                               | A bash script that is used to build a Docker image                                                                                                                                      |
-| APP_ARTIFACTS/Agent.Linux.json                        | A configuration file for provisioning the Control-M/Agent and Control-M Application Integrator, used during the docker build process                                                    |
-| APP_ARTIFACTS/agent.linux.xml                         | A configuration file with agent parameters for provisioning the Control-M/Agent and Control-M Application Integrator, used during the docker build process                              |
-| APP_ARTIFACTS/AI_Kubernetes.Linux.json                | A configuration file for provisioning the AI Kubernetes job type, used during the docker build process                                                                                  |
-| AUTO_DEPLOY/AI_Kubernetes.ctmai                       | A Control-M Application Integrator KUBERNETES job type definition file                                                                                                                  |
-| AUTO_DEPLOY/DRFZ4.9.0.21.000_Linux-x86_64.tar.Z       | A Control-M/Agent installer file should be downloaded from EPD, for provisioning the Control-M/Agent (including Control-M Application Integrator), used during the docker build process |
-| AUTO_DEPLOY/PAFZ4.9.0.21.001_Linux-x86_64_INSTALL.BIN | A Control-M/Agent patch file should be downloaded from EPD, for provisioning the Control-M/Agent (including Control-M Application Integrator), used during the docker build process     |
-| stateful_ha.yaml                                      | A file that contains StatefulSet definitions for running a Control-M/Agent container, Kubernetes definitions for creation of the Persistent Volume Claim, and a linkage between them    |
-| sleep_for_20sec_job.yaml                              | A sample Kubernetes job for testing: Print the current time and sleep for 20 seconds                                                                                                    |
-| roles.yaml                                            | A sample file used to enforce RBAC authorization in the test environment                                                                                                                |
-| testAiConnectionProfile.json                          | A json configuration file for creating a connection profile that uses the kubectl utility in the Agent container                                                                        |
-| testAIJob.json                                        | A json configuration file for creating the Control-M Application Integrator KUBERNETES job type                                                                                         |
+| File Name                                             | Description                                                                                                                                                                          |
+|-------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| docker/Dockerfile                                     | A file that contains instructions for how to construct a Control-M/Agent Docker image                                                                                                |
+| docker/resources/startup.sh                           | A bash script that is used to start up the Control-M/Agent                                                                                                                           |
+| docker/resources/ctmhost_keepalive.sh                 | A bash script that is used to keep the persistent connection between the installed Control-M/Agent in the pod and Control-M/Server                                                   |
+| docker/resources/agent_configuration.json             | A configuration file for the Control-M/Agent provision setup                                                                                                                         |
+| build_docker_example.sh                               | A bash script that is used to build a Docker image                                                                                                                                   |
+| APP_ARTIFACTS/Agent.Linux.json                        | A configuration file for provisioning the Control-M/Agent and Control-M Application Integrator, used during the docker build process                                                 |
+| APP_ARTIFACTS/agent.linux.xml                         | A configuration file with agent parameters for provisioning the Control-M/Agent and Control-M Application Integrator, used during the docker build process                           |
+| APP_ARTIFACTS/AI_Kubernetes.Linux.json                | A configuration file for provisioning the AI Kubernetes job type, used during the docker build process                                                                               |
+| AUTO_DEPLOY/AI_Kubernetes.ctmai                       | A Control-M Application Integrator KUBERNETES job type definition file                                                                                                               |
+| AUTO_DEPLOY/DRFZ4.9.0.21.000_Linux-x86_64.tar.Z       | A Control-M/Agent installer file downloaded from EPD for provisioning the Control-M/Agent (including Control-M Application Integrator), used during the docker build process         |
+| AUTO_DEPLOY/PAFZ4.9.0.21.001_Linux-x86_64_INSTALL.BIN | A Control-M/Agent patch file downloaded from EPD for provisioning the Control-M/Agent (including Control-M Application Integrator), used during the docker build process             |
+| stateful_ha.yaml                                      | A file that contains StatefulSet definitions for running a Control-M/Agent container, Kubernetes definitions for creation of the Persistent Volume Claim, and a linkage between them |
+| sleep_for_20sec_job.yaml                              | A sample Kubernetes job for testing: Print the current time and sleep for 20 seconds                                                                                                 |
+| roles.yaml                                            | A sample file used to enforce RBAC authorization in the test environment                                                                                                             |
+| testAiConnectionProfile.json                          | A json configuration file for creating a connection profile that uses the kubectl utility in the Agent container                                                                     |
+| testAIJob.json                                        | A json configuration file for creating the Control-M Application Integrator KUBERNETES job type                                                                                      |
 
 ## Required Control-M Authorizations
 To perform the processes described in this document, you must have various Control-M authorizations configured:
@@ -78,8 +78,8 @@ A typical process of deploying Control-M/Agent on Kubernetes consists of the fol
 workloads in Kubernetes-based clusters. These processes have been tested in BMC environments, but may need to be adjusted to run in your environments. If you need support in deploying Control-M in this manner, please request assistance from BMC Support.
 
 ### Step 1: Create a Control-M/Agent image
-Prepare local repository of installation artifacts for provisions actions performed by the Provision service.
-You can locally copy files listed in the above table into image during build time or provide URL with read permissions:  
+Prepare a local repository of installation artifacts for provision actions performed by the Provision service.
+Before you run a docker build, copy the following files locally into an image or provide a URL with read permissions. For more information about these files, see their descriptions in the table above.  
 - APP_ARTIFACTS/Agent.Linux.json                  
 - APP_ARTIFACTS/agent.linux.xml
 - APP_ARTIFACTS/AI_Kubernetes.Linux.json
@@ -90,15 +90,14 @@ You can locally copy files listed in the above table into image during build tim
 Edit the build_docker_example.sh script with local values for the variables that appear in uppercase, and then run the script.
 The script contains the following variables:
 - AGENT_IMAGE_NAME - the image name of the Agent. For more details, see [Provision Service](https://docs.bmc.com/docs/display/workloadautomation/API+Services+-+Provision+service)
-- AI_KUBERNETES_PLUGIN_NAME - the AI Kubernetes plugin name you want to install (taken from AI repo)
 - EXT_AUTO_DEPLOY - a path to a local repository of installation artifacts for provisioning actions performed by the Provision service. It can be folder path (file:///) or URL (https://)
 - EXT_APPLICATION_ARTIFACTS_JSON_URL - a path to a local repository of provisioning images, overriding the location used by default for provisioning actions performed by the Provision service. It can be folder path (file:///) or URL (https://) 
 - DOCKER_IMAGE_NAME - the docker image full name
 
-This produces an image that contains a Control-M/Agent with kubectl and support for executing Control-M Application Integrator jobs types including Kubernetes job type. 
+This produces an image that contains a Control-M/Agent with kubectl and support for executing Control-M Application Integrator jobs types, including the Kubernetes job type. 
 
 The container contains the following items:
--   Control-M/Agent (including Control-M Application Integrator, Control-M Automation API CLI)
+-   Control-M/Agent (including Control-M Application Integrator and Control-M Automation API CLI)
 -   Control-M Application Integrator KUBERNETES plugin
 -   Java 11 run time
 -   NodeJS version 16
