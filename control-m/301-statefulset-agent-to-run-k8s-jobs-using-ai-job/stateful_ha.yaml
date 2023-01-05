@@ -33,7 +33,10 @@ spec:
         - name: AAPI_END_POINT
           value: https://<END_POINT_URL>/automation-api
         - name: AAPI_TOKEN
-          value: <AAPI_TOKEN>
+          valueFrom:
+            secretKeyRef:
+              name: credentials
+              key: AAPI_TOKEN
         - name: CTM_SERVER_NAME
           value: <CTM_NAME>
         - name: PERM_HOSTS

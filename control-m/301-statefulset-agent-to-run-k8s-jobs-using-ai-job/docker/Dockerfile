@@ -61,9 +61,8 @@ RUN echo "Install Node.Js and Automation API CLI" \
     && echo "source .bash_profile" >> .bashrc \
     && rm -rf install BMCINSTALL rm -rf bmcnode/$NODEJS_VERSION $NODEJS_HOME node_modules .npm ctm-cli.tgz package.json package-lock.json
 
-ARG AI_KUBERNETES_PLUGIN_NAME=AI_Kubernetes
 RUN echo "Provision Control-M Application Integrator KUBERNETES job type" \
-    && /home/controlm/ctm_cli/9.0.21.000/ctm provision image $AI_KUBERNETES_PLUGIN_NAME \
+    && /home/controlm/ctm_cli/9.0.21.000/ctm provision image AI_Kubernetes \
     && /home/controlm/ctm/cm/AI/exe-921000/get_plugins | grep KUBERNETES
 
 ADD --chown=controlm:controlm resources/* /home/controlm/
