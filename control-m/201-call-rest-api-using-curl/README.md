@@ -1,4 +1,4 @@
-## How to invoke automation api REST calls using crul in a linux bash script
+## How to invoke automation api REST calls using curl in a linux bash script
 calling_automation_api_using_curl.sh contain example for differant api invocations such as Get Control-M Servers list and others
 
 ```bash
