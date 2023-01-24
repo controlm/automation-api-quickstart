@@ -36,10 +36,10 @@ RUN echo "Update Centos to the latest version" \
 USER controlm
 WORKDIR /home/controlm
 
-# ARG EXT_AUTO_DEPLOY=file:///home/controlm/AUTO_DEPLOY
-# ARG EXT_APPLICATION_ARTIFACTS_JSON_URL=file:///home/controlm/APP_ARTIFACTS
-ARG EXT_AUTO_DEPLOY=https://s3.amazonaws.com/bucket_name/localRepoForAutoDeploy
-ARG EXT_APPLICATION_ARTIFACTS_JSON_URL=https://s3.amazonaws.com/bucket_name/localRepoForAppArtifacts
+# ARG EXT_AUTO_DEPLOY=file:///home/controlm/installation
+# ARG EXT_APPLICATION_ARTIFACTS_JSON_URL=file:///home/controlm/install-configurations
+ARG EXT_AUTO_DEPLOY=https://s3.amazonaws.com/bucket_name/installation
+ARG EXT_APPLICATION_ARTIFACTS_JSON_URL=https://s3.amazonaws.com/bucket_name/install-configurations
 ARG AGENT_IMAGE_NAME=Agent
 
 ENV BMC_INST_JAVA_HOME=/etc/alternatives/jre_11_openjdk
