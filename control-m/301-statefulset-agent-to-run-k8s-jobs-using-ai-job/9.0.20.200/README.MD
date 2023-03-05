@@ -120,7 +120,7 @@ Before applying the file, edit the following parameters:
 - AAPI_PASS - The password for the Automation API server.
 - CTM_SERVER_NAME - The name of the Control-M/Server.
 - PERM_HOSTS -  The name of the Control-M/Server host.
-- CTM_HOST_NAME - The name of the host group that that the deployed Agent will be added to.
+- CTM_HOSTGROUP_NAME - The name of the host group that that the deployed Agent will be added to.
 - PERSISTENT_VOL - The name of the directory of the persistent volume. 
 - IMAGE_NAME - The image that will be deployed in the container.
 - CTM_SERVER_PUBLIC_IP - The public IP address of the Control-M/Server.

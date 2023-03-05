@@ -41,8 +41,8 @@ spec:
           value: <CTM_NAME>
         - name: PERM_HOSTS
           value: <HOST_NAMES>
-        - name: CTM_HOST_NAME
-          value: <HOST_GROUP_NAME>
+        - name: CTM_HOSTGROUP_NAME
+          value: <CTM_HOSTGROUP_NAME>
         image: <IMAGE_NAME>
         imagePullPolicy: Always
         name: ctmagent-container

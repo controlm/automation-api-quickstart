@@ -32,7 +32,7 @@ metadata:
   namespace: default
 subjects:
   - kind: ServiceAccount
-    name: default
+    name: node-apis
     namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io

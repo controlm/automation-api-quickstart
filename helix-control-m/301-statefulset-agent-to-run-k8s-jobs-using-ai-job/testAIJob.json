@@ -6,8 +6,8 @@
 			"Type": "Job:ApplicationIntegrator:AI Kubernetes",
 			"ConnectionProfile": "TEST_KUBECTL",
 			"AI-Action": "Apply",
-			"AI-YamlFile": "/home/controlm/testjob.yaml",
-			"Host": "k8s_hostgroup"
+			"AI-YamlFile": "/home/controlm/sleep_for_20sec_job.yaml",
+			"Host": "<CTM_HOSTGROUP_NAME>"
 		}
 	}
 }

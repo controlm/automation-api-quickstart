@@ -9,7 +9,7 @@ AAPI_PASS=$4
 CTM_SERVER_NAME=$5
 FOLDERS_EXISTS=false
 AGENT_REGISTERED=false
-CTM_HOST_NAME=$6
+CTM_HOSTGROUP_NAME=$6
 export CONTROLM=/home/controlm/ctm
 agentName=$(hostname)
 
@@ -80,7 +80,7 @@ echo 'checking Agent communication with Control-M Server'
 ag_diag_comm
 
 echo 'adding the Agent to Host Group'
-ctm config server:hostgroup:agent::add $CTM_SERVER_NAME $CTM_HOST_NAME $AG_NODE_ID
+ctm config server:hostgroup:agent::add $CTM_SERVER_NAME $CTM_HOSTGROUP_NAME $AG_NODE_ID
 
 
 echo 'deploying agent to KUBERNETES ai job type'

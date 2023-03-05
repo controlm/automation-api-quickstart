@@ -82,6 +82,6 @@ EXPOSE 7006
 USER controlm
 WORKDIR /home/controlm
 
-ENTRYPOINT /bin/bash -c "/home/controlm/container_agent_startup.sh $PERSISTENT_VOL $AAPI_END_POINT $AAPI_USER $AAPI_PASS $CTM_SERVER_NAME $CTM_HOST_NAME"
+ENTRYPOINT /bin/bash -c "/home/controlm/container_agent_startup.sh $PERSISTENT_VOL $AAPI_END_POINT $AAPI_USER $AAPI_PASS $CTM_SERVER_NAME $CTM_HOSTGROUP_NAME"
 
 
