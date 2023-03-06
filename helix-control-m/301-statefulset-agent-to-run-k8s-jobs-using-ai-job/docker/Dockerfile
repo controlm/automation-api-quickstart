@@ -55,7 +55,7 @@ RUN echo "Install Node.Js and Automation API CLI" \
     && npx ctm provision image $AGENT_IMAGE_NAME || exit 1 \
     && npx ctm env del tenant \
     && echo "source .bash_profile" >> .bashrc \
-    && rm -rf install $NODEJS_HOME node_modules .npm ctm-cli.tgz package.json package-lock.json \
+    && rm -rf install $NODEJS_HOME node_modules .npm ctm-cli.tgz package.json package-lock.json ctm/cm/AI/ipp \
     && cp -r BMCINSTALL/external_java_path* BMCINSTALL/scripts . && rm -rf BMCINSTALL/* && mv external_java_path* scripts BMCINSTALL/
 
 ADD --chown=controlm:controlm resources/* /home/controlm/

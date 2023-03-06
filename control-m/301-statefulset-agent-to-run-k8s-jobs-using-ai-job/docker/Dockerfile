@@ -59,7 +59,7 @@ RUN echo "Install Node.Js and Automation API CLI" \
     && npx ctm env config EXT_APPLICATION_ARTIFACTS_JSON_URL $EXT_APPLICATION_ARTIFACTS_JSON_URL \
     && npx ctm provision image $AGENT_IMAGE_NAME || exit 1 \
     && echo "source .bash_profile" >> .bashrc \
-    && rm -rf install bmcnode/$NODEJS_VERSION $NODEJS_HOME node_modules .npm ctm-cli.tgz package.json package-lock.json \
+    && rm -rf install bmcnode/$NODEJS_VERSION $NODEJS_HOME node_modules .npm ctm-cli.tgz package.json package-lock.json ctm/cm/AI/ipp \
     && cp -r BMCINSTALL/external_java_path* BMCINSTALL/scripts . && rm -rf BMCINSTALL/* && mv external_java_path* scripts BMCINSTALL/
 
 RUN echo "Provision Control-M Application Integrator KUBERNETES job type" \
