@@ -1,6 +1,5 @@
 #!/bin/bash
-
-source ~/.bashrc
+source ~/.bash_profile
 
 echo "Checking Agent communication with Control-M Server"
 ag_diag_comm

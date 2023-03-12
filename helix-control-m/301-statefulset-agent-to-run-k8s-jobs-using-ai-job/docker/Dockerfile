@@ -21,7 +21,8 @@ RUN echo "Update Centos to the latest version" \
     && echo "   which used for which" \
     && echo "   sudo used for sudo" \
     && echo "Install required packages for Control-M/Agent" \
-    && yum install -y -q java-11-openjdk \
+    && yum install -y -q --noplugins --setopt=install_weak_deps=0 \
+                      java-11-openjdk-headless \
                       net-tools \
                       psmisc \
                       which \
