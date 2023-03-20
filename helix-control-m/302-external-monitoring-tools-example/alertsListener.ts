@@ -1,19 +1,21 @@
 // <reference path="../../typings/node/node.d.ts" />
 
 const webSocket = require('ws')
+const HttpsProxyAgent = require('https-proxy-agent');
 const winston = require('winston');
 const path = require("path");
-const exec = require('child_process').exec
+const spawn = require('child_process').spawn
 const fs = require('fs');
 const os = require("os");
 
-let scriptArgs = "";
+const powerShellExtension = ".ps1";
 let headers;
 let logger;
 let environmentArgument;
 let scriptPathArgument;
 let apiKeyArgument;
 let UrlArgument;
+let proxyArgument;
 
 export function getLoggerFileName() {
     return path.join(ctmDir(), "logs", `alertsListener_${getCurrentTime()}.log`);
@@ -42,6 +44,7 @@ export function switchToScriptDir(scriptPathArgument: string) {
 export function connect(url, headers, delay) {
     let ws = new webSocket(url, [], headers);
     ws.isAlive = true;
+    ws.shouldClose = false;
     let pingInterval;
     ws.onopen = function () {
         handleLogsDir()
@@ -49,13 +52,14 @@ export function connect(url, headers, delay) {
     };
 
     ws.onmessage = function (e) {
-        scriptArgs = "";
         logger.info(e.data);
-        createScriptPath(JSON.parse(e.data));
+        const scriptArgumentsArray = [scriptPathArgument];
+        createScriptPath(JSON.parse(e.data), scriptArgumentsArray);
         if (checkScriptExists(scriptPathArgument)) {
             switchToScriptDir(scriptPathArgument);
-            logger.info("running script: " + scriptPathArgument + " with arguments: " + scriptArgs)
-            exec(`${scriptPathArgument}  ${scriptArgs}`);
+            let shell = addingShellRelatedCommand(scriptArgumentsArray);
+            logger.debug(`running the following command: ${scriptArgumentsArray.join(' ')}`)
+            runScript(shell, scriptArgumentsArray);
         } else {
             ws.terminate()
         }
@@ -63,18 +67,37 @@ export function connect(url, headers, delay) {
 
     ws.onclose = function (e) {
         logger.info("Connection closed for the following reason: ", e.message)
-        clearInterval(pingInterval);
+        if (ws.shouldClose === true) {
+            logger.info("closing the Alerts listener client.");
+            clearInterval(pingInterval);
+        } else {
+            logger.info("reconnecting to the API gateway.");
+            clearInterval(pingInterval);
+            setTimeout(function () {
+                connect(url, headers, delay)
+            }, 1000 * 20)
+        }
     };
 
     ws.onerror = function (err) {
         logger.error(`${err.message} Closing socket`);
         logger.debug(JSON.stringify(err.message))
         let errorCode = extractErrorCode(err.message);
-        handleErrorCode(errorCode, ws, url, delay);
+        handleErrorCode(errorCode, ws);
     };
 
     ws.on('pong', heartbeat)
     return ws;
+}
+
+function runScript(shell: string, scriptArgumentsArray: any[]) {
+    let childProcess = spawn(shell, scriptArgumentsArray);
+    childProcess.stdout.on('data', (data) => {
+        logger.debug(`script output: ${data}`);
+    });
+    childProcess.stderr.on('data', (data) => {
+        logger.error(`script error message: ${data}`);
+    });
 }
 
 export function checkScriptExists(scriptPath: string): boolean {
@@ -123,13 +146,45 @@ function heartbeat() {
     this.isAlive = true;
 }
 
-export function createScriptPath(object) {
+function addArgumentsToScript(key: string[], scriptArgumentsArray: any[], keyValue: string) {
+    key[0] = key[0] + ": ";
+    scriptArgumentsArray.push(key[0], keyValue)
+}
+
+export function createScriptPath(object, scriptArgumentsArray ?: any[]) {
     for (let i = 0; i < object.alertFields.length; ++i) {
         let field = object.alertFields[i];
         let key = Object.keys(field)
-        let keyValue = field[key.toString()];
-        scriptArgs += key[0] + ": " + keyValue + " ";
+        if (powerShellExtension === path.extname(scriptArgumentsArray[0])) {
+            let keyValue = `'${field[key.toString()].replace((/'/g, "\\'"))}'` + " ";
+            addArgumentsToScript(key, scriptArgumentsArray, keyValue);
+        } else {
+            let keyValue = field[key.toString()] + " ";
+            addArgumentsToScript(key, scriptArgumentsArray, keyValue);
+        }
     }
+}
+
+function addingShellRelatedCommand(commandArgs: any[]) {
+    let shell = isWindows() ? 'cmd' : '/bin/sh';
+    logger.debug("shell is: " + shell);
+    if (isWindows()) {
+        if (powerShellExtension !== path.extname(commandArgs[0])) {
+            commandArgs.splice(0, 0, '/C');
+        } else {
+            shell = "powershell";
+        }
+    }
+    return shell;
+}
+
+function isWindows() {
+    return os.platform() === "win32";
+}
+
+function handleError(ws, message: string) {
+    logger.error(message);
+    ws.shouldClose = true;
 }
 
 function createPingInterval(url: string, ws, delay: number) {
@@ -145,26 +200,23 @@ function createPingInterval(url: string, ws, delay: number) {
     }, delay);
 }
 
-function handleErrorCode(errorCode: number, ws, url, delay) {
+function handleErrorCode(errorCode: number, ws) {
     switch (errorCode) {
         case 401 :
-            logger.error("User is not authorized to perform this operation")
+            handleError(ws, "User is not authorized to perform this operation");
             break
         case 403 :
-            logger.error("User is not permitted to perform this operation")
+            handleError(ws, "User is not permitted to perform this operation");
             break
         case 409 :
-            logger.error("Another Alerts listener is already connected")
+            handleError(ws, "Another Alerts listener is already connected");
             break
         case 503 :
-            logger.error("External Alerts Service is disabled")
+            handleError(ws, "External Alerts Service is disabled");
             break
         default :
             ws.close();
             logger.info('Socket is closed. Trying to reconnect.');
-            ws.reconnectTimeout = setTimeout(function () {
-                connect(url, headers, delay);
-            }, 1000 * 10);
     }
 }
 
@@ -175,8 +227,12 @@ function extractErrorCode(errorMessage) {
 function getCurrentTime(logFormat ?: boolean) {
     const separator = logFormat ? ":" : "-";
     const today = new Date();
-    return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
-        + '-' + today.getHours() + separator + today.getMinutes() + separator + today.getSeconds();
+    return today.getFullYear() + '-' + (padTime(today.getMonth() + 1)) + '-' + padTime(today.getDate())
+        + '-' + padTime(today.getHours()) + separator + padTime(today.getMinutes()) + separator + padTime(today.getSeconds());
+}
+
+function padTime(time: number) {
+    return (time.toString() as any).padStart(2, '0')
 }
 
 export function validateScriptAndEnvArgs(scriptPathArgument: string, environmentArgument: string) {
@@ -204,11 +260,21 @@ function parseArgsAndValidate() {
     apiKeyArgument = getSettings("token", "")
     UrlArgument = getSettings("url", "");
     validateTokenAndUrlArgs(apiKeyArgument, UrlArgument);
+    proxyArgument = getSettings("proxyUrl", "");
+
 }
 
 function printArgs() {
     logger.info("process pid is: " + getSettings("listenerPid", ""));
     logger.info("Running WebSocket with the following URL: " + UrlArgument, "and the following script path: " + scriptPathArgument + " against the following environment: " + environmentArgument)
+}
+
+// If proxyUrl is defined, websocket will try to connect to the given proxyUrl
+function checkProxySettings(headers, proxyUrl: string) {
+    if (proxyUrl !== undefined && proxyUrl.length !== 0) {
+        headers.agent = new HttpsProxyAgent(proxyUrl);
+        logger.debug("running through proxy environment:" + proxyUrl);
+    }
 }
 
 // Creates the log's directory if needed, preparing the arguments for the webSocket.
@@ -218,6 +284,7 @@ export function init() {
     parseArgsAndValidate()
     printArgs()
     headers = {headers: {['x-api-key']: apiKeyArgument}};
+    checkProxySettings(headers, proxyArgument);
     try {
         connect(UrlArgument, headers, 1000 * 60);
     } catch (e) {
@@ -225,7 +292,7 @@ export function init() {
     }
 }
 
-// Creating winston logger, for more info about the flags and configuration see - https://www.npmjs.com/package/winston/v/0.9.0
+// Creating winston logger, for more info about the flags and configuration see - https://www.npmjs.com/package/winston/v/1.1.2
 export function createLogger() {
     return new (winston.Logger)({
         transports: [
