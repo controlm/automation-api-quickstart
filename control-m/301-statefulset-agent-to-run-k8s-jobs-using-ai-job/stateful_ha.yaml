@@ -55,7 +55,6 @@ spec:
       - hostnames:
         - <CTM_SERVER_NAME>
         ip: <CTM_SERVER_PUBLIC_IP>
-      serviceAccountName: node-apis
       securityContext:
         fsGroup: 1000
       terminationGracePeriodSeconds: 10

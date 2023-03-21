@@ -44,8 +44,8 @@ if [ ! -d "$PERSISTENT_VOL"/pid ]; then
   ctmcfg -table CONFIG -action update -parameter LOCALHOST -value "${AG_NODE_ID}"
   ctmcfg -table CONFIG -action update -parameter PHYSICAL_UNIQUE_AGENT_NAME -value "${AG_NODE_ID}"
 
-  echo 'first time the agent is using the persistent volume, moving folders to persistent volume'
   # no agent files exist in PV, copy the current agent files to PV
+  echo 'first time the agent is using the persistent volume, moving folders to persistent volume'
   mkdir "$PERSISTENT_VOL"
   mv $CONTROLM/backup $CONTROLM/capdef $CONTROLM/dailylog $CONTROLM/data $CONTROLM/measure $CONTROLM/onstmt $CONTROLM/pid $CONTROLM/procid $CONTROLM/status $CONTROLM/sysout $CONTROLM/temp $CONTROLM/cm -t "$PERSISTENT_VOL"
 else
@@ -91,6 +91,7 @@ else
 fi
 
 echo 'Checking Agent communication with Control-M Server'
+ag_ping
 ag_diag_comm
 
 echo 'Adding the Agent to Host Group'

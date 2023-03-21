@@ -26,7 +26,6 @@ spec:
       labels:
         type: stateful-service-ctmag-srv
     spec:
-      serviceAccountName: node-apis
       containers:
       - env:
         - name: PERSISTENT_VOL

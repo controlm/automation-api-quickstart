@@ -176,11 +176,10 @@ Before applying the file, edit the following parameters:
 
 - DOCKER_IMAGE_NAME - The image that will be deployed in the container.
 
-Run the following command to create secret for AAPI_TOKEN:
-
-```
-kubectl create secret generic credentials --from-literal=AAPI_TOKEN=value
-```
+> To not expose API Token in pod definition, run the following command to create secret for AAPI_TOKEN:
+> ```
+> kubectl create secret generic credentials --from-literal=AAPI_TOKEN=value
+> ```
 
 Run the following command from the directory that contains the yaml file that controls the cluster:
 
@@ -211,6 +210,7 @@ completion".
 
 > In the BMC test environment, the **roles.yaml** file was applied, to ensure that the Agent can apply Kubernetes jobs
 > from inside the pod.
+> To attach this role for StatefulSet, needs to specify **serviceAccountName: node-apis** under **containers** section
 
 ### Step 5: Run Helix Control-M jobs
 
