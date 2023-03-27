@@ -15,7 +15,7 @@ The document demonstrates how to do this while leveraging Helix Control-M schedu
 ## Working Assumption
 
 The guidelines and configuration in this document are based on the Amazon Elastic Kubernetes Service and were tested in
-a Linux environment with the March 2022 release of Helix Control-M.
+a Linux environment with the September 2022 release of Helix Control-M.
 Testing was done on an Amazon Elastic Kubernetes Service (Amazon EKS) cluster of version 1.20. If you have an Amazon EKS
 cluster of version 1.23, you must install the Amazon EBS CSI driver. For more information,
 see [Amazon EBS CSI driver](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html).
@@ -160,26 +160,32 @@ Control-M.
 Use the stateful_ha.yaml file to allocate persistent storage for Agent usage and run the Agent, so that the state of the
 Helix Control-M/Agent is kept across shutdown and startup of the pod.
 
-Before applying the file, edit the following parameters:
+Before applying the file, perform the following steps:
 
-- AAPI_END_POINT - An endPoint is the URI for Control-M Automation API. The endpoint has the following format:
-  https://<tenant-name>-aapi.<zone>.controlm.com/automation-api
+1. Edit the following parameters in the stateful_ha.yaml file:
 
-- AAPI_TOKEN - The token value for connecting to the Automation API server. For information about obtaining this token,
-  see [Creating an API Token](https://documents.bmc.com/supportu/controlm-saas/en-US/Documentation/Creating_an_API_Token.htm).
+    - AAPI_END_POINT - An endPoint is the URI for Control-M Automation API. The endpoint has the following format:
+      https://<tenant-name>-aapi.controlm.com/automation-api
 
-- AGENT_TOKEN_TAG - The token name of the agent, as it appears in Agent Token Management in Helix Control-M.
+    - AGENT_TOKEN_TAG - The token name of the agent, as it appears in Agent Token Management in Helix Control-M.
 
-- CTM_HOSTGROUP_NAME - The name of a host group that the deployed Agent will be added to.
+    - CTM_HOSTGROUP_NAME - The name of a host group that the deployed Agent will be added to.
 
-- PERSISTENT_VOL - The name of the directory of the persistent volume.
+    - PERSISTENT_VOL - The name of the directory of the persistent volume.
 
-- DOCKER_IMAGE_NAME - The image that will be deployed in the container.
+    - DOCKER_IMAGE_NAME - The image that will be deployed in the container.
 
-> To not expose API Token in pod definition, run the following command to create secret for AAPI_TOKEN:
-> ```
-> kubectl create secret generic credentials --from-literal=AAPI_TOKEN=value
-> ```
+2. Prepare an API token for connecting to the Automation API server:
+
+   a. Create an API token as described
+   in [Creating an API Token](https://documents.bmc.com/supportu/controlm-saas/en-US/Documentation/Creating_an_API_Token.htm).
+
+   b. Run the following command to create a secret for the API token that is referenced by the AAPI_TOKEN parameter in
+   the .yaml file:
+
+    ```
+    kubectl create secret generic credentials --from-literal=AAPI_TOKEN=value
+    ```
 
 Run the following command from the directory that contains the yaml file that controls the cluster:
 

@@ -162,23 +162,30 @@ Use Control-M Application Integrator to import the file AI Kubernetes.ctmai:
 
 Use the stateful_ha.yaml file to allocate persistent storage for Agent usage and run the Agent, so that the state of the
 Control-M/Agent is kept across shutdown and startup of the pod.
-Before applying the file, edit the following parameters:
 
-- AAPI_END_POINT - The URL of the Automation API server.
-- AAPI_TOKEN - The token value for connecting to the Automation API server. For information about obtaining this token,
-  see [Creating an API Token](https://documents.bmc.com/supportu/9.0.21/en-US/Documentation/Creating_an_API_Token.htm).
-- CTM_SERVER_NAME - The name of the Control-M/Server.
-- PERM_HOSTS - The name of the Control-M/Server host.
-- CTM_HOSTGROUP_NAME - The name of the host group that the deployed Agent will be added to.
-- PERSISTENT_VOL - The name of the directory of the persistent volume.
-- IMAGE_NAME - The image that will be deployed in the container.
-- CTM_SERVER_PUBLIC_IP - The public IP address of the Control-M/Server.
+Before applying the file, perform the following steps:
 
+1. Edit the following parameters in the stateful_ha.yaml file:
 
-> To not expose API Token in pod definition, run the following command to create secret for AAPI_TOKEN:
-> ```
-> kubectl create secret generic credentials --from-literal=AAPI_TOKEN=value
-> ```
+    - AAPI_END_POINT - The URL of the Automation API server.
+    - CTM_SERVER_NAME - The name of the Control-M/Server.
+    - PERM_HOSTS - The name of the Control-M/Server host.
+    - CTM_HOSTGROUP_NAME - The name of the host group that the deployed Agent will be added to.
+    - PERSISTENT_VOL - The name of the directory of the persistent volume.
+    - DOCKER_IMAGE_NAME - The image that will be deployed in the container.
+    - CTM_SERVER_PUBLIC_IP - The public IP address of the Control-M/Server.
+
+2. Prepare an API token for connecting to the Automation API server:
+
+   a. Create an API token as described
+   in [Creating an API Token](https://documents.bmc.com/supportu/9.0.21/en-US/Documentation/Creating_an_API_Token.htm).
+
+   b. Run the following command to create a secret for the API token that is referenced by the AAPI_TOKEN parameter in
+   the .yaml file:
+
+    ```
+    kubectl create secret generic credentials --from-literal=AAPI_TOKEN=value
+    ```
 
 Run the following command to create StatefulSet:
 
@@ -218,7 +225,7 @@ To run the Control-M job, perform the following actions:
    supply the kubectl path in the Agent container. This connection profile synchronizes between the kubectl utility in
    the Agent and the KUBERNETES job type.
 
-	For example, execute the following API command for the one-time creation of the connection profile:
+   For example, execute the following API command for the one-time creation of the connection profile:
 
 ```
 	ctm deploy testAiConnectionProfile.json

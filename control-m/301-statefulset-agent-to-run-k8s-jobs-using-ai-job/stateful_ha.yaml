@@ -43,7 +43,7 @@ spec:
           value: <HOST_NAMES>
         - name: CTM_HOSTGROUP_NAME
           value: <CTM_HOSTGROUP_NAME>
-        image: <IMAGE_NAME>
+        image: <DOCKER_IMAGE_NAME>
         imagePullPolicy: Always
         name: ctmagent-container
         ports:
