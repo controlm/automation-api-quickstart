@@ -94,9 +94,6 @@ echo 'Checking Agent communication with Control-M Server'
 ag_ping
 ag_diag_comm
 
-echo 'Adding the Agent to Host Group'
-ctm config server:hostgroup:agent::add "$CTM_SERVER_NAME" "$CTM_HOSTGROUP_NAME" "$AG_NODE_ID"
-
 echo 'Deploying Control-M/Integration Kubernetes Job Type to Control-M/Agent'
 ctm deploy ai:jobtype IN01 "$AG_NODE_ID" KUBERNETES | grep "successful" >res.txt
 
@@ -116,4 +113,8 @@ fi
 rm res.txt
 
 echo 'KUBERNETES AI Job Type is ready for use'
+
+echo 'Adding the Agent to Host Group'
+ctm config server:hostgroup:agent::add "$CTM_SERVER_NAME" "$CTM_HOSTGROUP_NAME" "$AG_NODE_ID"
+
 bash ./ctmhost_keepalive.sh
