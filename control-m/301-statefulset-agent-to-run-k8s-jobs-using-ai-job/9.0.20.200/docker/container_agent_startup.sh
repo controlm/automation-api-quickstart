@@ -9,7 +9,7 @@ AAPI_PASS=$4
 CTM_SERVER_NAME=$5
 FOLDERS_EXISTS=false
 AGENT_REGISTERED=false
-CTM_HOST_NAME=$6
+AGENT_HOSTGROUP_NAME=$6
 export CONTROLM=/home/controlm/ctm
 agentName=$(hostname)
 
@@ -27,13 +27,13 @@ then
         echo 'first time the agent is using the persistent volume, moving folders to persistent volume'
         # no agent files exist in PV, copy the current agent files to PV
         mkdir $PERSISTENT_VOL
-		mv $CONTROLM/backup $CONTROLM/capdef $CONTROLM/dailylog $CONTROLM/data $CONTROLM/measure $CONTROLM/onstmt $CONTROLM/pid $CONTROLM/procid $CONTROLM/status $CONTROLM/sysout $CONTROLM/temp $CONTROLM/cm -t $PERSISTENT_VOL
+		mv $CONTROLM/backup $CONTROLM/capdef $CONTROLM/dailylog $CONTROLM/data $CONTROLM/measure $CONTROLM/onstmt $CONTROLM/pid $CONTROLM/procid $CONTROLM/status $CONTROLM/sysout $CONTROLM/cm -t $PERSISTENT_VOL
 		
 
 else
         echo 'this is not the first time an agent is running using this persistent volume, mapping folder to existing persistent volume'
         FOLDERS_EXISTS=true
-		rm -Rf $CONTROLM/backup $CONTROLM/capdef $CONTROLM/dailylog $CONTROLM/data $CONTROLM/measure $CONTROLM/onstmt $CONTROLM/pid $CONTROLM/procid $CONTROLM/status $CONTROLM/sysout $CONTROLM/temp $CONTROLM/cm
+		rm -Rf $CONTROLM/backup $CONTROLM/capdef $CONTROLM/dailylog $CONTROLM/data $CONTROLM/measure $CONTROLM/onstmt $CONTROLM/pid $CONTROLM/procid $CONTROLM/status $CONTROLM/sysout $CONTROLM/cm
 		sed '/CM_LIST_SENT2CTMS/d' $PERSISTENT_VOL/data/CONFIG.dat
 fi
 # create link to persistent volume
@@ -47,7 +47,6 @@ ln -s $PERSISTENT_VOL/pid       $CONTROLM/pid
 ln -s $PERSISTENT_VOL/procid    $CONTROLM/procid
 ln -s $PERSISTENT_VOL/sysout    $CONTROLM/sysout
 ln -s $PERSISTENT_VOL/status    $CONTROLM/status
-ln -s $PERSISTENT_VOL/temp      $CONTROLM/temp
 ln -s $PERSISTENT_VOL/cm        $CONTROLM/cm
 
 
@@ -80,7 +79,7 @@ echo 'checking Agent communication with Control-M Server'
 ag_diag_comm
 
 echo 'adding the Agent to Host Group'
-ctm config server:hostgroup:agent::add $CTM_SERVER_NAME $CTM_HOST_NAME $AG_NODE_ID
+ctm config server:hostgroup:agent::add $CTM_SERVER_NAME $AGENT_HOSTGROUP_NAME $AG_NODE_ID
 
 
 echo 'deploying agent to KUBERNETES ai job type'

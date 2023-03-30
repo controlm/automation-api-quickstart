@@ -1,14 +1,14 @@
 #!/bin/bash
+source ~/.bash_profile
 
-source ~/.bashrc
-echo checking Agent communication with Control-M Server
+echo "Checking Agent communication with Control-M Server"
 ag_diag_comm
 ctmaggetcm
 
 # ag_ping Loop control variables
 # LIMIT is number of times to check HOSTS before timing out in error
 LIMIT=5
-# SLEEPTIME is nmber of seconds to sleep between successive pings to CURRENT_HOST
+# SLEEPTIME is number of seconds to sleep between successive pings to CURRENT_HOST
 SLEEPTIME=120
 COUNTER=0
 

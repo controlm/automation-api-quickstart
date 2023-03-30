@@ -7,7 +7,7 @@
 			"ConnectionProfile": "TEST_KUBECTL",
 			"AI-Action": "Apply",
 			"AI-YamlFile": "/home/controlm/sleep_for_20sec_job.yaml",
-			"Host": "<HOST_GROUP_NAME>"
+			"Host": "<AGENT_HOSTGROUP_NAME>"
 		}
 	}
 }
