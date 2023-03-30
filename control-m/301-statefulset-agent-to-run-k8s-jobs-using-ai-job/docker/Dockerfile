@@ -21,7 +21,8 @@ RUN echo "Update Centos to the latest version" \
     && echo "   which used for which" \
     && echo "   sudo used for sudo" \
     && echo "Install required packages for Control-M/Agent" \
-    && yum install -y -q java-11-openjdk \
+    && yum install -y -q --noplugins --setopt=install_weak_deps=0 \
+                      java-11-openjdk-headless \
                       net-tools \
                       psmisc \
                       which \
@@ -59,14 +60,16 @@ RUN echo "Install Node.Js and Automation API CLI" \
     && npx ctm env config EXT_APPLICATION_ARTIFACTS_JSON_URL $EXT_APPLICATION_ARTIFACTS_JSON_URL \
     && npx ctm provision image $AGENT_IMAGE_NAME || exit 1 \
     && echo "source .bash_profile" >> .bashrc \
-    && rm -rf install BMCINSTALL rm -rf bmcnode/$NODEJS_VERSION $NODEJS_HOME node_modules .npm ctm-cli.tgz package.json package-lock.json
+    && rm -rf install bmcnode/$NODEJS_VERSION $NODEJS_HOME node_modules .npm ctm-cli.tgz package.json package-lock.json ctm/cm/AI/ipp \
+    && cp -r BMCINSTALL/external_java_path* BMCINSTALL/scripts . && rm -rf BMCINSTALL/* && mv external_java_path* scripts BMCINSTALL/
 
 RUN echo "Provision Control-M Application Integrator KUBERNETES job type" \
-    && /home/controlm/ctm_cli/9.0.21.000/ctm provision image AI_Kubernetes \
-    && /home/controlm/ctm/cm/AI/exe-921000/get_plugins | grep KUBERNETES
+    && source ~/.bash_profile \
+    && ctm provision image AI_Kubernetes \
+    && ~/ctm/cm/AI/exe-*/get_plugins | grep KUBERNETES
 
 ADD --chown=controlm:controlm resources/* /home/controlm/
 RUN chmod +x *.sh
 
 EXPOSE 7006
-ENTRYPOINT /bin/bash -c "./startup.sh $PERSISTENT_VOL $AAPI_END_POINT $AAPI_TOKEN $CTM_SERVER_NAME $CTM_HOST_NAME"
+ENTRYPOINT /bin/bash -c "./startup.sh $PERSISTENT_VOL $AAPI_END_POINT $AAPI_TOKEN $CTM_SERVER_NAME $AGENT_HOSTGROUP_NAME"

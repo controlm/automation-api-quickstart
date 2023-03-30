@@ -33,18 +33,22 @@ spec:
         - name: AAPI_END_POINT
           value: <AAPI_END_POINT>
         - name: AAPI_TOKEN
-          value: <AAPI_TOKEN>
+          valueFrom:
+            secretKeyRef:
+              name: credentials
+              key: AAPI_TOKEN
         - name: AGENT_TOKEN_TAG
           value: <AGENT_TOKEN_TAG>
-        - name: HOSTGROUP_NAME
-          value: <HOSTGROUP_NAME>
-        image: <IMAGE_NAME>
+        - name: AGENT_HOSTGROUP_NAME
+          value: <AGENT_HOSTGROUP_NAME>
+        image: <DOCKER_IMAGE_NAME>
         imagePullPolicy: Always
         name: ctmagent-container
         ports:
         - containerPort: 7006
         volumeMounts:
-        - mountPath: /home/controlm/persistent_folder
+          - name: pv_data
+            mountPath: /home/controlm/persistent_folder
       securityContext:
         fsGroup: 1000
       terminationGracePeriodSeconds: 10

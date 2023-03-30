@@ -41,9 +41,9 @@ spec:
           value: <CTM_NAME>
         - name: PERM_HOSTS
           value: <HOST_NAMES>
-        - name: CTM_HOST_NAME
-          value: <HOST_GROUP_NAME>
-        image: <IMAGE_NAME>
+        - name: AGENT_HOSTGROUP_NAME
+          value: <AGENT_HOSTGROUP_NAME>
+        image: <DOCKER_IMAGE_NAME>
         imagePullPolicy: Always
         name: ctmagent-container
         ports:
@@ -55,7 +55,6 @@ spec:
       - hostnames:
         - <CTM_SERVER_NAME>
         ip: <CTM_SERVER_PUBLIC_IP>
-      serviceAccountName: node-apis
       securityContext:
         fsGroup: 1000
       terminationGracePeriodSeconds: 10
