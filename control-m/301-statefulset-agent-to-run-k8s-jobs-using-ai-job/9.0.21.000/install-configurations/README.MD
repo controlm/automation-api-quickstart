@@ -1,6 +1,7 @@
-# Installation files for Control-M/Agent image
+# Configuration files for Control-M/Agent image
 Prepare a local repository of installation artifacts for provision actions performed by the Provision service.
 Before you run a docker build, copy the following files locally into an image or provide a URL with read permissions.
-For more information about these files, see their descriptions in the *Sample Files* section of main README.  
-- AI_Kubernetes.ctmai
-- DRFZ4.9.0.21.200_Linux-x86_64.tar.Z
+For more information about these files, see their descriptions in the *Sample Files* section of main README.
+- Agent.Linux.json
+- agent.linux.xml
+- AI_Kubernetes.Linux.json

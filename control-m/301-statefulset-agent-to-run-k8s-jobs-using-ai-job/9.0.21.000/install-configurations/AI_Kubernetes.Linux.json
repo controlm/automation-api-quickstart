@@ -1,0 +1,9 @@
+{
+  "OS": "linux-x86_64",
+  "PreReq": {
+    "MinAI": "DRAIT.9.0.20.101"
+  },
+  "Installers": [
+    "AI_Kubernetes.ctmai"
+  ]
+}
