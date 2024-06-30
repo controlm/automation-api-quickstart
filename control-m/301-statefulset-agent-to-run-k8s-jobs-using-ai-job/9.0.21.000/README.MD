@@ -16,16 +16,15 @@ The document demonstrates how to do this while leveraging Control-M scheduling a
 The information in this document is based on the following assumptions:
 
 - The following guidelines and configuration are based on Amazon Elastic Kubernetes Service and were tested in a Linux
-  environment with Control-M 9.0.21.200.
-- The previous version of these guidelines for Control-M 9.0.21.000 is located in the **9.0.21.000** folder.
+  environment with Control-M 9.0.21.000.
+- The previous version of these guidelines for Control-M 9.0.20.200 is located in the **9.0.20.200** folder.
 - Testing was done on an Amazon Elastic Kubernetes Service (Amazon EKS) cluster of version 1.20. If you have an Amazon
-  EKS cluster of version 1.27, you must install the Amazon EBS CSI driver. For more information,
+  EKS cluster of version 1.23, you must install the Amazon EBS CSI driver. For more information,
   see [Amazon EBS CSI driver](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html).
-    - Deployment of Control-M/Agent on Kubernetes requires Control-M 9.0.21.000 or later as the basis for running
-      Control-M
-      Automation API and Control-M Application Integrator. For the Automation API,
-      the [latest monthly release](https://docs.bmc.com/docs/display/workloadautomation/Control-M+Automation+API+-+Getting+Started+Guide)
-      is recommended.
+- Deployment of Control-M/Agent on Kubernetes requires Control-M 9.0.21.000 or later as the basis for running Control-M
+  Automation API and Control-M Application Integrator. For the Automation API,
+  the [latest monthly release](https://docs.bmc.com/docs/display/workloadautomation/Control-M+Automation+API+-+Getting+Started+Guide)
+  is recommended.
 - Control-M/Server resides outside of the Kubernetes cluster.
 
 ## Methodological Approach
@@ -64,7 +63,8 @@ by the Agent. This was designed to avoid exposing the Kubernetes cluster to outs
 | install-configurations/agent.linux.xml                 | A configuration file with agent parameters for provisioning the Control-M/Agent and Control-M Application Integrator, used during the docker build process                           |
 | install-configurations/AI_Kubernetes.Linux.json        | A configuration file for provisioning the AI Kubernetes job type, used during the docker build process                                                                               |
 | installation/AI_Kubernetes.ctmai                       | A Control-M Application Integrator KUBERNETES job type definition file                                                                                                               |
-| installation/DRFZ4.9.0.21.200_Linux-x86_64.tar.Z       | A Control-M/Agent installer file downloaded from EPD for provisioning the Control-M/Agent (including Control-M Application Integrator), used during the docker build process         |
+| installation/DRFZ4.9.0.21.000_Linux-x86_64.tar.Z       | A Control-M/Agent installer file downloaded from EPD for provisioning the Control-M/Agent (including Control-M Application Integrator), used during the docker build process         |
+| installation/PAFZ4.9.0.21.001_Linux-x86_64_INSTALL.BIN | A Control-M/Agent patch file downloaded from EPD for provisioning the Control-M/Agent (including Control-M Application Integrator), used during the docker build process             |
 | stateful_ha.yaml                                       | A file that contains StatefulSet definitions for running a Control-M/Agent container, Kubernetes definitions for creation of the Persistent Volume Claim, and a linkage between them |
 | sleep_for_20sec_job.yaml                               | A sample Kubernetes job for testing: Print the current time and sleep for 20 seconds                                                                                                 |
 | roles.yaml                                             | A sample file used to enforce RBAC authorization in the test environment                                                                                                             |
@@ -77,14 +77,14 @@ To perform the processes described in this document, you must have various Contr
 
 - For building and executing the Control-M/Agent container and deploying the Application Integrator job type:
     - Provisioning of Control-M/Agent and applications, as described
-      in [API Provision service authorizations](https://documents.bmc.com/supportu/9.0.21.200/en-US/Documentation/Automation_API_Authorizations.htm#ProvisionServiceAuthorizations)
+      in [API Provision service authorizations](https://documents.bmc.com/supportu/9.0.21/en-US/Documentation/Automation_API_Authorizations.htm#ProvisionServiceAuthorizations)
     - Access to Control-M Application Integrator, as described
-      in [API build and deploy services authorizations](https://documents.bmc.com/supportu/9.0.21.200/en-US/Documentation/Automation_API_Authorizations.htm#BuildandDeployServiceAuthorizations)
+      in [API build and deploy services authorizations](https://documents.bmc.com/supportu/9.0.21/en-US/Documentation/Automation_API_Authorizations.htm#BuildandDeployServiceAuthorizations)
 - For creating and monitoring jobs that run the Kubernetes pod:
     - Folder authorizations, as described
-      in [Folder authorizations](https://documents.bmc.com/supportu/9.0.21.200/en-US/Documentation/Users_and_Roles.htm#RoleAuthorizations)
+      in [Folder authorizations](https://documents.bmc.com/supportu/9.0.21/en-US/Documentation/Users_and_Roles.htm#RoleAuthorizations)
     - Active Job authorizations, as described
-      in [Active authorizations](https://documents.bmc.com/supportu/9.0.21.200/en-US/Documentation/Users_and_Roles.htm#RoleAuthorizations)
+      in [Active authorizations](https://documents.bmc.com/supportu/9.0.21/en-US/Documentation/Users_and_Roles.htm#RoleAuthorizations)
 
 ## Process Steps
 
@@ -111,7 +111,8 @@ For more information about these files, see their descriptions in the table abov
 - install-configurations/agent.linux.xml
 - install-configurations/AI_Kubernetes.Linux.json
 - installation/AI_Kubernetes.ctmai
-- installation/DRFZ4.9.0.21.200_Linux-x86_64.tar.Z
+- installation/DRFZ4.9.0.21.000_Linux-x86_64.tar.Z
+- installation/PAFZ4.9.0.21.001_Linux-x86_64_INSTALL.BIN
 
 Edit the build_docker_example.sh script with local values for the variables that appear in uppercase, and then run the
 script.
@@ -126,9 +127,6 @@ The script contains the following variables:
   https://)
 - DOCKER_IMAGE_NAME - the docker image full name
 
-Before you run the script, if you choose to store the above files locally, open the Dockerfile and uncomment the two
-COPY lines.
-
 This produces an image that contains a Control-M/Agent with kubectl and support for executing Control-M Application
 Integrator jobs types, including the Kubernetes job type.
 
@@ -136,8 +134,8 @@ The container contains the following items:
 
 - Control-M/Agent (including Control-M Application Integrator and Control-M Automation API CLI)
 - Control-M Application Integrator KUBERNETES plugin
-- Java 17 run time
-- NodeJS version 18.18.2
+- Java 11 run time
+- NodeJS version 16
 - kubectl
 - Bash startup scripts
 
@@ -157,10 +155,8 @@ Use Control-M Application Integrator to import the file AI Kubernetes.ctmai:
 
 1. Open the BMC Welcome page.
 2. Click Application Integrator and log in to Control-M Application Integrator.
-3. Click *Import*, and choose the AI_Kubernetes.ctmai file that you downloaded earlier.
-4. Click *Publish & Deploy* and perform the Publish action without defining a target agent.
-
-    For more information, see [Publishing and Deploying a Plug-in](https://documents.bmc.com/supportu/9.0.21.200/en-US/Documentation/Deploying_and_Publishing_a_Plug-in.htm).
+3. Click *Import job type from file*, and choose the AI_Kubernetes.ctmai file that you downloaded earlier.
+4. Click *Deploy*.
 
 ### Step 3: Create persistent storage and run the Agent
 

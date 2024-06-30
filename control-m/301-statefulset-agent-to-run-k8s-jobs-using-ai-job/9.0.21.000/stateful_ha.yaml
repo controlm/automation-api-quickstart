@@ -43,8 +43,6 @@ spec:
           value: <HOST_NAMES>
         - name: AGENT_HOSTGROUP_NAME
           value: <AGENT_HOSTGROUP_NAME>
-        - name: AGENT_NFS_MODE
-          value: "true"
         image: <DOCKER_IMAGE_NAME>
         imagePullPolicy: Always
         name: ctmagent-container

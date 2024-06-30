@@ -1,7 +1,6 @@
 {
   "OS": "Linux-x86_64",
   "Installers": [
-    "DRFZ4.9.0.21.000_Linux-x86_64.tar.Z",
-    "PAFZ4.9.0.21.001_Linux-x86_64_INSTALL.BIN"
+    "DRFZ4.9.0.21.200_Linux-x86_64.tar.Z"
   ]
 }

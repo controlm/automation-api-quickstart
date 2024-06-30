@@ -29,7 +29,7 @@ AGENT_REGISTERED=false
 echo 'Mapping persistent volume'
 source ~/.bash_profile
 
-if [ ! -d "$PERSISTENT_VOL"/status ]; then
+if [ ! -d "$PERSISTENT_VOL"/pid ]; then
   echo "Persistent connection : internal AR keep-alive"
   {
     echo "AR_PING_TO_SERVER_IND Y"
@@ -43,24 +43,15 @@ if [ ! -d "$PERSISTENT_VOL"/status ]; then
   ctmcfg -table CONFIG -action update -parameter INSTALL_HOSTNAME -value "${AG_NODE_ID}"
   ctmcfg -table CONFIG -action update -parameter LOCALHOST -value "${AG_NODE_ID}"
   ctmcfg -table CONFIG -action update -parameter PHYSICAL_UNIQUE_AGENT_NAME -value "${AG_NODE_ID}"
-  ctmcfg -table CONFIG -action update -parameter AGENT_OWNER -value "$(whoami)"  # in case of arbitrary container user
 
-  if [[ -n $AGENT_NFS_MODE && $AGENT_NFS_MODE == "true" ]]; then
-      echo "Treat PVC as NFS when updating files"
-      ctmcfg -table CONFIG -action update -parameter NFS_PVC -value "Y"
-  fi
   # no agent files exist in PV, copy the current agent files to PV
   echo 'first time the agent is using the persistent volume, moving folders to persistent volume'
   mkdir "$PERSISTENT_VOL"
-  chgrp root "$PERSISTENT_VOL"
-  mv $CONTROLM/backup $CONTROLM/capdef $CONTROLM/dailylog $CONTROLM/data $CONTROLM/measure $CONTROLM/onstmt $CONTROLM/procid $CONTROLM/proclog $CONTROLM/status $CONTROLM/sysout $CONTROLM/temp -t "$PERSISTENT_VOL"
-  mkdir -p "$PERSISTENT_VOL"/cm/AI
-  chgrp root "$PERSISTENT_VOL"/cm/AI
-  mv "$CONTROLM/"cm/AI/ccp_cache "$CONTROLM"/cm/AI/CustomerLogs "$CONTROLM"/cm/AI/data -t "$PERSISTENT_VOL"/cm/AI
+  mv $CONTROLM/backup $CONTROLM/capdef $CONTROLM/dailylog $CONTROLM/data $CONTROLM/measure $CONTROLM/onstmt $CONTROLM/pid $CONTROLM/procid $CONTROLM/status $CONTROLM/sysout $CONTROLM/cm -t "$PERSISTENT_VOL"
 else
   echo 'this is not the first time an agent is running using this persistent volume, mapping folder to existing persistent volume'
   FOLDERS_EXISTS=true
-  rm -Rf $CONTROLM/backup $CONTROLM/capdef $CONTROLM/dailylog $CONTROLM/data $CONTROLM/measure $CONTROLM/onstmt $CONTROLM/procid $CONTROLM/proclog $CONTROLM/status $CONTROLM/sysout $CONTROLM/temp $CONTROLM/cm/AI/ccp_cache CONTROLM/cm/AI/CustomerLogs $CONTROLM/cm/AI/data
+  rm -Rf $CONTROLM/backup $CONTROLM/capdef $CONTROLM/dailylog $CONTROLM/data $CONTROLM/measure $CONTROLM/onstmt $CONTROLM/pid $CONTROLM/procid $CONTROLM/status $CONTROLM/sysout $CONTROLM/cm
   sed '/CM_LIST_SENT2CTMS/d' "$PERSISTENT_VOL"/data/CONFIG.dat
 fi
 
@@ -71,15 +62,11 @@ ln -s "$PERSISTENT_VOL"/dailylog $CONTROLM/dailylog
 ln -s "$PERSISTENT_VOL"/data $CONTROLM/data
 ln -s "$PERSISTENT_VOL"/measure $CONTROLM/measure
 ln -s "$PERSISTENT_VOL"/onstmt $CONTROLM/onstmt
+ln -s "$PERSISTENT_VOL"/pid $CONTROLM/pid
 ln -s "$PERSISTENT_VOL"/procid $CONTROLM/procid
-ln -s "$PERSISTENT_VOL"/proclog $CONTROLM/proclog
 ln -s "$PERSISTENT_VOL"/sysout $CONTROLM/sysout
 ln -s "$PERSISTENT_VOL"/status $CONTROLM/status
-ln -s "$PERSISTENT_VOL"/temp $CONTROLM/temp
-# create link to persistent volume for CM folders
-ln -s "$PERSISTENT_VOL"/cm/AI/ccp_cache "$CONTROLM/"cm/AI/ccp_cache
-ln -s "$PERSISTENT_VOL"/cm/AI/CustomerLogs "$CONTROLM/"cm/AI/CustomerLogs
-ln -s "$PERSISTENT_VOL"/cm/AI/data "$CONTROLM/"cm/AI/data
+ln -s "$PERSISTENT_VOL"/cm $CONTROLM/cm
 
 echo "Using new AAPI configuration, not the default build time configuration"
 ctm env add ctm_env "$AAPI_END_POINT" "$AAPI_TOKEN"
@@ -103,8 +90,8 @@ else
 fi
 
 echo 'Checking Agent communication with Control-M Server'
+ag_ping
 ag_diag_comm
-ctmaggetcm
 
 echo 'Adding the Agent to Host Group'
 ctm config server:hostgroup:agent::add "$CTM_SERVER_NAME" "$AGENT_HOSTGROUP_NAME" "$AG_NODE_ID"
