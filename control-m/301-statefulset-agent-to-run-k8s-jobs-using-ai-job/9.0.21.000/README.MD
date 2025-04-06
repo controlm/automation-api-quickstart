@@ -135,7 +135,7 @@ The container contains the following items:
 - Control-M/Agent (including Control-M Application Integrator and Control-M Automation API CLI)
 - Control-M Application Integrator KUBERNETES plugin
 - Java 11 run time
-- NodeJS version 16
+- Python 3.9
 - kubectl
 - Bash startup scripts
 
@@ -184,7 +184,7 @@ Before applying the file, perform the following steps:
    the .yaml file:
 
     ```
-    kubectl create secret generic credentials --from-literal=AAPI_TOKEN=value
+    kubectl create secret generic credentials --from-literal=AAPI_TOKEN=<value>
     ```
 
 Run the following command to create StatefulSet:

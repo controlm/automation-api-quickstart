@@ -17,8 +17,8 @@ agentName=$(hostname)
 echo 'mapping persistent volume'
 cd /home/controlm
 
-sudo echo PATH="${PATH}:/home/controlm/bmcjava/bmcjava-V3/bin:/home/controlm/ctm/scripts:/home/controlm/ctm/exe">>~/.bash_profile
-sudo echo export PATH>>~/.bash_profile
+echo PATH="${PATH}:/home/controlm/bmcjava/bmcjava-V3/bin:/home/controlm/ctm/scripts:/home/controlm/ctm/exe">>~/.bash_profile
+echo export PATH>>~/.bash_profile
 
 source ~/.bash_profile
 
@@ -26,7 +26,8 @@ if [ ! -d $PERSISTENT_VOL/pid ];
 then
         echo 'first time the agent is using the persistent volume, moving folders to persistent volume'
         # no agent files exist in PV, copy the current agent files to PV
-        mkdir $PERSISTENT_VOL
+        mkdir -p $PERSISTENT_VOL
+        chmod -R u+rwx /home/controlm/ctm
 		mv $CONTROLM/backup $CONTROLM/capdef $CONTROLM/dailylog $CONTROLM/data $CONTROLM/measure $CONTROLM/onstmt $CONTROLM/pid $CONTROLM/procid $CONTROLM/status $CONTROLM/sysout $CONTROLM/cm -t $PERSISTENT_VOL
 		
 

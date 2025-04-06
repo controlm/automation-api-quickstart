@@ -2,26 +2,22 @@
 # Container for Control-M Automation API cli 
 #-------------------------------------------
 
-FROM mhart/alpine-node:latest
-MAINTAINER Gad Ron <gad_ron@bmc.com>
+FROM python:3.12-alpine
+MAINTAINER hoshana Shandorfi <shoshana_shandorfi@bmc.com>
 
 ARG AAPI_ENDPOINT
 ARG AAPI_TOKEN
 
 USER root
-# install nodejs
-RUN apk update \
-    && apk add --update nodejs nodejs-npm \
-    && npm -g install npm@latest \
-	&& node -v \
-	&& npm -v
+# alpine not include spec pycryptodome lib.
+RUN pip install --no-cache-dir pycryptodome==3.21.0
 
 # install ctm-automation-api kit
 WORKDIR /root
 RUN mkdir ctm-automation-api \
 	&& cd ctm-automation-api \
-	&& wget --no-check-certificate --header=x-api-key:$AAPI_TOKEN https://$AAPI_ENDPOINT/automation-api/ctm-cli.tgz \  
-	&& npm install -g ctm-cli.tgz \
+	&& wget https://s3-us-west-2.amazonaws.com/controlm-appdev/release/latest/install_ctm_cli.py \
+    && python install_ctm_cli.py \
 	&& ctm -v 
 	
 

@@ -137,7 +137,7 @@ The container contains the following items:
 - Control-M/Agent (including Control-M Application Integrator and Control-M Automation API CLI)
 - Control-M Application Integrator KUBERNETES plugin
 - Java 17 run time
-- NodeJS version 18.18.2
+- Python version 3.9
 - kubectl
 - Bash startup scripts
 

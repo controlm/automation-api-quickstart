@@ -39,9 +39,14 @@ function RestCall(method, url, data) { axios({
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
       data: { data }
       }).then(response => {
+        console.log("API Response:", response.data);
+      if (response.data.statuses && Array.isArray(response.data.statuses)) {
         for ( var i = 0; i < response.data.statuses.length; i++) {
           console.log(response.data.statuses[i].name, response.data.statuses[i].status);
         }
+      } else {
+        console.log("Warning: response.data.statuses is missing or not an array.");
+      }
         return response
       })
       .catch((error) => {

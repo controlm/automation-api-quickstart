@@ -90,7 +90,7 @@ The container contains the following items:
 -   Control-M Application Integrator
 -   Control-M Automation API CLI
 -   Java 11 run time
--   NodeJS version 14
+-   Python 3.9
 -   KubeCtl 
 -   Bash startup scripts
 
