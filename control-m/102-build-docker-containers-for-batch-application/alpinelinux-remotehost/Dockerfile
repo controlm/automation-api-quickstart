@@ -2,31 +2,28 @@
 # Control-M Remote Host docker container
 #---------------------------------------
 
-FROM mhart/alpine-node:latest
-MAINTAINER Nathan Amichay <nathan_amichay@bmc.com>
+FROM python:3.12-alpine
+MAINTAINER Shoshana Shandorfi <shoshana_shandorfi@bmc.com>
 
 ARG CTMHOST
 ARG USER
 ARG PASSWORD
+
+# alpine not include spec pycryptodome lib.
+RUN pip install --no-cache-dir pycryptodome==3.21.0
 
 #install wget openssl ca-certificates
 RUN apk update \
     && apk add ca-certificates wget \
     && update-ca-certificates
 
-# install nodejs npm
-RUN apk update \
-    && apk add --update nodejs nodejs-npm \
-    && npm -g install npm@latest \
-    && node -v \
-    && npm -v
 
 # install ctm-automation-api kit
 WORKDIR /root
 RUN mkdir ctm-automation-api \
 	&& cd ctm-automation-api \
-	&& wget --no-check-certificate https://$CTMHOST:8443/automation-api/ctm-cli.tgz \
-	&& npm install -g ctm-cli.tgz \
+	&& wget --no-check-certificate https://$CTMHOST:8443/automation-api/install_ctm_cli.py \
+	&& python install_ctm_cli.py \
 	&& ctm -v
 
 # add controlm endpoint

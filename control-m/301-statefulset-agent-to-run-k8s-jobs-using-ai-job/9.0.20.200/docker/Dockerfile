@@ -1,4 +1,4 @@
-FROM centos:7 as builder
+FROM almalinux:9.3-minimal-20231124 as base
 
 ARG AAPI_END_POINT
 ARG AAPI_USER
@@ -9,70 +9,83 @@ ARG CTM_SERVER_NAME
 LABEL Description="This is a Control-M/Agent image that planned to run in K8s env"
 
 # install basic packages
-RUN  yum -y install wget \
-        && yum -y install telnet \
-        && yum -y install unzip \
-        && yum -y install sudo \
-        && yum -y install net-tools \
-        && yum -y install which \
-        && yum -y install zlib-devel \
-        && yum -y install libffi-devel \
-		&& yum -y install compat-libstdc++-33.x86_64 \
-		&& yum -y install psmisc \
-		&& cd /usr/src \
+RUN echo "Install Java, Python, and required utilities" \
+    && microdnf update -y \
+    && microdnf install -y  --nodocs --noplugins --setopt=install_weak_deps=0 \
+      util-linux psmisc which  net-tools hostname  binutils \
+         jq \
+         libnsl \
+         ncurses \
+         procps \
+         shadow-utils \
+         tar \
+         tcsh \
+         libxcrypt-compat \
+    && microdnf install -y java-11-openjdk-headless --nodocs --noplugins --setopt=install_weak_deps=0 \
+    && microdnf install -y python39  \
+    && ln -s /usr/bin/python3.9 /usr/bin/python  \
+    && python3.9 -m ensurepip  \
+    && ln -s /usr/bin/pip3 /usr/bin/pip  \
+    && echo "Python version: " && python --version \
+    && echo "Pip version: " && pip3 --version
 
-# install nodejs
-		&& curl --silent --location https://rpm.nodesource.com/setup_14.x | bash - \
-		&& yum -y install nodejs \
-		&& node -v \
-		&& npm -v \
-# install aapi CLI
-		&& wget --no-check-certificate $AAPI_END_POINT/ctm-cli.tgz \
-		&& npm install -g ctm-cli.tgz \
-		&& ctm -v \
-		&& rm -rf $AAPI_END_POINT/ctm-cli.tgz \
-# create controlm useruser
-		&& useradd -d /home/controlm -s /bin/bash -m controlm \
-		&&  chmod -R 755 /home/controlm \
-# add controlm user and root to soduers list
-		&& echo 'root ALL=(ALL) ALL' >> /etc/sudoers \
-		&& echo 'controlm ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
-		&& yum clean all \
-		&& rm -rf /var/cache/yum
+# Add controlm user and modify sudoers file
+ARG USERNAME=controlm
+RUN echo "Create $USERNAME user" \
+    && useradd -d /home/$USERNAME -s /bin/bash -g 0 -m $USERNAME  \
+    && chmod -R 775 /home/$USERNAME \
+# Make /etc/passwd writeable by group so missing arbitrary user entry can be added
+    && chmod g=u /etc/passwd
+
+# provision Control-M/Agent and copy without these build packages
+FROM base as intermediate
+ARG USERNAME=controlm
+
+# Install ctm-automation-api kit
+RUN mkdir /root/ctm-automation-api \
+    && cd /root/ctm-automation-api \
+    && echo "Install Automation API CLI" \
+    && curl -sO https://s3-us-west-2.amazonaws.com/controlm-appdev/release/latest/install_ctm_cli.py \
+    && python install_ctm_cli.py \
+    && echo "ctm cli version: "  \
+    && ctm -v
+
 
 USER controlm
 WORKDIR /home/controlm
 
+ENV BMC_INST_JAVA_HOME=/etc/alternatives/jre_11_openjdk
+
 # Create AAPI env
 RUN ctm env add myenv $AAPI_END_POINT $AAPI_USER $AAPI_PASS \
-# install java 11
-		&& sudo yum -y install java-11-openjdk \
         && java -version \
-# install agent, setup will be done during statup
+        && ctm env set myenv  \
+        && cd ~\
+ # install agent, setup will be done during statup
 		&& ctm provision image $AGENT_IMAGE_NAME && echo installation ended successfully \
         && ctm env del myenv \
-
 # Persistent connection : internal AR keep-alive
 		&& echo "AR_PING_TO_SERVER_IND Y" >> /home/controlm/ctm/data/CONFIG.dat \
 		&& echo "AR_PING_TO_SERVER_INTERVAL 30" >> /home/controlm/ctm/data/CONFIG.dat \
 		&& echo "AR_PING_TO_SERVER_TIMEOUT 60" >> /home/controlm/ctm/data/CONFIG.dat \
 # clean and uninstall java 11
-		&& sudo yum -y autoremove java-11-openjdk \
-		&& sudo yum clean all \
-		&& sudo rm -rf /var/cache/yum
+		&& rm -rf install package.json package-lock.json ctm/cm/AI/ipp \
+        && cp -r BMCINSTALL/external_java_path* BMCINSTALL/scripts . && rm -rf BMCINSTALL/* && mv external_java_path* scripts BMCINSTALL/
 
 # install kubectl
+USER root
 COPY  install_kubectl.sh .
+RUN sed -i 's/\r$//' install_kubectl.sh
+RUN chmod +x install_kubectl.sh
 RUN ./install_kubectl.sh
-
+##
 RUN echo "DISABLE_CM_SHUTDOWN Y" >> /home/controlm/ctm/data/CONFIG.dat \
                 && touch /home/controlm/ctm/data/DISABLE_CM_SHUTDOWN_Y.cfg
-
 # entry point script
 COPY  container_agent_startup.sh .
 # agent configuration file
 COPY agent_configuration.json .
-# ctmhostkeep alive script 
+# ctmhostkeep alive script
 COPY ctmhost_keepalive.sh .
 
 EXPOSE 7006
