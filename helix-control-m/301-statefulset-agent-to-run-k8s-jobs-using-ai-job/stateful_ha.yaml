@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ctm-agent-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: <storageClassName>
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    type: stateful-service-ctmag-srv
+  name: ctm-statefulset-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: stateful-service-ctmag-srv
+  serviceName: ctmag
+  template:
+    metadata:
+      labels:
+        type: stateful-service-ctmag-srv
+    spec:
+      containers:
+      - env:
+        - name: PERSISTENT_VOL
+          value: /home/controlm/persistent_folder
+        - name: AAPI_END_POINT
+          value: <AAPI_END_POINT>
+        - name: AAPI_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: credentials
+              key: AAPI_TOKEN
+        - name: AGENT_TOKEN_TAG
+          value: <AGENT_TOKEN_TAG>
+        - name: AGENT_HOSTGROUP_NAME
+          value: <AGENT_HOSTGROUP_NAME>
+        image: <DOCKER_IMAGE_NAME>
+        imagePullPolicy: Always
+        name: ctmagent-container
+        ports:
+        - containerPort: 7006
+        volumeMounts:
+          - name: pv_data
+            mountPath: /home/controlm/persistent_folder
+      securityContext:
+        fsGroup: 1000
+      terminationGracePeriodSeconds: 10
+      volumes:
+      - name: pv-data
+        persistentVolumeClaim:
+          claimName: ctm-agent-pvc
