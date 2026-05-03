@@ -17,8 +17,8 @@ public class Connection {
 
 	/**
 	 * Connection model c'tor.
-	 * @param apiClientBasePath ControlM Helix's AutomationApi endpoint
-	 * @param apiKey apiKey token for authentication with ControlM Helix's AutomationApi
+	 * @param apiClientBasePath ControlM Saas's AutomationApi endpoint
+	 * @param apiKey apiKey token for authentication with ControlM Saas's AutomationApi
 	 */
 	public Connection(String apiClientBasePath, String apiKey) {
 		this.apiClientBasePath = apiClientBasePath;

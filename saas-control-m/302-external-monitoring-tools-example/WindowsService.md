@@ -8,7 +8,7 @@ You can use this service instead of the Automation API commands to start or stop
 Ensure successful completion of the following steps described in [Setting Up External Alerts](https://documents.bmc.com/supportu/dev-saas/en-US/Documentation/Alerts.htm#Setting).
 1. Enable external alerts.
 2. (Optional) Submit a template to configure alert details.
-3. Set the Helix Control-M environment.
+3. Set the Saas Control-M environment.
 4. Submit a script with details of external alert handling
 
 
