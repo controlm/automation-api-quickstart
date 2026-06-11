@@ -1,0 +1,10 @@
+{
+    "endpoint": "https://<your-controlm-endpoint>/automation-api",
+    "apiKey": "<your-api-key>",
+    "handlerScript": "",
+    "proxyUrl": "",
+    "logLevel": "INFO",
+    "logDir": "logs",
+    "logSizeMb": 10,
+    "maxLogFiles": 10
+}

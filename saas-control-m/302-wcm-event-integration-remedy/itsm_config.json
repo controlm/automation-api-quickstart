@@ -1,0 +1,20 @@
+{
+    "remedy_base_url": "http://vw-isr-dbasp010.adprod.bmc.com:8008/api/arsys/v1",
+    "remedy_form": "CHG:ChangeInterface_Create",
+    "username": "Mary",
+    "password": "marymann",
+    "verify_ssl": false,
+    "ticket_defaults": {
+        "First Name": "App",
+        "Last Name": "Admin",
+        "Impact": "4-Minor/Localized",
+        "Urgency": "4-Low",
+        "Location Company": "Calbro Services",
+        "Detailed Description": "This is an automatic test ticket opened from CONTROL-M WCM Change Management Integration.",
+        "ASCPY": "Calbro Services",
+        "ASORG": "IT Support",
+        "ASGRP": "Backoffice Support",
+        "ASCHG": "Mary Mann",
+        "ASLOGID": "Mary"
+    }
+}
