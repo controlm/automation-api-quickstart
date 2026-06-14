@@ -124,6 +124,8 @@ chmod +x script.sh
 
 Adjust `ticket_defaults` to match your Remedy environment (company, support group, assignee, etc.).
 
+> **Note:** This example uses placeholder values (e.g., `<your-api-key>`, `<your-password>`). Replace them with your own environment-specific details.
+
 > **Security:** Do not commit real credentials. Restrict file permissions on `itsm_config.json` and `settings.json`.
 
 ## Connect WCM Integration to this handler
