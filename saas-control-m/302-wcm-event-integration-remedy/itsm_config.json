@@ -1,0 +1,20 @@
+{
+    "remedy_base_url": "https://<remedy-host>:<port>/api/arsys/v1",
+    "remedy_form": "CHG:ChangeInterface_Create",
+    "username": "<your-username>",
+    "password": "<your-password>",
+    "verify_ssl": false,
+    "ticket_defaults": {
+        "First Name": "App",
+        "Last Name": "Admin",
+        "Impact": "4-Minor/Localized",
+        "Urgency": "4-Low",
+        "Location Company": "Calbro Services",
+        "Detailed Description": "This is an automatic test ticket opened from CONTROL-M WCM Change Management Integration.",
+        "ASCPY": "Calbro Services",
+        "ASORG": "IT Support",
+        "ASGRP": "Backoffice Support",
+		"ASCHG": "<assignee-name>",
+        "ASLOGID": "<assignee-id>"
+    }
+}
