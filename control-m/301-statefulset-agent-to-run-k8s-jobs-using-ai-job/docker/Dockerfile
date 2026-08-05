@@ -64,6 +64,10 @@ ARG EXT_AUTO_DEPLOY=https://s3.amazonaws.com/bucket_name/installation
 ARG EXT_APPLICATION_ARTIFACTS_JSON_URL=https://s3.amazonaws.com/bucket_name/install-configurations
 
 ENV BMC_INST_JAVA_HOME=/etc/alternatives/jre_21_openjdk
+# IMPORTANT: If using local file paths (file:///tmp/installation and file:///tmp/install-configurations),
+# you MUST uncomment the following two COPY lines to copy the files into the Docker image.
+# The files should be in the 'install-configurations' and 'installation' directories relative to the Dockerfile.
+# If using URL paths (https://), leave these lines commented.
 #ADD --chown=$USERNAME:0 install-configurations /tmp/install-configurations/
 #ADD --chown=$USERNAME:0 installation /tmp/installation/
 ENV PATH="/home/controlm/.local/bin:${PATH}"
@@ -77,9 +81,6 @@ RUN echo "Install Automation API CLI" \
     && ctm env config EXT_AUTO_DEPLOY $EXT_AUTO_DEPLOY \
     && ctm env config EXT_APPLICATION_ARTIFACTS_JSON_URL $EXT_APPLICATION_ARTIFACTS_JSON_URL \
     && ctm provision image $AGENT_IMAGE_NAME || exit 1 \
-# TODO: remove the next HCU manual fix once it's part of the Agent installation. TBD: v22
-    && echo "copy HCU fix file" && rm -f ctm/exe/Utils.pm && cp /tmp/installation/Utils.pm ctm/exe/  \
-    && echo "copy license file" && cp /tmp/installation/*.pdf /home/$USERNAME/  \
     && echo "Cleanup AI patch installation files" && rm -rf ctm/install/* ctm/patches/* ctm/cm/AI/exe/jars_*_backup .bash_profile.back \
     && echo "source .bash_profile" >> .bashrc \
     && rm -rf install package.json package-lock.json .ctm ctm/cm/AI/ipp provision*.log \
